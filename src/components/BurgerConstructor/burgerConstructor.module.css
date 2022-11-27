@@ -33,4 +33,28 @@
   composes: wrap;
 }
 
+.locked {
+  margin-bottom: 8px;
+}
 
+.unlocked {
+  padding-right: 8px;
+  max-height: 475px;
+  overflow-y: scroll;
+}
+
+.unlocked::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2F2F37;
+}
+
+.unlocked::-webkit-scrollbar-thumb {
+  width: 8px;
+  background-color: #8585AD;
+  width: 355px;
+}
+
+.unlocked::-webkit-scrollbar-track {
+  width: 8px;
+  background-color: #2F2F37;
+}

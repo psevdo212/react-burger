@@ -4,6 +4,7 @@ import "./App.css";
 import AppHeader from "./components/AppHeader/AppHeader";
 import BurgerIngredients from "./components/BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "./components/BurgerConstructor/BurgerConstructor";
+import { data } from "./utils/data";
 
 function App() {
   return (
@@ -14,10 +15,10 @@ function App() {
           <h1 className="text text_type_main-large mt-8 mb-5">
             Соберите бургер
           </h1>
-          <BurgerIngredients />
+          <BurgerIngredients card = {data}/>
         </section>
         <section className="pt-20">
-          <BurgerConstructor/>
+          <BurgerConstructor />
         </section>
       </main>
     </div>
