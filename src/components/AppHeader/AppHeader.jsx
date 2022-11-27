@@ -13,7 +13,7 @@ const AppHeader = () => {
   return (
     <header className={styles.header}>
       <div className={styles.list}>
-        <div className="mt-4 mb-4 ml-4">
+        <div className="mt-4 mb-4 ml-5">
           <Button
             htmlType="button"
             type="secondary"
@@ -54,10 +54,10 @@ const AppHeader = () => {
             </ul>
           </Button>
         </div>
-        <div className="mt-5 mb-6" style={{ paddingRight: 88 }}>
+        <div className="mt-5 mb-6" style={{ paddingLeft: 38 }}>
           <Logo />
         </div>
-        <div className="mt-4 mb-4" style={{ paddingLeft: 87 }}>
+        <div className="mt-4 mb-4" style={{ paddingLeft: 90 }}>
           <Button
             htmlType="button"
             type="secondary"

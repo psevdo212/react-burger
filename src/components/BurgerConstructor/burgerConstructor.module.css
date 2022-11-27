@@ -1,0 +1,36 @@
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  padding-top: 10px;
+  padding-left: 15px;
+}
+.wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.item {
+  margin-bottom: 16px;
+  composes: wrap;
+}
+
+.item:last-of-type {
+  margin: 0;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.order {
+  composes: list;
+  padding-top: 0;
+  padding-left: 0;
+  composes: wrap;
+}
+
+
