@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Card from "../Card/Card";
 import styles from "./burgerIngredients.module.css";
+import { ingPropTypes } from "../../utils/types";
 
-const BurgerIngredients = ({ card }) => {
+const BurgerIngredients = ({ ingredients }) => {
   const [current, setCurrent] = React.useState("one");
-  const bun = card.filter((m) => m.type === "bun");// фильтрую массив по типу (чтобы создался массив только из булок)
-  const main = card.filter((m) => m.type === "main");
-  const sauce = card.filter((m) => m.type === "sauce");
+  const bun = ingredients.filter((m) => m.type === "bun");// фильтрую массив по типу (чтобы создался массив только из булок)
+  const main = ingredients.filter((m) => m.type === "main");
+  const sauce = ingredients.filter((m) => m.type === "sauce");
   return (
     <>
-      <div style={{ display: "flex" }}>
+      <div className={styles.tab}>
         <Tab value="one" active={current === "one"} onClick={setCurrent}>
           Булки
         </Tab>
@@ -47,18 +48,7 @@ const BurgerIngredients = ({ card }) => {
 };
 
 BurgerIngredients.propTypes = {
-  _id: PropTypes.string,
-  name: PropTypes.string,
-  type: PropTypes.string,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-  price: PropTypes.number,
-  image: PropTypes.string,
-  image_mobile: PropTypes.string,
-  image_large: PropTypes.string,
-  __v: PropTypes.number,
+  ingredients: PropTypes.arrayOf(ingPropTypes).isRequired,
 }
 
 export default BurgerIngredients;

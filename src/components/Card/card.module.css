@@ -24,3 +24,13 @@
   left: 274px;
   bottom: 213px;
 }
+
+.image {
+  padding-bottom: 4px;
+  width: 240px;
+  height: 120px;
+}
+
+.cardname {
+  height: 50px;
+}

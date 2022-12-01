@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import {
   ConstructorElement,
   Button,
@@ -8,7 +7,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerConstructor.module.css";
 
-const BurgerConstructor = () => {
+const BurgerConstructor = ({data}) => {
+  const item = data.filter(m => m.type !== 'bun');
   return (
     <div>
       <div className={styles.locked}>
@@ -27,79 +27,23 @@ const BurgerConstructor = () => {
       </div>
       <div className={styles.unlocked}>
         <ul className={styles.list}>
-          <li className={styles.item}>
+          {item.map(item => {
+            return (
+            <li key={item._id} className={styles.item}>
             <div className={styles.icon}>
               <DragIcon type="primary" />
             </div>
             <ConstructorElement
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
+              text={item.name}
+              price={item.price}
+              thumbnail={item.image}
             />
           </li>
-          <li className={styles.item}>
-            <div className={styles.icon}>
-              <DragIcon type="primary" />
-            </div>
-            <ConstructorElement
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-            />
-          </li>
-          <li className={styles.item}>
-            <div className={styles.icon}>
-              <DragIcon type="primary" />
-            </div>
-            <ConstructorElement
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-            />
-          </li>
-          <li className={styles.item}>
-            <div className={styles.icon}>
-              <DragIcon type="primary" />
-            </div>
-            <ConstructorElement
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-            />
-          </li>
-          <li className={styles.item}>
-            <div className={styles.icon}>
-              <DragIcon type="primary" />
-            </div>
-            <ConstructorElement
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-            />
-          </li>
-          <li className={styles.item}>
-            <div className={styles.icon}>
-              <DragIcon type="primary" />
-            </div>
-            <ConstructorElement
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-            />
-          </li>
-          <li className={styles.item}>
-            <div className={styles.icon}>
-              <DragIcon type="primary" />
-            </div>
-            <ConstructorElement
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-            />
-          </li>
+          )
+          })}
         </ul>
       </div>
-      <div className="locked" style={{marginTop: 6}}>
+      <div className={styles.bottomlock}>
         <ul className={styles.list}>
           <li className={styles.item}>
             <div className={styles.icon}></div>
@@ -113,19 +57,15 @@ const BurgerConstructor = () => {
           </li>
         </ul>
       </div>
-      <div
-        className={styles.wrap}
-        style={{ marginTop: 39, justifyContent: "flex-end", paddingRight: 16 }}
-      >
-        <div style={{ marginRight: 41 }}>
+      <div className={styles.wrap}>
+        <div className={styles.orderwrap}>
           <ul className={styles.order}>
             <li
-              className={styles.item}
-              style={{ marginBottom: 0, marginRight: 9,}}
+              className={styles.price}
             >
               <p className="text text_type_digits-medium">610</p>
             </li>
-            <li className={styles.item} style={{ marginBottom: 0 }}>
+            <li className={styles.price}>
               <CurrencyIcon type="primary" />
             </li>
           </ul>
@@ -138,12 +78,5 @@ const BurgerConstructor = () => {
   );
 };
 
-BurgerConstructor.propTypes = {
-  type: PropTypes.string,
-  isLocked: PropTypes.bool,
-  text: PropTypes.string,
-  price: PropTypes.number,
-  thumbnail: PropTypes.string,
-};
 
 export default BurgerConstructor;

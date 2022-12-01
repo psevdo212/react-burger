@@ -18,13 +18,7 @@ const AppHeader = () => {
             htmlType="button"
             type="secondary"
             size="medium"
-            style={{
-              paddingTop: 16,
-              paddingBottom: 16,
-              paddingLeft: 20,
-              paddingRight: 20,
-              marginRight: 8,
-            }}
+            className={styles.buttonlist}
           >
             <ul className={styles.item}>
               <li className="mr-2">
@@ -37,12 +31,7 @@ const AppHeader = () => {
             htmlType="button"
             type="secondary"
             size="medium"
-            style={{
-              paddingTop: 16,
-              paddingBottom: 16,
-              paddingLeft: 20,
-              paddingRight: 20,
-            }}
+            className={styles.button}
           >
             <ul className={styles.item}>
               <li className="mr-2">
@@ -54,20 +43,15 @@ const AppHeader = () => {
             </ul>
           </Button>
         </div>
-        <div className="mt-5 mb-6" style={{ paddingLeft: 38 }}>
+        <div className={styles.logo}>
           <Logo />
         </div>
-        <div className="mt-4 mb-4" style={{ paddingLeft: 90 }}>
+        <div className={styles.private}>
           <Button
             htmlType="button"
             type="secondary"
             size="medium"
-            style={{
-              paddingTop: 16,
-              paddingBottom: 16,
-              paddingLeft: 20,
-              paddingRight: 20,
-            }}
+            className={styles.button}
           >
             <ul className={styles.item}>
               <li className="mr-2">

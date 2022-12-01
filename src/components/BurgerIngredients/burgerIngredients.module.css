@@ -26,3 +26,7 @@
   width: 8px;
   background-color: #2F2F37;
 }
+
+.tab {
+  display: flex;
+}

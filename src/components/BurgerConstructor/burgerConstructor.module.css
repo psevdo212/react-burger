@@ -9,11 +9,20 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-top: 39px;
+  justify-content: flex-end;
+  padding-right: 16px;
+}
+
+.orderwrap {
+  margin-right: 41px;
 }
 
 .item {
   margin-bottom: 16px;
-  composes: wrap;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .item:last-of-type {
@@ -30,11 +39,18 @@
   composes: list;
   padding-top: 0;
   padding-left: 0;
-  composes: wrap;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .locked {
   margin-bottom: 8px;
+}
+
+.bottomlock {
+  composes: locked;
+  margin-top: 6px;
 }
 
 .unlocked {
@@ -57,4 +73,13 @@
 .unlocked::-webkit-scrollbar-track {
   width: 8px;
   background-color: #2F2F37;
+}
+
+.price {
+  composes: item;
+  margin-bottom: 0;
+}
+
+.price:first-of-type {
+  margin-right: 9px;
 }
