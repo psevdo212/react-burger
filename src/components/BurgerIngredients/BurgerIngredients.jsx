@@ -6,20 +6,20 @@ import styles from "./burgerIngredients.module.css";
 import { ingPropTypes } from "../../utils/types";
 
 const BurgerIngredients = ({ ingredients }) => {
-  const [current, setCurrent] = React.useState("one");
+  const [current, setCurrent] = React.useState("bun");
   const bun = ingredients.filter((m) => m.type === "bun");// фильтрую массив по типу (чтобы создался массив только из булок)
   const main = ingredients.filter((m) => m.type === "main");
   const sauce = ingredients.filter((m) => m.type === "sauce");
   return (
     <>
       <div className={styles.tab}>
-        <Tab value="one" active={current === "one"} onClick={setCurrent}>
+        <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
           Булки
         </Tab>
-        <Tab value="two" active={current === "two"} onClick={setCurrent}>
+        <Tab value="sauce" active={current === "sauce"} onClick={setCurrent}>
           Соусы
         </Tab>
-        <Tab value="three" active={current === "three"} onClick={setCurrent}>
+        <Tab value="main" active={current === "main"} onClick={setCurrent}>
           Начинки
         </Tab>
       </div>

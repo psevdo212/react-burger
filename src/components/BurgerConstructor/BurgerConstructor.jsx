@@ -1,4 +1,4 @@
-import React from "react";
+import {useState} from "react";
 import PropTypes from 'prop-types';
 import {
   ConstructorElement,
@@ -8,8 +8,10 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerConstructor.module.css";
 import { ingPropTypes } from "../../utils/types";
+import Modal from "../Modal/Modal";
 
 const BurgerConstructor = ({ingredients}) => {
+  const [isOpen, setIsOpen] = useState(false);
   const item = ingredients.filter(m => m.type !== 'bun');
   return (
     <div>
@@ -72,10 +74,11 @@ const BurgerConstructor = ({ingredients}) => {
             </li>
           </ul>
         </div>
-        <Button htmlType="button" type="primary" size="large">
+        <Button htmlType="button" type="primary" size="large" onClick={() => setIsOpen(true)}>
           Оформить заказ
         </Button>
       </div>
+      <Modal handleClose={() => setIsOpen(false)} isOpen={isOpen}>Jryj c pffpbrj</Modal>
     </div>
   );
 };
