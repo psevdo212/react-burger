@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import {
   ConstructorElement,
   Button,
@@ -6,9 +7,10 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerConstructor.module.css";
+import { ingPropTypes } from "../../utils/types";
 
-const BurgerConstructor = ({data}) => {
-  const item = data.filter(m => m.type !== 'bun');
+const BurgerConstructor = ({ingredients}) => {
+  const item = ingredients.filter(m => m.type !== 'bun');
   return (
     <div>
       <div className={styles.locked}>
@@ -78,5 +80,8 @@ const BurgerConstructor = ({data}) => {
   );
 };
 
+BurgerConstructor.propTypes = {
+  ingredients: PropTypes.arrayOf(ingPropTypes).isRequired,
+}
 
 export default BurgerConstructor;

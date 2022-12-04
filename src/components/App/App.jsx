@@ -18,7 +18,7 @@ function App() {
           <BurgerIngredients ingredients = {data}/>
         </section>
         <section className="pt-20">
-          <BurgerConstructor data = {data} />
+          <BurgerConstructor ingredients = {data} />
         </section>
       </main>
     </div>
