@@ -9,6 +9,7 @@ import {
 import styles from "./burgerConstructor.module.css";
 import { ingPropTypes } from "../../utils/types";
 import Modal from "../Modal/Modal";
+import OrderModal from "../OrderModal/OrderModal";
 
 const BurgerConstructor = ({ingredients}) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -78,7 +79,9 @@ const BurgerConstructor = ({ingredients}) => {
           Оформить заказ
         </Button>
       </div>
-      <Modal handleClose={() => setIsOpen(false)} isOpen={isOpen}>Jryj c pffpbrj</Modal>
+      <Modal handleClose={() => setIsOpen(false)} isOpen={isOpen}>
+        <OrderModal/>
+      </Modal>
     </div>
   );
 };
