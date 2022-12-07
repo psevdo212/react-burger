@@ -1,5 +1,5 @@
-import {useState} from "react";
-import PropTypes from 'prop-types';
+import { useState } from "react";
+import PropTypes from "prop-types";
 import {
   ConstructorElement,
   Button,
@@ -9,11 +9,11 @@ import {
 import styles from "./burgerConstructor.module.css";
 import { ingPropTypes } from "../../utils/types";
 import Modal from "../Modal/Modal";
-import OrderModal from "../OrderModal/OrderModal";
+import OrderDetails from "../OrderDetails/OrderDetails";
 
-const BurgerConstructor = ({ingredients}) => {
+const BurgerConstructor = ({ ingredients }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const item = ingredients.filter(m => m.type !== 'bun');
+  const item = ingredients.filter((m) => m.type !== "bun");
   return (
     <div>
       <div className={styles.locked}>
@@ -32,19 +32,19 @@ const BurgerConstructor = ({ingredients}) => {
       </div>
       <div className={styles.unlocked}>
         <ul className={styles.list}>
-          {item.map(item => {
+          {item.map((item) => {
             return (
-            <li key={item._id} className={styles.item}>
-            <div className={styles.icon}>
-              <DragIcon type="primary" />
-            </div>
-            <ConstructorElement
-              text={item.name}
-              price={item.price}
-              thumbnail={item.image}
-            />
-          </li>
-          )
+              <li key={item._id} className={styles.item}>
+                <div className={styles.icon}>
+                  <DragIcon type="primary" />
+                </div>
+                <ConstructorElement
+                  text={item.name}
+                  price={item.price}
+                  thumbnail={item.image}
+                />
+              </li>
+            );
           })}
         </ul>
       </div>
@@ -65,9 +65,7 @@ const BurgerConstructor = ({ingredients}) => {
       <div className={styles.wrap}>
         <div className={styles.orderwrap}>
           <ul className={styles.order}>
-            <li
-              className={styles.price}
-            >
+            <li className={styles.price}>
               <p className="text text_type_digits-medium">610</p>
             </li>
             <li className={styles.price}>
@@ -75,19 +73,26 @@ const BurgerConstructor = ({ingredients}) => {
             </li>
           </ul>
         </div>
-        <Button htmlType="button" type="primary" size="large" onClick={() => setIsOpen(true)}>
+        <Button
+          htmlType="button"
+          type="primary"
+          size="large"
+          onClick={() => setIsOpen(true)}
+        >
           Оформить заказ
         </Button>
       </div>
-      <Modal handleClose={() => setIsOpen(false)} isOpen={isOpen}>
-        <OrderModal/>
-      </Modal>
+      {isOpen && (
+        <Modal handleClose={() => setIsOpen(false)} isOpen={setIsOpen}>
+          <OrderDetails />
+        </Modal>
+      )}
     </div>
   );
 };
 
 BurgerConstructor.propTypes = {
   ingredients: PropTypes.arrayOf(ingPropTypes).isRequired,
-}
+};
 
 export default BurgerConstructor;
