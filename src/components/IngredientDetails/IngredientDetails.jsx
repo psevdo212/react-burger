@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./ingredientModal.module.css";
+import styles from "./ingredientDetails.module.css";
 import { ingPropTypes } from "../../utils/types";
 
-const IngredientModal = ({ data }) => {
+const IngredientDetails = ({ data }) => {
   return (
     <div className={styles.modal}>
       <h1 className={`${styles.title} text text_type_main-large mt-3 mb-3`}>
@@ -32,8 +32,8 @@ const IngredientModal = ({ data }) => {
   );
 };
 
-IngredientModal.propTypes = {
+IngredientDetails.propTypes = {
   data: ingPropTypes.isRequired,
 };
 
-export default IngredientModal;
+export default IngredientDetails;

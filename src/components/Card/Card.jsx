@@ -6,7 +6,7 @@ import {
 import styles from "./card.module.css";
 import { ingPropTypes } from "../../utils/types";
 import Modal from "../Modal/Modal";
-import IngredientModal from "../IngredientModal/IngredientModal";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
 
 const Card = ({ ingredient }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +36,7 @@ const Card = ({ ingredient }) => {
       </div>
       {isOpen && (
         <Modal handleClose={handleCloseModal}>
-          <IngredientModal data={ingredient} />
+          <IngredientDetails data={ingredient} />
         </Modal>
       )}
     </div>

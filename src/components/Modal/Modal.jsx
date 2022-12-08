@@ -15,28 +15,26 @@ const Modal = ({ children, handleClose }) => {
   // }
   return (
     <ReactPortal wrapperId="modal">
-      <>
-        <ModalOverlay
-          closeByOverlay={(e) => {
-            e.stopPropagation();
-            handleClose();
-          }}
-        />
-        <div className={styles.modal__content}>
-          <div className={styles.content}>{children}</div>
-          <div className={styles.button__content}>
-            <button
-              type="button"
-              aria-label="Закрыть"
-              className={styles.modal__closebutton}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleClose();
-              }}
-            ></button>
-          </div>
+      <ModalOverlay
+        closeByOverlay={(e) => {
+          e.stopPropagation();
+          handleClose();
+        }}
+      />
+      <div className={styles.modal__content}>
+        <div className={styles.content}>{children}</div>
+        <div className={styles.button__content}>
+          <button
+            type="button"
+            aria-label="Закрыть"
+            className={styles.modal__closebutton}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleClose();
+            }}
+          ></button>
         </div>
-      </>
+      </div>
     </ReactPortal>
   );
 };
