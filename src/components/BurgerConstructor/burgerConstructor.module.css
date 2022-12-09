@@ -1,0 +1,85 @@
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  padding-top: 10px;
+  padding-left: 15px;
+}
+.wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 39px;
+  justify-content: flex-end;
+  padding-right: 16px;
+}
+
+.orderwrap {
+  margin-right: 41px;
+}
+
+.item {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.item:last-of-type {
+  margin: 0;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.order {
+  composes: list;
+  padding-top: 0;
+  padding-left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.locked {
+  margin-bottom: 8px;
+}
+
+.bottomlock {
+  composes: locked;
+  margin-top: 6px;
+}
+
+.unlocked {
+  padding-right: 8px;
+  max-height: 475px;
+  overflow-y: scroll;
+}
+
+.unlocked::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2F2F37;
+}
+
+.unlocked::-webkit-scrollbar-thumb {
+  width: 8px;
+  background-color: #8585AD;
+  width: 355px;
+}
+
+.unlocked::-webkit-scrollbar-track {
+  width: 8px;
+  background-color: #2F2F37;
+}
+
+.price {
+  composes: item;
+  margin-bottom: 0;
+}
+
+.price:first-of-type {
+  margin-right: 9px;
+}

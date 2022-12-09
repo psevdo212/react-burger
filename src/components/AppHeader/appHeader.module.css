@@ -1,0 +1,42 @@
+.header {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: 405px 1fr 300px;
+  column-gap: 70px;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.button {
+  padding: 16px 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.buttonlist {
+  composes: button;
+  margin-right: 8px;
+  color: #4c4cff;
+}
+
+.logo {
+  margin-top: 20px;
+  margin-bottom: 24px;
+  padding-left: 38px;
+}
+
+.private {
+  margin: 16px 0;
+  padding-left: 90px;
+}

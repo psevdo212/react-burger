@@ -1,0 +1,32 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(272px, 1fr));
+  row-gap: 32px;
+  column-gap: 24px;
+  padding-left: 16px;
+}
+
+.wrapper {
+  max-height: 720px;
+  overflow-y: scroll;
+}
+
+.wrapper::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2F2F37;
+}
+
+.wrapper::-webkit-scrollbar-thumb {
+  width: 8px;
+  background-color: #8585AD;
+  width: 355px;
+}
+
+.wrapper::-webkit-scrollbar-track {
+  width: 8px;
+  background-color: #2F2F37;
+}
+
+.tab {
+  display: flex;
+}
