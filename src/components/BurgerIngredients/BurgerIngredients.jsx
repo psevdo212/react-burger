@@ -1,15 +1,15 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
+import { useState, useContext, useMemo } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Card from "../Card/Card";
 import styles from "./burgerIngredients.module.css";
-import { ingPropTypes } from "../../utils/types";
+import { BurgerContext } from "../../contexts/BurgerContext";
 
-const BurgerIngredients = ({ ingredients }) => {
+const BurgerIngredients = () => {
+  const ingredients = useContext(BurgerContext);
   const [current, setCurrent] = useState("bun");
-  const buns = ingredients.filter((m) => m.type === "bun"); // фильтрую массив по типу (чтобы создался массив только из булок)
-  const mains = ingredients.filter((m) => m.type === "main");
-  const sauces = ingredients.filter((m) => m.type === "sauce");
+  const buns = useMemo(() => ingredients.filter((m) => m.type === "bun"), [ingredients]); // фильтрую массив по типу (чтобы создался массив только из булок)
+  const mains = useMemo(() => ingredients.filter((m) => m.type === "main"), [ingredients]);
+  const sauces = useMemo(() => ingredients.filter((m) => m.type === "sauce"), [ingredients]);
 
   return (
     <>
@@ -47,10 +47,6 @@ const BurgerIngredients = ({ ingredients }) => {
       </div>
     </>
   );
-};
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingPropTypes).isRequired,
 };
 
 export default BurgerIngredients;

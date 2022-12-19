@@ -1,5 +1,5 @@
 const config = {
-  baseUrl: "https://norma.nomoreparties.space/api/ingredients",
+  baseUrl: "https://norma.nomoreparties.space/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -18,7 +18,17 @@ function request(url, options) {
 }
 
 export const getData = () => {
-  return request(`${config.baseUrl}`, {
+  return request(`${config.baseUrl}/ingredients`, {
     headers: config.headers,
+  });
+};
+
+export const makeOrder = (ingIds) => {
+  return request(`${config.baseUrl}/orders`, {
+    method: "POST",
+    headers: config.headers,
+    body: JSON.stringify({
+      ingredients: ingIds,
+    }),
   });
 };
