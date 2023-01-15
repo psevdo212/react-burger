@@ -1,18 +1,18 @@
-import { useState, useContext, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   ConstructorElement,
   Button,
   DragIcon,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import {useSelector} from 'react-redux'
 import styles from "./burgerConstructor.module.css";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
-import { BurgerContext } from "../../contexts/BurgerContext";
 import { makeOrder } from "../../utils/api";
 
 const BurgerConstructor = () => {
-  const ingredients = useContext(BurgerContext);
+  const ingredients = useSelector((state) => state.ingredients)
   const [isOpen, setIsOpen] = useState(false);
   const [sum, setSum] = useState(0);
   const [orderNum, setOrderNum] = useState();

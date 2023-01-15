@@ -16,7 +16,7 @@ const Card = ({ ingredient }) => {
   return (
     <div className={styles.card} onClick={handleOpenModal}>
       <div className={styles.counter}>
-        <Counter count={1} size="default" extraClass="m-1" />
+        <Counter count={0} size="default" extraClass="m-1" />
       </div>
       <img
         src={ingredient.image}

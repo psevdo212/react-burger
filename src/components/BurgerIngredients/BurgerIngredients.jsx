@@ -1,44 +1,63 @@
-import { useState, useContext, useMemo } from "react";
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useState, useMemo, useRef } from "react";
+import { useSelector } from "react-redux";
 import Card from "../Card/Card";
 import styles from "./burgerIngredients.module.css";
-import { BurgerContext } from "../../contexts/BurgerContext";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const BurgerIngredients = () => {
-  const ingredients = useContext(BurgerContext);
-  const [current, setCurrent] = useState("bun");
+  const ingredients = useSelector((state) => state.ingredients);
+  const [current, setCurrent] = useState("buns");
   const buns = useMemo(() => ingredients.filter((m) => m.type === "bun"), [ingredients]); // фильтрую массив по типу (чтобы создался массив только из булок)
   const mains = useMemo(() => ingredients.filter((m) => m.type === "main"), [ingredients]);
   const sauces = useMemo(() => ingredients.filter((m) => m.type === "sauce"), [ingredients]);
+  const refContainer = useRef(null);
+  const bunRef = useRef(null);
+  const mainRef = useRef(null);
+  const sauceRef = useRef(null);
+  const onTabScroll = () => {
+    const scrollSection = refContainer.current.getBoundingClientRect().top;
+    const bunList = bunRef.current.getBoundingClientRect().top;
+    const sauceList = sauceRef.current.getBoundingClientRect().top;
+    const mainList = mainRef.current.getBoundingClientRect().top;
+    if(bunList <= scrollSection) setCurrent('buns');
+    if(sauceList <= scrollSection) setCurrent('sauces');
+    if(mainList <= scrollSection) setCurrent('mains');
+  };
 
   return (
     <>
-      <div className={styles.tab}>
-        <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
+    <div className={styles.tab}>
+        <Tab value="buns" active={current === "buns"} onClick={()=>{
+          bunRef.current.scrollIntoView({behavior: "smooth"});
+          }}>
           Булки
         </Tab>
-        <Tab value="sauce" active={current === "sauce"} onClick={setCurrent}>
+        <Tab value="sauces" active={current === "sauces"} onClick={()=>{
+          sauceRef.current.scrollIntoView({behavior: "smooth"});
+          }}>
           Соусы
         </Tab>
-        <Tab value="main" active={current === "main"} onClick={setCurrent}>
+        <Tab value="mains" active={current === "mains"} onClick={()=>{
+          mainRef.current.scrollIntoView({behavior: "smooth"});
+          }}>
           Начинки
         </Tab>
       </div>
-      <div className={styles.wrapper}>
-        <h2 className="text text_type_main-medium mt-10 mb-6">Булки</h2>
+      <div className={styles.wrapper} ref={refContainer} onScroll={onTabScroll} >
+        <h2 ref={bunRef} className="text text_type_main-medium mt-10 mb-6">Булки</h2>
         <div className={styles.container}>
           {buns.map((item) => {
             // создаю карточки из массива булок
             return <Card key={item._id} ingredient={item} />;
           })}
         </div>
-        <h2 className="text text_type_main-medium mt-10 mb-6">Соусы</h2>
+        <h2 ref={sauceRef} className="text text_type_main-medium mt-10 mb-6">Соусы</h2>
         <div className={styles.container}>
           {sauces.map((item) => {
             return <Card key={item._id} ingredient={item} />;
           })}
         </div>
-        <h2 className="text text_type_main-medium mt-10 mb-6">Начинки</h2>
+        <h2 ref={mainRef} className="text text_type_main-medium mt-10 mb-6">Начинки</h2>
         <div className={styles.container}>
           {mains.map((item) => {
             return <Card key={item._id} ingredient={item} />;
