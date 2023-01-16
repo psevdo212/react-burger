@@ -83,3 +83,10 @@
 .price:first-of-type {
   margin-right: 9px;
 }
+
+.choose {
+  margin: 25px auto;
+  padding: 0;
+  font-size: 34px;
+  color: #fff;
+}

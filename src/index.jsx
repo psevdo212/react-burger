@@ -7,11 +7,12 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { fetchIngredients } from "./features/ingredients";
 import ingredientsReducer from "./features/ingredients";
+import burgerConstructorReducer from "./features/burgerConstructor";
 
 const store = configureStore({
   reducer: {
     ingredients: ingredientsReducer,
-    //burgerConstructor: burgerConstructorReducer,
+    burgerConstructor: burgerConstructorReducer,
   },
 });
 

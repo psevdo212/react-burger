@@ -3,18 +3,25 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./card.module.css";
+import styles from "./ingredient.module.css";
 import { ingPropTypes } from "../../utils/types";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import {useDrag} from 'react-dnd';
 
-const Card = ({ ingredient }) => {
+const Ingredient = ({ ingredient }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleOpenModal = () => setIsOpen(true);
   const handleCloseModal = () => setIsOpen(false);
-
+  const [{isDragging}, drag] = useDrag(() => ({
+    type: "ingredients",
+    item: {...ingredient},
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }))
   return (
-    <div className={styles.card} onClick={handleOpenModal}>
+    <div className={styles.card} onClick={handleOpenModal} ref={drag} style={{border: isDragging ? "1px solid white" : "0px"}}>
       <div className={styles.counter}>
         <Counter count={0} size="default" extraClass="m-1" />
       </div>
@@ -43,8 +50,8 @@ const Card = ({ ingredient }) => {
   );
 };
 
-Card.propTypes = {
+Ingredient.propTypes = {
   ingredient: ingPropTypes.isRequired,
 };
 
-export default Card;
+export default Ingredient;

@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef } from "react";
 import { useSelector } from "react-redux";
-import Card from "../Card/Card";
+import Ingredient from "../Ingredient/Ingredient";
 import styles from "./burgerIngredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -48,19 +48,21 @@ const BurgerIngredients = () => {
         <div className={styles.container}>
           {buns.map((item) => {
             // создаю карточки из массива булок
-            return <Card key={item._id} ingredient={item} />;
+            return <Ingredient key={item._id} ingredient={item} />;
           })}
         </div>
-        <h2 ref={sauceRef} className="text text_type_main-medium mt-10 mb-6">Соусы</h2>
+        <div className="mt-10" ref={sauceRef}>
+        <h2  className="text text_type_main-medium mb-6">Соусы</h2>
         <div className={styles.container}>
           {sauces.map((item) => {
-            return <Card key={item._id} ingredient={item} />;
+            return <Ingredient key={item._id} ingredient={item} />;
           })}
+        </div>
         </div>
         <h2 ref={mainRef} className="text text_type_main-medium mt-10 mb-6">Начинки</h2>
         <div className={styles.container}>
           {mains.map((item) => {
-            return <Card key={item._id} ingredient={item} />;
+            return <Ingredient key={item._id} ingredient={item} />;
           })}
         </div>
       </div>
