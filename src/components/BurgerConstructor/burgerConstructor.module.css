@@ -90,3 +90,18 @@
   font-size: 34px;
   color: #fff;
 }
+
+.invisbun {
+  height: 90px;
+}
+
+.constructorwrap {
+  height: 668px;
+  width: 599px;
+}
+
+.choosewrap {
+  display: flex;
+  align-items: center;
+  height: 400px;
+}

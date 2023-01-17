@@ -8,11 +8,14 @@ import { ingPropTypes } from "../../utils/types";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import {useDrag} from 'react-dnd';
+import { useSelector } from "react-redux";
 
 const Ingredient = ({ ingredient }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleOpenModal = () => setIsOpen(true);
   const handleCloseModal = () => setIsOpen(false);
+  const burger = useSelector((store) => store.burgerConstructor);
+  const counter = burger.filter((item) => item.ingredient._id === ingredient._id)?.length;
   const [{isDragging}, drag] = useDrag(() => ({
     type: "ingredients",
     item: {...ingredient},
@@ -22,9 +25,9 @@ const Ingredient = ({ ingredient }) => {
   }))
   return (
     <div className={styles.card} onClick={handleOpenModal} ref={drag} style={{border: isDragging ? "1px solid white" : "0px"}}>
-      <div className={styles.counter}>
-        <Counter count={0} size="default" extraClass="m-1" />
-      </div>
+      {counter > 0 ? (<div className={styles.counter}>
+        <Counter count={counter} size="default" extraClass="m-1" />
+      </div>) : null}
       <img
         src={ingredient.image}
         alt={ingredient.name}

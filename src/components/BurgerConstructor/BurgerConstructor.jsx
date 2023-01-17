@@ -39,7 +39,25 @@ const BurgerConstructor = () => {
     },
   });
 
+ // const [, dropTarget] = useDrop({
+  //   accept: 'ingredient',
+  //   drop(item) {
+  //     onDropHandler(item);
+  //   },
+  // });
 
+//чтоб булка два раза не добавлялась
+
+  // const handleDrop = (item) => {
+  //   if (item.type === 'bun') {
+  //     const bun = currentBurger.find((el) => el.type === 'bun');
+  //     const index = currentBurger.indexOf(bun);
+  //     if (index !== -1) {
+  //       dispatch({ type: DELETE_INGREDIENT, index });
+  //     }
+  //   }
+  //   dispatch({ type: ADD_INGREDIENT, item });
+  // };
 
 
 
@@ -82,8 +100,9 @@ const BurgerConstructor = () => {
   //   };
 
   return (
-    <div>
-      {bun && (
+    <>
+    <div className={styles.constructorwrap}>
+      {bun ? (
         <div className={styles.locked}>
           <ul className={styles.list}>
             <li className={styles.item}>
@@ -98,16 +117,18 @@ const BurgerConstructor = () => {
             </li>
           </ul>
         </div>
+      ) : (
+        <div className={styles.invisbun}></div>
       )}
       <div className={styles.unlocked} ref={notBunTarget}>
         {ingredients.length ? (<ul className={styles.list}>{content}</ul>)
         : (
-          <h2 className={`${styles.choose}`}>
+          <div className={styles.choosewrap}><h2 className={`${styles.choose}`}>
               Перенесите сюда ингредиенты
-            </h2>
+            </h2></div>
         )}
       </div>
-      {bun && (
+      {bun ? (
         <div className={styles.bottomlock}>
           <ul className={styles.list}>
             <li className={styles.item}>
@@ -122,7 +143,10 @@ const BurgerConstructor = () => {
             </li>
           </ul>
         </div>
+      ) : (
+        <div className={styles.invisbun}></div>
       )}
+      </div>
       <div className={styles.wrap}>
         <div className={styles.orderwrap}>
           <ul className={styles.order}>
@@ -148,7 +172,7 @@ const BurgerConstructor = () => {
           <OrderDetails orderNum={orderNum.order.number} />
         </Modal>
       )}
-    </div>
+    </>
   );
 };
 
