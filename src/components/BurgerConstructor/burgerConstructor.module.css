@@ -4,6 +4,7 @@
   padding: 0;
   padding-top: 10px;
   padding-left: 15px;
+  min-height: 80px;
 }
 .wrap {
   display: flex;
@@ -96,7 +97,7 @@
 }
 
 .constructorwrap {
-  height: 668px;
+  height: 660px;
   width: 599px;
 }
 

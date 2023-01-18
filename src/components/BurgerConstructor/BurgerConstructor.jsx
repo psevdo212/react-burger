@@ -65,9 +65,9 @@ const BurgerConstructor = () => {
     () =>
       ingredients
         .filter((item) => item.ingredient.type !== "bun")
-        .map((item) => {
+        .map((item, index) => {
           return (
-            <li key={item.id} className={styles.item}>
+            <li key={item.id} className={styles.item} index={index} onMove={onMove}>
               <div className={styles.icon}>
                 <DragIcon type="primary" />
               </div>
@@ -162,6 +162,7 @@ const BurgerConstructor = () => {
           htmlType="button"
           type="primary"
           size="large"
+          disabled={ingredients.length < 2 || !bun} // пока нет булки и хотя бы одной начинки - кнопка неактивна
           //onClick={handleMakeOrder}
         >
           Оформить заказ
