@@ -11,6 +11,9 @@ const postOrderSlice = createSlice({
     postOrder(state, action) {
       return action.payload.order;
     },
+    postFail(state, action) {
+      return initialState
+    }
   },
 });
 

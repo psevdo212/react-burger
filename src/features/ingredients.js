@@ -1,24 +1,34 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getData } from "../utils/api";
-const initialState = []
+const initialState = [];
 
-export const fetchIngredients = createAsyncThunk('ingredients/fetchIngredients', () => {
-  return getData()
-  .then((res) => res.data)
-  .catch((err) => {
-    console.log(err);
-  })
-});
+export const fetchIngredients = createAsyncThunk(
+  "ingredients/fetchIngredients",
+  () => {
+    return getData()
+      .then((res) => res.data)
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
 
 export const ingredientsSlice = createSlice({
-    name: 'ingredients',
-    initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-      builder.addCase(fetchIngredients.fulfilled, (state, action) => {
-        return action.payload
+  name: "ingredients",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchIngredients.pending, (state, action) => {
+        state = initialState;
       })
-    },
-  })
+      .addCase(fetchIngredients.fulfilled, (state, action) => {
+        return action.payload;
+      })
+      .addCase(fetchIngredients.rejected, (state, action) => {
+        state = initialState;
+      });
+  },
+});
 
-export default ingredientsSlice.reducer
+export default ingredientsSlice.reducer;

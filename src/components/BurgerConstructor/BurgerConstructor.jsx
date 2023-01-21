@@ -18,7 +18,7 @@ import {
   resetConstructor,
 } from "../../features/burgerConstructor";
 import { Reorder } from "framer-motion";
-import { postOrder } from "../../features/order";
+import { postOrder, postFail } from "../../features/order";
 
 const BurgerConstructor = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,7 +63,7 @@ const BurgerConstructor = () => {
           dispatch(postOrder(data));
           setIsOpen(true);
         } else {
-          return Promise.reject(data);
+          dispatch(postFail());
         }
       })
       .catch((err) => console.log(`Ошибка ${err}`));
