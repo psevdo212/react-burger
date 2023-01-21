@@ -1,6 +1,9 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
-const initialState = [];
+const initialState = {
+  selectedIngredient: [],
+  selectedBun: null,
+};
 
 const burgerConstructorSlice = createSlice({
   name: "burgerConstructor",
@@ -8,20 +11,44 @@ const burgerConstructorSlice = createSlice({
   reducers: {
     addIngredient: {
       reducer(state, action) {
-      state.push(action.payload)
+        action.payload.ingredient.type !== "bun"
+          ? state.selectedIngredient.push(action.payload)
+          : state.selectedBun = action.payload;
+      },
+      prepare(ingredient) {
+        return {
+          payload: {
+            id: nanoid(6),
+            ingredient: ingredient,
+          },
+        };
+      },
     },
-    prepare(ingredient) {
+    sortIngredient(state, action) {
       return {
-        payload: {
-          id: nanoid(6),
-          ingredient: ingredient,
-        }
-      }
-    }
-    }
-  }
+        ...state,
+        selectedIngredient: action.payload,
+      };
+    },
+    removeIngredient(state, action) {
+      return {
+        ...state,
+        selectedIngredient: state.selectedIngredient.filter(
+          (ingredient) => ingredient.id !== action.payload.id
+        ),
+      };
+    },
+    resetConstructor() {
+      return initialState;
+    },
+  },
 });
 
-export const { addIngredient } = burgerConstructorSlice.actions;
+export const {
+  addIngredient,
+  sortIngredient,
+  removeIngredient,
+  resetConstructor,
+} = burgerConstructorSlice.actions;
 
 export default burgerConstructorSlice.reducer;

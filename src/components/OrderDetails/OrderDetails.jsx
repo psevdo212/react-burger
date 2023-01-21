@@ -1,12 +1,13 @@
-import React from "react";
+import { React } from "react";
+import { useSelector } from "react-redux";
 import styles from "./orderDetails.module.css";
-import PropTypes from 'prop-types';
 
-const OrderDetails = (props) => {
+const OrderDetails = () => {
+  const orderNumber = useSelector((state) => state.order);
   return (
     <div className={styles.modal}>
       <div className={styles.heading}>
-        <h1 className="text text_type_digits-large">{props.orderNum}</h1>
+        <h1 className="text text_type_digits-large">{orderNumber.number}</h1>
       </div>
       <p className="text text_type_main-medium">идентификатор заказа</p>
       <div className={styles.done}></div>
@@ -19,9 +20,5 @@ const OrderDetails = (props) => {
     </div>
   );
 };
-
-OrderDetails.propTypes = {
-  orderNum: PropTypes.number.isRequired,
-}
 
 export default OrderDetails;

@@ -27,8 +27,6 @@ export const makeOrder = (ingIds) => {
   return request(`${config.baseUrl}/orders`, {
     method: "POST",
     headers: config.headers,
-    body: JSON.stringify({
-      ingredients: ingIds,
-    }),
+    body: JSON.stringify(ingIds),
   });
 };

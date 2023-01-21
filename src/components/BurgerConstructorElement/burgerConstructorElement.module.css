@@ -1,0 +1,20 @@
+.item {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.item:last-of-type {
+  margin: 0;
+}
+
+.item:hover {
+  cursor: grab;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}

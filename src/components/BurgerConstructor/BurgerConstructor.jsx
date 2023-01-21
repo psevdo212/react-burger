@@ -2,32 +2,38 @@ import { useState, useMemo } from "react";
 import {
   ConstructorElement,
   Button,
-  DragIcon,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./burgerConstructor.module.css";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import BurgerConstructorElement from "../BurgerConstructorElement/BurgerConstructorElement";
 import { makeOrder } from "../../utils/api";
 import { useDrop } from "react-dnd";
-import { addIngredient } from "../../features/burgerConstructor";
+import {
+  addIngredient,
+  sortIngredient,
+  removeIngredient,
+  resetConstructor,
+} from "../../features/burgerConstructor";
+import { Reorder } from "framer-motion";
+import { postOrder } from "../../features/order";
 
 const BurgerConstructor = () => {
-  const ingredients = useSelector((state) => state.burgerConstructor);
   const [isOpen, setIsOpen] = useState(false);
-  const [orderNum, setOrderNum] = useState();
   const dispatch = useDispatch();
-  const bun = ingredients && ingredients.find((item) => item.ingredient.type === "bun");
-  const totalPrice = ingredients.length
-    ? ingredients.reduce(
-        (prev, cur) =>
-          cur.ingredient.type !== "bun"
-            ? prev + cur.ingredient.price
-            : prev + cur.ingredient.price * 2,
-        0
-      )
-    : 0;
+  const bun = useSelector((state) => state.burgerConstructor.selectedBun);
+  const notBun = useSelector(
+    (state) => state.burgerConstructor.selectedIngredient
+  );
+
+  const totalPrice = useMemo(() => {
+    return notBun.reduce(
+      (sum, item) => (sum += item.ingredient.price),
+      bun ? bun.ingredient.price * 2 : 0
+    );
+  }, [notBun, bun]);
 
   const [, notBunTarget] = useDrop({
     accept: "ingredients",
@@ -39,113 +45,100 @@ const BurgerConstructor = () => {
     },
   });
 
- // const [, dropTarget] = useDrop({
-  //   accept: 'ingredient',
-  //   drop(item) {
-  //     onDropHandler(item);
-  //   },
-  // });
-
-//чтоб булка два раза не добавлялась
-
-  // const handleDrop = (item) => {
-  //   if (item.type === 'bun') {
-  //     const bun = currentBurger.find((el) => el.type === 'bun');
-  //     const index = currentBurger.indexOf(bun);
-  //     if (index !== -1) {
-  //       dispatch({ type: DELETE_INGREDIENT, index });
-  //     }
-  //   }
-  //   dispatch({ type: ADD_INGREDIENT, item });
-  // };
-
-
-
-  const content = useMemo(
-    () =>
-      ingredients
-        .filter((item) => item.ingredient.type !== "bun")
-        .map((item, index) => {
-          return (
-            <li key={item.id} className={styles.item} index={index} onMove={onMove}>
-              <div className={styles.icon}>
-                <DragIcon type="primary" />
-              </div>
-              <ConstructorElement
-                text={item.ingredient.name}
-                price={item.ingredient.price}
-                thumbnail={item.ingredient.image}
-              />
-            </li>
-          );
-        }),
-    [ingredients]
+  const ingredientsIDs = useMemo(
+    () => ({
+      ingredients: [
+        bun?.ingredient._id,
+        ...notBun?.map((item) => item.ingredient._id),
+        bun?.ingredient._id,
+      ],
+    }),
+    [bun, notBun]
   );
 
-  //   const handleMakeOrder = () => {
-  //     makeOrder([
-  //       bun._id,
-  //       ...notBun.map((item) => item._id),
-  //       bun._id,
-  //     ])
-  //       .then((data) => {
-  //         if (data.success) {
-  //           setOrderNum(data);
-  //           setIsOpen(true);
-  //         } else {
-  //           return Promise.reject(data);
-  //         }
-  //       })
-  //       .catch((err) => console.log(`Ошибка ${err}`));
-  //   };
+  const handleMakeOrder = () => {
+    makeOrder(ingredientsIDs)
+      .then((data) => {
+        if (data.success) {
+          dispatch(postOrder(data));
+          setIsOpen(true);
+        } else {
+          return Promise.reject(data);
+        }
+      })
+      .catch((err) => console.log(`Ошибка ${err}`));
+  };
+
+  const closeOrderModal = () => {
+    setIsOpen(false);
+    dispatch(resetConstructor());
+  };
 
   return (
     <>
-    <div className={styles.constructorwrap}>
-      {bun ? (
-        <div className={styles.locked}>
-          <ul className={styles.list}>
-            <li className={styles.item}>
-              <div className={styles.icon}></div>
-              <ConstructorElement
-                type="top"
-                isLocked={true}
-                text={`${bun.ingredient.name} (верх)`}
-                price={bun.ingredient.price}
-                thumbnail={bun.ingredient.image_mobile}
-              />
-            </li>
-          </ul>
-        </div>
-      ) : (
-        <div className={styles.invisbun}></div>
-      )}
-      <div className={styles.unlocked} ref={notBunTarget}>
-        {ingredients.length ? (<ul className={styles.list}>{content}</ul>)
-        : (
-          <div className={styles.choosewrap}><h2 className={`${styles.choose}`}>
-              Перенесите сюда ингредиенты
-            </h2></div>
+      <div className={styles.constructorwrap}>
+        {bun ? (
+          <div className={styles.locked}>
+            <ul className={styles.list}>
+              <li className={styles.item}>
+                <div className={styles.icon}></div>
+                <ConstructorElement
+                  type="top"
+                  isLocked={true}
+                  text={`${bun.ingredient.name} (верх)`}
+                  price={bun.ingredient.price}
+                  thumbnail={bun.ingredient.image_mobile}
+                />
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <div className={styles.invisbun}></div>
         )}
-      </div>
-      {bun ? (
-        <div className={styles.bottomlock}>
-          <ul className={styles.list}>
-            <li className={styles.item}>
-              <div className={styles.icon}></div>
-              <ConstructorElement
-                type="bottom"
-                isLocked={true}
-                text={`${bun.ingredient.name} (низ)`}
-                price={bun.ingredient.price}
-                thumbnail={bun.ingredient.image_mobile}
-              />
-            </li>
-          </ul>
+        <div className={styles.unlocked} ref={notBunTarget}>
+          {notBun.length || bun ? (
+            <Reorder.Group
+              axis="y"
+              values={notBun}
+              className={styles.list}
+              onReorder={(item) => dispatch(sortIngredient(item))}
+            >
+              {notBun.map((item) => {
+                return (
+                  <BurgerConstructorElement
+                    key={item.id}
+                    item={item}
+                    deleteIngredient={() => dispatch(removeIngredient(item))}
+                  />
+                );
+              })}
+            </Reorder.Group>
+          ) : (
+            <div className={styles.choosewrap}>
+              <h2 className={`${styles.choose}`}>
+                Перенесите сюда ингредиенты
+              </h2>
+            </div>
+          )}
         </div>
-      ) : (
-        <div className={styles.invisbun}></div>
-      )}
+        {bun ? (
+          <div className={styles.bottomlock}>
+            <ul className={styles.list}>
+              <li className={styles.item}>
+                <div className={styles.icon}></div>
+                <ConstructorElement
+                  type="bottom"
+                  isLocked={true}
+                  text={`${bun.ingredient.name} (низ)`}
+                  price={bun.ingredient.price}
+                  thumbnail={bun.ingredient.image_mobile}
+                />
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <div className={styles.invisbun}></div>
+        )}
       </div>
       <div className={styles.wrap}>
         <div className={styles.orderwrap}>
@@ -162,15 +155,15 @@ const BurgerConstructor = () => {
           htmlType="button"
           type="primary"
           size="large"
-          disabled={ingredients.length < 2 || !bun} // пока нет булки и хотя бы одной начинки - кнопка неактивна
-          //onClick={handleMakeOrder}
+          disabled={notBun.length < 1 || !bun} // пока нет булки и хотя бы одной начинки - кнопка неактивна
+          onClick={handleMakeOrder}
         >
           Оформить заказ
         </Button>
       </div>
       {isOpen && (
-        <Modal handleClose={() => setIsOpen(false)} isOpen={setIsOpen}>
-          <OrderDetails orderNum={orderNum.order.number} />
+        <Modal handleClose={closeOrderModal} isOpen={setIsOpen}>
+          <OrderDetails />
         </Modal>
       )}
     </>

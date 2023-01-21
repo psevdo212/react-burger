@@ -8,11 +8,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { fetchIngredients } from "./features/ingredients";
 import ingredientsReducer from "./features/ingredients";
 import burgerConstructorReducer from "./features/burgerConstructor";
+import orderReducer from "./features/order";
 
 const store = configureStore({
   reducer: {
     ingredients: ingredientsReducer,
     burgerConstructor: burgerConstructorReducer,
+    order: orderReducer,
   },
 });
 
