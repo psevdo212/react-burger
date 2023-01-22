@@ -18,7 +18,7 @@ import {
   resetConstructor,
 } from "../../features/burgerConstructor";
 import { Reorder } from "framer-motion";
-import { postOrder, postFail } from "../../features/order";
+import { getOrderNumber } from "../../features/order";
 
 const BurgerConstructor = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -57,16 +57,8 @@ const BurgerConstructor = () => {
   );
 
   const handleMakeOrder = () => {
-    makeOrder(ingredientsIDs)
-      .then((data) => {
-        if (data.success) {
-          dispatch(postOrder(data));
-          setIsOpen(true);
-        } else {
-          dispatch(postFail());
-        }
-      })
-      .catch((err) => console.log(`Ошибка ${err}`));
+    setIsOpen(true);
+    dispatch(getOrderNumber(ingredientsIDs));
   };
 
   const closeOrderModal = () => {

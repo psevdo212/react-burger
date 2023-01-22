@@ -23,10 +23,10 @@ export const getData = () => {
   });
 };
 
-export const makeOrder = (ingIds) => {
+export const makeOrder = (ingredientIDs) => {
   return request(`${config.baseUrl}/orders`, {
     method: "POST",
     headers: config.headers,
-    body: JSON.stringify(ingIds),
+    body: JSON.stringify(ingredientIDs),
   });
 };

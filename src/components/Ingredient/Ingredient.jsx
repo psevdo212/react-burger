@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   CurrencyIcon,
   Counter,
@@ -7,13 +7,17 @@ import styles from "./ingredient.module.css";
 import { ingPropTypes } from "../../utils/types";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 
 const Ingredient = ({ ingredient }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleOpenModal = () => setIsOpen(true);
   const handleCloseModal = () => setIsOpen(false);
-  const counter = 0;
+  const bun = useSelector((state) => state.burgerConstructor.selectedBun);
+  const notBun = useSelector(
+    (state) => state.burgerConstructor.selectedIngredient
+  );
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "ingredients",
     item: { ...ingredient },
@@ -21,6 +25,16 @@ const Ingredient = ({ ingredient }) => {
       isDragging: !!monitor.isDragging(),
     }),
   }));
+
+  const counter = useMemo(() => {
+    if (ingredient.type !== "bun") {
+      return notBun.filter(
+        (currentIng) => currentIng.ingredient._id === ingredient._id
+      ).length;
+    }
+    return bun?.ingredient._id === ingredient._id ? 2 : 0;
+  }, [notBun, bun]);
+
   return (
     <div
       className={styles.card}
