@@ -11,6 +11,7 @@ import burgerConstructorReducer from "./features/burgerConstructor";
 import orderReducer from "./features/order";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {Login} from "./pages/Login";
+import {Registration} from "./pages/Registration"
 
 const store = configureStore({
   reducer: {
@@ -29,6 +30,7 @@ root.render(
       <Routes>
         <Route path='/' element={<App />} />
         <Route path='/login' element={<Login/>} />
+        <Route path='/registration' element={<Registration/>} />
       </Routes>
     </BrowserRouter>
 

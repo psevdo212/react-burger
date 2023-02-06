@@ -1,13 +1,14 @@
 import React from "react";
 import AppHeader from "../components/AppHeader/AppHeader";
-import styles from "./login.module.css";
 import {
+  Input,
   EmailInput,
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from "./registration.module.css";
 
-export const Login = () => {
+export function Registration() {
   const [value, setValue] = React.useState("");
   const onChange = (e) => {
     setValue(e.target.value);
@@ -16,7 +17,16 @@ export const Login = () => {
     <div className={styles.login}>
       <AppHeader />
       <div className={styles.form}>
-        <h1 className="text text_type_main-medium">Вход</h1>
+        <h1 className="text text_type_main-medium">Регистрация</h1>
+        <Input
+          type={"text"}
+          placeholder={"Имя"}
+          onChange={(e) => setValue(e.target.value)}
+          value={value}
+          name={"username"}
+          error={false}
+          extraClass="mt-6"
+        />
         <EmailInput
           onChange={onChange}
           value={value}
@@ -37,20 +47,15 @@ export const Login = () => {
           size="large"
           extraClass={styles.button}
         >
-          Войти
+          Зарегистрироваться
         </Button>
-
         <p className="text text_type_main-default text_color_inactive mt-20">
-          <span> Вы - новый пользователь?</span>
-          <a href="#">Зарегистрироваться</a>
-        </p>
-        <p className="text text_type_main-default text_color_inactive mt-4">
-          <span> Забыли пароль?</span>
-          <a href="#">Восстановить пароль</a>
+          <span> Уже зарегистрированы?</span>
+          <a href="#">Войти</a>
         </p>
       </div>
     </div>
   );
-};
+}
 
-export default Login;
+export default Registration;
