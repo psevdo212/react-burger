@@ -9,6 +9,8 @@ import { fetchIngredients } from "./features/ingredients";
 import ingredientsReducer from "./features/ingredients";
 import burgerConstructorReducer from "./features/burgerConstructor";
 import orderReducer from "./features/order";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {Login} from "./pages/Login";
 
 const store = configureStore({
   reducer: {
@@ -23,7 +25,13 @@ store.dispatch(fetchIngredients());
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<App />} />
+        <Route path='/login' element={<Login/>} />
+      </Routes>
+    </BrowserRouter>
+
   </Provider>
 );
 
