@@ -1,0 +1,40 @@
+.login {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.form {
+  width: 480px;
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 12px;
+  align-items: center;
+}
+
+.wrap {
+  display: flex;
+  margin-top: 110px;
+  margin-left: 27px;
+}
+
+.leftmenu {
+  margin: 0;
+  padding: 0;
+  width: 329px;
+}
+
+.item {
+  list-style-type: none;
+  padding-bottom: 34px;
+}
+
+.ulwrap {
+  margin-top: 20px;
+}
+
+.buttonwrap {
+  display: flex;
+  justify-content: flex-end;
+  width: 480px;
+}

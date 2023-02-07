@@ -17,7 +17,7 @@ export function Registration() {
     <div className={styles.login}>
       <AppHeader />
       <div className={styles.form}>
-        <h1 className="text text_type_main-medium">Регистрация</h1>
+        <h1 className="text text_type_main-medium pl-1">Регистрация</h1>
         <Input
           type={"text"}
           placeholder={"Имя"}
@@ -49,9 +49,16 @@ export function Registration() {
         >
           Зарегистрироваться
         </Button>
-        <p className="text text_type_main-default text_color_inactive mt-20">
+        <p className="text text_type_main-default text_color_inactive mt-15 pl-1">
           <span> Уже зарегистрированы?</span>
-          <a href="#">Войти</a>
+          <Button
+            htmlType="button"
+            type="secondary"
+            size="medium"
+            extraClass="pr-1 pl-2 pb-2"
+          >
+          Войти
+          </Button>
         </p>
       </div>
     </div>

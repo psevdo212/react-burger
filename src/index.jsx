@@ -1,9 +1,9 @@
-import React, {useEffect} from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./components/App/App";
 import reportWebVitals from "./reportWebVitals";
-import { Provider, useDispatch, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { fetchIngredients } from "./features/ingredients";
 import ingredientsReducer from "./features/ingredients";
@@ -12,6 +12,10 @@ import orderReducer from "./features/order";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {Login} from "./pages/Login";
 import {Registration} from "./pages/Registration"
+import { ForgotPass } from "./pages/ForgotPass";
+import {RestorePass} from "./pages/RestorePass";
+import Profile from "./pages/Profile";
+import EditProfile from "./pages/EditProfile";
 
 const store = configureStore({
   reducer: {
@@ -31,6 +35,10 @@ root.render(
         <Route path='/' element={<App />} />
         <Route path='/login' element={<Login/>} />
         <Route path='/registration' element={<Registration/>} />
+        <Route path='/forgotpass' element={<ForgotPass/>} />
+        <Route path='/restorepass' element={<RestorePass/>} />
+        <Route path='/profile' element={<Profile/>} />
+        <Route path='/edit' element={<EditProfile/>} />
       </Routes>
     </BrowserRouter>
 

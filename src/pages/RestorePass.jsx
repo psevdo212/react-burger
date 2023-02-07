@@ -1,13 +1,13 @@
 import React from "react";
 import AppHeader from "../components/AppHeader/AppHeader";
-import styles from "./login.module.css";
 import {
-  EmailInput,
   PasswordInput,
+  Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from "./restorePass.module.css";
 
-export const Login = () => {
+export function RestorePass() {
   const [value, setValue] = React.useState("");
   const onChange = (e) => {
     setValue(e.target.value);
@@ -16,19 +16,23 @@ export const Login = () => {
     <div className={styles.login}>
       <AppHeader />
       <div className={styles.form}>
-        <h1 className="text text_type_main-medium">Вход</h1>
-        <EmailInput
+        <h1 className="text text_type_main-medium pl-1">
+          Восстановление пароля
+        </h1>
+        <PasswordInput
+          placeholder={"Введите новый пароль"}
           onChange={onChange}
           value={value}
-          name={"email"}
-          placeholder="E-mail"
-          isIcon={false}
+          name={"newpassword"}
           extraClass="mt-6"
         />
-        <PasswordInput
-          onChange={onChange}
+        <Input
+          type={"text"}
+          placeholder={"Введите код из письма"}
+          onChange={(e) => setValue(e.target.value)}
           value={value}
-          name={"password"}
+          name={"lettercode"}
+          error={false}
           extraClass="mb-6 mt-6"
         />
         <Button
@@ -37,34 +41,22 @@ export const Login = () => {
           size="large"
           extraClass={styles.button}
         >
-          Войти
+          Сохранить
         </Button>
-
         <p className="text text_type_main-default text_color_inactive mt-15 pl-1">
-          <span> Вы - новый пользователь?</span>
+          <span> Вспомнили пароль?</span>
           <Button
             htmlType="button"
             type="secondary"
             size="medium"
-            extraClass="pr-1 pl-2 pb-2"
+            extraClass="pr-1 pl-2"
           >
-          Зарегистрироваться
-          </Button>
-        </p>
-        <p className="text text_type_main-default text_color_inactive pl-1">
-          <span> Забыли пароль?</span>
-          <Button
-            htmlType="button"
-            type="secondary"
-            size="medium"
-            extraClass="pr-1 pl-2 pt-2"
-          >
-          Восстановить пароль
+          Войти
           </Button>
         </p>
       </div>
     </div>
   );
-};
+}
 
-export default Login;
+export default RestorePass;
