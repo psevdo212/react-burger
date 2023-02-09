@@ -1,5 +1,4 @@
 import React from "react";
-import AppHeader from "../components/AppHeader/AppHeader";
 import {
   Input,
   EmailInput,
@@ -13,14 +12,13 @@ export function Profile() {
     setValue(e.target.value);
   };
   return (
-    <div className={styles.login}>
-      <AppHeader />
+    <>
       <div className={styles.wrap}>
         <div className={styles.ulwrap}>        
             <ul className={styles.leftmenu}>
-                <li className={styles.item}><span className="text text_type_main-medium pl-3">Профиль</span></li>
-                <li className={styles.item}><span className="text text_type_main-medium pl-3">История заказов</span></li>
-                <li className={styles.item}><span className="text text_type_main-medium pl-3">Выход</span></li>
+                <li className={styles.item}><span className="text text_type_main-medium pl-3 text_color_inactive">Профиль</span></li>
+                <li className={styles.item}><span className="text text_type_main-medium pl-3 text_color_inactive" >История заказов</span></li>
+                <li className={styles.item}><span className="text text_type_main-medium pl-3 text_color_inactive">Выход</span></li>
                 <li className={styles.item}><p className="text text_type_main-default text_color_inactive pl-3 mt-15">В этом разделе вы можете изменить свои персональные данные</p></li>
             </ul>
         </div>
@@ -53,7 +51,7 @@ export function Profile() {
         />
       </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -33,7 +33,7 @@ const Ingredient = ({ ingredient }) => {
       ).length;
     }
     return bun?.ingredient._id === ingredient._id ? 2 : 0;
-  }, [notBun, bun]);
+  }, [notBun, bun, ingredient._id, ingredient.type]);
 
   return (
     <div

@@ -1,20 +1,28 @@
 import React from "react";
-import AppHeader from "../components/AppHeader/AppHeader";
 import styles from "./login.module.css";
 import {
   EmailInput,
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useNavigate } from "react-router";
 
 export const Login = () => {
   const [value, setValue] = React.useState("");
   const onChange = (e) => {
     setValue(e.target.value);
   };
+const navigate = useNavigate();
+function toRegisterPage() {
+  navigate('/registration')
+}
+function toForgotPass() {
+  navigate('/forgotpass')
+}
+
+
   return (
-    <div className={styles.login}>
-      <AppHeader />
+    <>
       <div className={styles.form}>
         <h1 className="text text_type_main-medium">Вход</h1>
         <EmailInput
@@ -47,6 +55,7 @@ export const Login = () => {
             type="secondary"
             size="medium"
             extraClass="pr-1 pl-2 pb-2"
+            onClick={toRegisterPage}
           >
           Зарегистрироваться
           </Button>
@@ -58,12 +67,13 @@ export const Login = () => {
             type="secondary"
             size="medium"
             extraClass="pr-1 pl-2 pt-2"
+            onClick={toForgotPass}
           >
           Восстановить пароль
           </Button>
         </p>
       </div>
-    </div>
+    </>
   );
 };
 

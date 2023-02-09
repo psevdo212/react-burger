@@ -10,12 +10,13 @@ import ingredientsReducer from "./features/ingredients";
 import burgerConstructorReducer from "./features/burgerConstructor";
 import orderReducer from "./features/order";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import {Login} from "./pages/Login";
-import {Registration} from "./pages/Registration"
+import { Login } from "./pages/Login";
+import { Registration } from "./pages/Registration";
 import { ForgotPass } from "./pages/ForgotPass";
-import {RestorePass} from "./pages/RestorePass";
+import { RestorePass } from "./pages/RestorePass";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
+import MainPage from "./pages/MainPage";
 
 const store = configureStore({
   reducer: {
@@ -32,16 +33,17 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<App />} />
-        <Route path='/login' element={<Login/>} />
-        <Route path='/registration' element={<Registration/>} />
-        <Route path='/forgotpass' element={<ForgotPass/>} />
-        <Route path='/restorepass' element={<RestorePass/>} />
-        <Route path='/profile' element={<Profile/>} />
-        <Route path='/edit' element={<EditProfile/>} />
+        <Route path="/" element={<App />}>
+          <Route index element={<MainPage />} />
+          <Route path="login" element={<Login />} />
+          <Route path="registration" element={<Registration />} />
+          <Route path="forgotpass" element={<ForgotPass />} />
+          <Route path="restorepass" element={<RestorePass />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="edit" element={<EditProfile />} />
+        </Route>
       </Routes>
     </BrowserRouter>
-
   </Provider>
 );
 

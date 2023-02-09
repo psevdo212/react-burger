@@ -1,5 +1,4 @@
 import React from "react";
-import AppHeader from "../components/AppHeader/AppHeader";
 import {
   Input,
   EmailInput,
@@ -7,15 +6,22 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./registration.module.css";
+import { useNavigate } from "react-router";
 
 export function Registration() {
   const [value, setValue] = React.useState("");
   const onChange = (e) => {
     setValue(e.target.value);
   };
+
+  const navigate = useNavigate();
+
+  function toLoginPage() {
+    navigate('/login')
+  }
+
   return (
-    <div className={styles.login}>
-      <AppHeader />
+    <>
       <div className={styles.form}>
         <h1 className="text text_type_main-medium pl-1">Регистрация</h1>
         <Input
@@ -56,12 +62,13 @@ export function Registration() {
             type="secondary"
             size="medium"
             extraClass="pr-1 pl-2 pb-2"
+            onClick={toLoginPage}
           >
           Войти
           </Button>
         </p>
       </div>
-    </div>
+    </>
   );
 }
 

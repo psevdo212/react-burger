@@ -27,6 +27,7 @@
 .item {
   list-style-type: none;
   padding-bottom: 34px;
+  text-decoration: none;
 }
 
 .ulwrap {    

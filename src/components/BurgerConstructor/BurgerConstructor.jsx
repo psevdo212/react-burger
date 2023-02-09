@@ -9,7 +9,6 @@ import styles from "./burgerConstructor.module.css";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import BurgerConstructorElement from "../BurgerConstructorElement/BurgerConstructorElement";
-import { makeOrder } from "../../utils/api";
 import { useDrop } from "react-dnd";
 import {
   addIngredient,

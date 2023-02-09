@@ -1,5 +1,4 @@
 import React from "react";
-import AppHeader from "../components/AppHeader/AppHeader";
 import {
   Input,
   EmailInput,
@@ -14,8 +13,7 @@ export function EditProfile() {
     setValue(e.target.value);
   };
   return (
-    <div className={styles.login}>
-      <AppHeader />
+    <>
       <div className={styles.wrap}>
         <div className={styles.ulwrap}>
           <ul className={styles.leftmenu}>
@@ -79,7 +77,7 @@ export function EditProfile() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

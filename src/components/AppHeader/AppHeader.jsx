@@ -7,9 +7,18 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useMatch, useNavigate } from "react-router";
+import { NavLink } from "react-router-dom";
 import styles from "./appHeader.module.css";
+import CustomLink from "../CustomLink";
 
 const AppHeader = () => {
+ const navigate = useNavigate();
+
+ function toMainPage() {
+  navigate('/')
+ }
+  const mainMatch = useMatch('/');
   return (
     <header className={styles.header}>
       <div className={styles.list}>
@@ -19,12 +28,13 @@ const AppHeader = () => {
             type="secondary"
             size="medium"
             className={styles.buttonlist}
+            onClick={toMainPage}
           >
             <ul className={styles.item}>
               <li className="mr-2">
-                <BurgerIcon type="primary" />
+                <BurgerIcon type={mainMatch ? "primary" : "secondary"} />
               </li>
-              <li className="text text_type_main-default">Конструктор</li>
+              <li className={mainMatch ? "text text_type_main-default" : "text text_type_main-default text_color_inactive"}>Конструктор</li>
             </ul>
           </Button>
           <Button
@@ -47,11 +57,9 @@ const AppHeader = () => {
           <Logo />
         </div>
         <div className={styles.private}>
-          <Button
-            htmlType="button"
-            type="secondary"
-            size="medium"
+          <NavLink
             className={styles.button}
+            to='/profile'
           >
             <ul className={styles.item}>
               <li className="mr-2">
@@ -61,7 +69,7 @@ const AppHeader = () => {
                 Личный кабинет
               </li>
             </ul>
-          </Button>
+          </NavLink>
         </div>
       </div>
     </header>

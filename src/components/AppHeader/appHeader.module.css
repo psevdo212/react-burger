@@ -22,12 +22,13 @@
   border: none;
   background: transparent;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .buttonlist {
   composes: button;
   margin-right: 8px;
-  color: #4c4cff;
+  color: white;
 }
 
 .logo {
