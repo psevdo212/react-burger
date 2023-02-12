@@ -1,71 +1,59 @@
 import {
   Logo,
-  Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import {
   BurgerIcon,
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useMatch, useNavigate } from "react-router";
 import { NavLink } from "react-router-dom";
 import styles from "./appHeader.module.css";
-import CustomLink from "../CustomLink";
 
 const AppHeader = () => {
- const navigate = useNavigate();
-
- function toMainPage() {
-  navigate('/')
- }
-  const mainMatch = useMatch('/');
+ 
+  const activeClass = ({ isActive }) => isActive ? `${styles.link} ${styles.active}` : `${styles.link}`;
   return (
     <header className={styles.header}>
       <div className={styles.list}>
-        <div className="mt-4 mb-4 ml-5">
-          <Button
-            htmlType="button"
-            type="secondary"
-            size="medium"
-            className={styles.buttonlist}
-            onClick={toMainPage}
+        <div className={styles.leftlinks}>
+          <NavLink
+            className={activeClass}
+            to='/'
           >
             <ul className={styles.item}>
               <li className="mr-2">
-                <BurgerIcon type={mainMatch ? "primary" : "secondary"} />
+                <BurgerIcon type="secondary" />
               </li>
-              <li className={mainMatch ? "text text_type_main-default" : "text text_type_main-default text_color_inactive"}>Конструктор</li>
+              <li className="text text_type_main-default mr-2">Конструктор</li>
             </ul>
-          </Button>
-          <Button
-            htmlType="button"
-            type="secondary"
-            size="medium"
-            className={styles.button}
+          </NavLink>
+          <NavLink
+            className={activeClass}
+            to='/orderfeed'
           >
             <ul className={styles.item}>
               <li className="mr-2">
                 <ListIcon type="secondary" />
               </li>
-              <li className="text text_type_main-default text_color_inactive">
+              <li className="text text_type_main-default">
                 Лента заказов
               </li>
             </ul>
-          </Button>
+          </NavLink>
         </div>
         <div className={styles.logo}>
           <Logo />
         </div>
         <div className={styles.private}>
           <NavLink
-            className={styles.button}
+            className={activeClass}
             to='/profile'
           >
             <ul className={styles.item}>
               <li className="mr-2">
                 <ProfileIcon type="secondary" />
               </li>
-              <li className="text text_type_main-default text_color_inactive">
+              <li className="text text_type_main-default">
                 Личный кабинет
               </li>
             </ul>

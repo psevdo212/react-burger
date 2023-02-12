@@ -9,6 +9,7 @@ import { fetchIngredients } from "./features/ingredients";
 import ingredientsReducer from "./features/ingredients";
 import burgerConstructorReducer from "./features/burgerConstructor";
 import orderReducer from "./features/order";
+import userReducer from "./features/user";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Login } from "./pages/Login";
 import { Registration } from "./pages/Registration";
@@ -17,12 +18,14 @@ import { RestorePass } from "./pages/RestorePass";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import MainPage from "./pages/MainPage";
+import OrderFeed from "./components/OrderFeed/OrderFeed";
 
 const store = configureStore({
   reducer: {
     ingredients: ingredientsReducer,
     burgerConstructor: burgerConstructorReducer,
     order: orderReducer,
+    user: userReducer,
   },
 });
 
@@ -41,6 +44,7 @@ root.render(
           <Route path="restorepass" element={<RestorePass />} />
           <Route path="profile" element={<Profile />} />
           <Route path="edit" element={<EditProfile />} />
+          <Route path="orderfeed" element={<OrderFeed />} />
         </Route>
       </Routes>
     </BrowserRouter>

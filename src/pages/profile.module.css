@@ -27,9 +27,29 @@
 .item {
   list-style-type: none;
   padding-bottom: 34px;
-  text-decoration: none;
 }
 
 .ulwrap {    
     margin-top: 20px;
+}
+
+
+
+.navlink {
+  cursor: pointer;
+  text-decoration: none;
+  color: #8585ad;
+}
+
+.active {
+  color: #f2f2f3;
+}
+
+.button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  color: #8585ad;
+  padding: 0;
 }

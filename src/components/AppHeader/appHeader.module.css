@@ -17,18 +17,13 @@
   padding: 0;
 }
 
-.button {
+.link {
   padding: 16px 20px;
   border: none;
   background: transparent;
   cursor: pointer;
   text-decoration: none;
-}
-
-.buttonlist {
-  composes: button;
-  margin-right: 8px;
-  color: white;
+  color: #8585ad;
 }
 
 .logo {
@@ -38,6 +33,23 @@
 }
 
 .private {
-  margin: 16px 0;
-  padding-left: 90px;
+  margin: 0;
+  margin-top: 14px;
+  margin-bottom: 18px;
+  padding-left: 111px;
+}
+
+.leftlinks {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  margin-left: 20px;
+  display: flex;
+}
+
+.active {
+  color: #f2f2f3;
+}
+
+.active svg {
+  fill: #f2f2f3;
 }
