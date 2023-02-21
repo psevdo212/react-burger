@@ -7,48 +7,55 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./registration.module.css";
 import { useNavigate } from "react-router";
+import { registerUser } from "../../features/auth/auth";
+import { useDispatch } from "react-redux";
+import useForm from "../../hooks/useForm";
 
 export function Registration() {
-  const [value, setValue] = React.useState("");
-  const onChange = (e) => {
-    setValue(e.target.value);
-  };
-
+  const { values, handleChange } = useForm();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const submitForm = (e) => {
+    e.preventDefault();
+    dispatch(registerUser(values));
+    navigate("/");
+  };
+
   function toLoginPage() {
-    navigate('/login')
+    navigate("/login");
   }
 
   return (
     <>
-      <div className={styles.form}>
+      <form className={styles.form} onSubmit={submitForm}>
         <h1 className="text text_type_main-medium pl-1">Регистрация</h1>
         <Input
           type={"text"}
           placeholder={"Имя"}
-          onChange={(e) => setValue(e.target.value)}
-          value={value}
-          name={"username"}
-          error={false}
+          onChange={handleChange}
+          value={values.name || ""}
+          name={"name"}
           extraClass="mt-6"
         />
         <EmailInput
-          onChange={onChange}
-          value={value}
+          onChange={handleChange}
+          value={values.email || ""}
+          type={"email"}
           name={"email"}
           placeholder="E-mail"
           isIcon={false}
           extraClass="mt-6"
         />
         <PasswordInput
-          onChange={onChange}
-          value={value}
+          onChange={handleChange}
+          value={values.password || ""}
+          type={"password"}
           name={"password"}
           extraClass="mb-6 mt-6"
         />
         <Button
-          htmlType="button"
+          htmlType="submit"
           type="primary"
           size="large"
           extraClass={styles.button}
@@ -64,10 +71,10 @@ export function Registration() {
             extraClass="pr-1 pl-2 pb-2"
             onClick={toLoginPage}
           >
-          Войти
+            Войти
           </Button>
         </p>
-      </div>
+      </form>
     </>
   );
 }

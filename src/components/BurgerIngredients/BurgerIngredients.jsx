@@ -3,9 +3,11 @@ import { useSelector } from "react-redux";
 import Ingredient from "../Ingredient/Ingredient";
 import styles from "./burgerIngredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link, useLocation } from "react-router-dom";
 
 const BurgerIngredients = () => {
   const ingredients = useSelector((state) => state.ingredients);
+  const location = useLocation();
   const [current, setCurrent] = useState("buns");
   const buns = useMemo(
     () => ingredients.filter((m) => m.type === "bun"),
@@ -69,26 +71,46 @@ const BurgerIngredients = () => {
           Булки
         </h2>
         <div className={styles.container}>
-          {buns.map((item) => {
-            // создаю карточки из массива булок
-            return <Ingredient key={item._id} ingredient={item} />;
-          })}
+          {buns.map((item) => (
+            <Link
+              className={styles.link}
+              to={`ingredients/${item._id}`}
+              state={{ background: location }}
+              key={item._id}
+            >
+              <Ingredient ingredient={item} />
+            </Link>
+          ))}
         </div>
         <div className="mt-10" ref={sauceRef}>
           <h2 className="text text_type_main-medium mb-6">Соусы</h2>
           <div className={styles.container}>
-            {sauces.map((item) => {
-              return <Ingredient key={item._id} ingredient={item} />;
-            })}
+            {sauces.map((item) => (
+            <Link
+              className={styles.link}
+              to={`ingredients/${item._id}`}
+              state={{ background: location }}
+              key={item._id}
+            >
+              <Ingredient ingredient={item} />
+            </Link>
+          ))}
           </div>
         </div>
         <h2 ref={mainRef} className="text text_type_main-medium mt-10 mb-6">
           Начинки
         </h2>
         <div className={styles.container}>
-          {mains.map((item) => {
-            return <Ingredient key={item._id} ingredient={item} />;
-          })}
+          {mains.map((item) => (
+            <Link
+              className={styles.link}
+              to={`ingredients/${item._id}`}
+              state={{ background: location }}
+              key={item._id}
+            >
+              <Ingredient ingredient={item} />
+            </Link>
+          ))}
         </div>
       </div>
     </>

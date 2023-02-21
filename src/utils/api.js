@@ -1,3 +1,5 @@
+import { setCookie, getCookie } from "./cookies";
+
 const config = {
   baseUrl: "https://norma.nomoreparties.space/api",
   headers: {
@@ -30,3 +32,17 @@ export const makeOrder = (ingredientIDs) => {
     body: JSON.stringify(ingredientIDs),
   });
 };
+
+export function registerQuery(userInfo) {
+  return request(`${config.baseUrl}/auth/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify({
+      name: userInfo.name,
+      email: userInfo.email,
+      password: userInfo.password,
+    }),
+  });
+}

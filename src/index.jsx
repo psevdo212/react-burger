@@ -9,23 +9,15 @@ import { fetchIngredients } from "./features/ingredients";
 import ingredientsReducer from "./features/ingredients";
 import burgerConstructorReducer from "./features/burgerConstructor";
 import orderReducer from "./features/order";
-import userReducer from "./features/user";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Login } from "./pages/Login";
-import { Registration } from "./pages/Registration";
-import { ForgotPass } from "./pages/ForgotPass";
-import { RestorePass } from "./pages/RestorePass";
-import Profile from "./pages/Profile";
-import EditProfile from "./pages/EditProfile";
-import MainPage from "./pages/MainPage";
-import OrderFeed from "./components/OrderFeed/OrderFeed";
+import authReducer from "./features/auth/auth";
+import { BrowserRouter } from "react-router-dom";
 
 const store = configureStore({
   reducer: {
     ingredients: ingredientsReducer,
     burgerConstructor: burgerConstructorReducer,
     order: orderReducer,
-    user: userReducer,
+    auth: authReducer,
   },
 });
 
@@ -35,18 +27,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<MainPage />} />
-          <Route path="login" element={<Login />} />
-          <Route path="registration" element={<Registration />} />
-          <Route path="forgotpass" element={<ForgotPass />} />
-          <Route path="restorepass" element={<RestorePass />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="edit" element={<EditProfile />} />
-          <Route path="orderfeed" element={<OrderFeed />} />
-        </Route>
-      </Routes>
+      <App />
     </BrowserRouter>
   </Provider>
 );

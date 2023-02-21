@@ -1,19 +1,14 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient.module.css";
 import { ingPropTypes } from "../../utils/types";
-import Modal from "../Modal/Modal";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 
 const Ingredient = ({ ingredient }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const handleOpenModal = () => setIsOpen(true);
-  const handleCloseModal = () => setIsOpen(false);
   const bun = useSelector((state) => state.burgerConstructor.selectedBun);
   const notBun = useSelector(
     (state) => state.burgerConstructor.selectedIngredient
@@ -38,7 +33,6 @@ const Ingredient = ({ ingredient }) => {
   return (
     <div
       className={styles.card}
-      onClick={handleOpenModal}
       ref={drag}
       style={{ border: isDragging ? "1px solid white" : "0px" }}
     >
@@ -63,11 +57,6 @@ const Ingredient = ({ ingredient }) => {
       <div className={styles.cardname}>
         <p className="text text_type_main-default pt-1">{ingredient.name}</p>
       </div>
-      {isOpen && (
-        <Modal handleClose={handleCloseModal}>
-          <IngredientDetails data={ingredient} />
-        </Modal>
-      )}
     </div>
   );
 };

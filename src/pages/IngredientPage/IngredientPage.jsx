@@ -1,22 +1,19 @@
-import React from "react";
-import styles from "./ingredientDetails.module.css";
-import { ingPropTypes } from "../../utils/types";
+import styles from "./ingredientPage.module.css";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export const IngredientDetails = () => {
-
+export const IngredientPage = () => {
   const { id } = useParams();
   const ingredients = useSelector((state) => state.ingredients);
   const data = ingredients.find((i) => i._id === id);
 
   return (
-    <div className={styles.modal}>
-      <h1 className={`${styles.title} text text_type_main-large mt-3 mb-3`}>
+    <section className={styles.ingredient}>
+      <h1 className={`${styles.title} text text_type_main-large mt-1 mb-3`}>
         Детали ингредиента
       </h1>
       <img className={styles.image} src={data?.image_large} alt={data?.name} />
-      <p className="text text_type_main-medium pl-15 mb-8">{data?.name}</p>
+      <p className="text text_type_main-medium pl-5 mb-8">{data?.name}</p>
       <ul className={styles.list}>
         <li className={styles.item}>
           <p className="text text_type_main-default mb-2">Калории,ккал</p>
@@ -35,12 +32,8 @@ export const IngredientDetails = () => {
           <p className="text text_type_digits-default">{data?.carbohydrates}</p>
         </li>
       </ul>
-    </div>
+    </section>
   );
 };
 
-// IngredientDetails.propTypes = {
-//   data: ingPropTypes.isRequired,
-// };
-
-export default IngredientDetails;
+export default IngredientPage;

@@ -15,21 +15,6 @@
   z-index: 999;
 }
 
-/* .modal::before {
-  content: "";
-  background-color: #000;
-  opacity: 0.6;
-  display: inline-block;
-  vertical-align: middle;
-  height: 100%;
-  width: 100%;
-} */
-
-/* .opened {
-  visibility: visible;
-  opacity: 1;
-} */
-
 .modal__content {
   margin: 0;
   padding: 0;
