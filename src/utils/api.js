@@ -12,7 +12,7 @@ const checkResponse = (res) => {
     return res.json();
   }
   // если ошибка, отклоняем промис
-  return Promise.reject(`Ошибка: ${res.status}`);
+  return res.json().then((err) => Promise.reject(err));
 };
 
 function request(url, options) {
@@ -33,16 +33,35 @@ export const makeOrder = (ingredientIDs) => {
   });
 };
 
-export function registerQuery(userInfo) {
+export const registerQuery = (userInfo) => {
   return request(`${config.baseUrl}/auth/register`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-    },
+    headers: config.headers,
     body: JSON.stringify({
       name: userInfo.name,
       email: userInfo.email,
       password: userInfo.password,
     }),
   });
-}
+};
+
+export const loginQuery = (userInfo) => {
+  return request(`${config.baseUrl}/auth/login`, {
+    method: "POST",
+    headers: config.headers,
+    body: JSON.stringify({
+      email: userInfo.email,
+      password: userInfo.password,
+    }),
+  });
+};
+
+export const logoutQuery = () => {
+  return request(`${config.baseUrl}/auth/logout`, {
+    method: "POST",
+    headers: config.headers,
+    body: JSON.stringify({
+      token: getCookie("refreshToken"),
+    }),
+  });
+};

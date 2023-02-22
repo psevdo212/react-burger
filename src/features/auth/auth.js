@@ -1,40 +1,49 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { registerQuery } from '../../utils/api';
+import { createSlice } from "@reduxjs/toolkit";
+import { registerUser, loginUser, logoutUser } from "./authRequests";
 
 const initialState = {
   loading: false,
-  userInfo: {}, // for user object
-  userToken: null, // for storing the JWT
+  userInfo: {},
   error: null,
-  success: false, // for monitoring the registration process.
-}
-
-export const registerUser = createAsyncThunk(
-  "register/fetch",
-  async (userInfo) => {
-    const response = await registerQuery(userInfo);
-    return response.user;
-  }
-);
+  isLogged: false,
+};
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-    .addCase(registerUser.pending, (state) => {
-      state = initialState
-    })
-    .addCase(registerUser.fulfilled, (state, action) => {
-      return action.payload
-    })
-    .addCase(registerUser.rejected, (state ) => {
-      state = initialState
-    });
+      .addCase(registerUser.pending, (state) => {
+        state = initialState;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.userInfo = action.payload;
+        state.isLogged = true;
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(loginUser.pending, (state) => {
+        state = initialState;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.userInfo = action.payload;
+        state.isLogged = true;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(logoutUser.pending, (state) => {
+        state = state;
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state = initialState;
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.error = action.error.message;
+      });
   },
 });
 
-export default authSlice.reducer
-
-
+export default authSlice.reducer;

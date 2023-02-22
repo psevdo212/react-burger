@@ -7,7 +7,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./registration.module.css";
 import { useNavigate } from "react-router";
-import { registerUser } from "../../features/auth/auth";
+import { registerUser } from "../../features/auth/authRequests";
 import { useDispatch } from "react-redux";
 import useForm from "../../hooks/useForm";
 
