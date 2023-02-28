@@ -5,16 +5,9 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./forgotPass.module.css";
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
 import { restorePassQuery } from "../../utils/api";
 
 export function ForgotPass() {
-  // const [value, setValue] = React.useState("");
-  // const onChange = (e) => {
-  //   setValue(e.target.value);
-  // };
-
-  const dispatch = useDispatch();
   const [userData, setUserData] = useState("");
 
   function formValue(value) {

@@ -1,4 +1,4 @@
-import React, { useDebugValue } from "react";
+import React from "react";
 import {
   PasswordInput,
   Input,
@@ -8,8 +8,6 @@ import styles from "./restorePass.module.css";
 import { useNavigate } from "react-router";
 import { resetPassQuery } from "../../utils/api";
 import useForm from "../../hooks/useForm";
-import { useDispatch } from "react-redux";
-import { getUserInfo } from "../../features/auth/authRequests";
 
 export function RestorePass() {
   const navigate = useNavigate();
