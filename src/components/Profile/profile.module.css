@@ -1,0 +1,14 @@
+.form {
+  width: 480px;
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 12px;
+  align-items: center;
+}
+
+.buttonwrap {
+  display: flex;
+  justify-content: flex-end;
+  width: 480px;
+}

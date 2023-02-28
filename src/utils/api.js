@@ -2,10 +2,7 @@ import { setCookie, getCookie } from "./cookies";
 
 const config = {
   baseUrl: "https://norma.nomoreparties.space/api",
-  headers: {
-    "Content-Type": "application/json",
-  },
-};
+  };
 
 const checkResponse = (res) => {
   if (res.ok) {
@@ -21,14 +18,19 @@ function request(url, options) {
 
 export const getData = () => {
   return request(`${config.baseUrl}/ingredients`, {
-    headers: config.headers,
+    headers: {
+    "Content-Type": "application/json",
+  },
   });
 };
 
 export const makeOrder = (ingredientIDs) => {
   return request(`${config.baseUrl}/orders`, {
     method: "POST",
-    headers: config.headers,
+    headers: {
+    "Content-Type": "application/json",
+    authorization: "Bearer " + getCookie("accessToken"),
+  },
     body: JSON.stringify(ingredientIDs),
   });
 };
@@ -36,7 +38,9 @@ export const makeOrder = (ingredientIDs) => {
 export const registerQuery = (userInfo) => {
   return request(`${config.baseUrl}/auth/register`, {
     method: "POST",
-    headers: config.headers,
+    headers: {
+    "Content-Type": "application/json",
+  },
     body: JSON.stringify({
       name: userInfo.name,
       email: userInfo.email,
@@ -48,7 +52,9 @@ export const registerQuery = (userInfo) => {
 export const loginQuery = (userInfo) => {
   return request(`${config.baseUrl}/auth/login`, {
     method: "POST",
-    headers: config.headers,
+    headers: {
+    "Content-Type": "application/json",
+  },
     body: JSON.stringify({
       email: userInfo.email,
       password: userInfo.password,
@@ -59,9 +65,61 @@ export const loginQuery = (userInfo) => {
 export const logoutQuery = () => {
   return request(`${config.baseUrl}/auth/logout`, {
     method: "POST",
-    headers: config.headers,
+    headers: {
+    "Content-Type": "application/json",
+  },
     body: JSON.stringify({
       token: getCookie("refreshToken"),
     }),
   });
 };
+
+export function getUserQuery() {
+  return request(`${config.baseUrl}/auth/user`, {
+    method: "GET",
+    headers: {
+    "Content-Type": "application/json",
+    authorization: "Bearer " + getCookie("accessToken"),
+  },
+  });
+}
+
+export function updateUserQuery(userInfo) {
+  return request(`${config.baseUrl}/auth/user`, {
+    method: "PATCH",
+    headers: {
+    "Content-Type": "application/json",
+    authorization: "Bearer " + getCookie("accessToken"),
+  },
+  body: JSON.stringify({
+    name: userInfo.name,
+    email: userInfo.email,
+    password: userInfo.password,
+  }),
+  });
+}
+
+export const restorePassQuery = (email) => {
+  return request(`${config.baseUrl}/password-reset`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+    }),
+  });
+}
+
+export const resetPassQuery = (newpass, code) => {
+  return request(`${config.baseUrl}/password-reset/reset`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      password: newpass,
+      token: code,
+    }),
+  });
+}

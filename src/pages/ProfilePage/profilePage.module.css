@@ -3,14 +3,14 @@
   margin: 0 auto;
 }
 
-.form {
+/* .form {
   width: 480px;
   margin-left: 50px;
   display: flex;
   flex-direction: column;
   padding-left: 12px;
   align-items: center;
-}
+} */
 
 .wrap {
   display: flex;

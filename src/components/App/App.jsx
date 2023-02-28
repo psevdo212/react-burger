@@ -6,18 +6,18 @@ import { Login } from "../../pages/Login/Login";
 import { Registration } from "../../pages/Registration/Registration";
 import { ForgotPass } from "../../pages/ForgotPass/ForgotPass";
 import { RestorePass } from "../../pages/RestorePass/RestorePass";
-import Profile from "../../pages/Profile/Profile";
-import EditProfile from "../../pages/EditProfile/EditProfile";
+import ProfilePage from "../../pages/ProfilePage/ProfilePage";
 import MainPage from "../../pages/MainPage/MainPage";
 import OrderFeed from "../../components/OrderFeed/OrderFeed";
 import NotFound from "../../pages/NotFound/NotFound";
 import IngredientPage from "../../pages/IngredientPage/IngredientPage";
 import Layout from "../Layout/Layout";
-import { useDispatch } from "react-redux";
+import Orders from "../Orders/Orders";
+import Profile from "../Profile/Profile";
+import ProtectedRoute from "../../pages/protectedRoute";
 
 function App() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const location = useLocation();
 
   const background = location.state && location.state.background;
@@ -31,13 +31,16 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<MainPage />} />
-          <Route path="login" element={<Login />} />
-          <Route path="registration" element={<Registration />} />
-          <Route path="forgotpass" element={<ForgotPass />} />
-          <Route path="restorepass" element={<RestorePass />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="edit" element={<EditProfile />} />
-          <Route path="orderfeed" element={<OrderFeed />} />
+          <Route path="login" element={<ProtectedRoute notLogged={true}><Login /></ProtectedRoute>} />
+          <Route path="registration" element={<ProtectedRoute notLogged={true}><Registration /></ProtectedRoute>} />
+          <Route path="forgotpass" element={<ProtectedRoute notLogged={true}><ForgotPass /></ProtectedRoute>} />
+          <Route path="restorepass" element={<ProtectedRoute notLogged={true}><RestorePass /></ProtectedRoute>} />
+          <Route path="profile/*" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>}>
+            <Route index element={<Profile />} />
+            <Route path="ordershistory" element={<Orders/>}/>
+          </Route>
+          {/* <Route path="edit" element={<EditProfile />} /> */}
+          <Route path="orderfeed" element={<ProtectedRoute><OrderFeed /></ProtectedRoute>} />
           <Route path={`/ingredients/:id`} element={<IngredientPage />} />
           <Route path="/*" element={<NotFound />} />
         </Route>

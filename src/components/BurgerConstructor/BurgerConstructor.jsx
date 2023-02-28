@@ -18,14 +18,18 @@ import {
 } from "../../features/burgerConstructor";
 import { Reorder } from "framer-motion";
 import { getOrderNumber } from "../../features/order";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const BurgerConstructor = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
-  const bun = useSelector((state) => state.burgerConstructor.selectedBun);
+  const isAuth = useSelector((store) => store.auth.isLogged);
+  const bun = useSelector((store) => store.burgerConstructor.selectedBun);
   const notBun = useSelector(
-    (state) => state.burgerConstructor.selectedIngredient
+    (store) => store.burgerConstructor.selectedIngredient
   );
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const totalPrice = useMemo(() => {
     return notBun.reduce(
@@ -63,6 +67,10 @@ const BurgerConstructor = () => {
   const closeOrderModal = () => {
     setIsOpen(false);
     dispatch(resetConstructor());
+  };
+
+  const toLoginPage = () => {
+    navigate("/login", {from: location })
   };
 
   return (
@@ -147,7 +155,7 @@ const BurgerConstructor = () => {
           type="primary"
           size="large"
           disabled={notBun.length < 1 || !bun} // пока нет булки и хотя бы одной начинки - кнопка неактивна
-          onClick={handleMakeOrder}
+          onClick={isAuth ? handleMakeOrder : toLoginPage} //если не авторизован - заказ не отправится, произойдет переадресация
         >
           Оформить заказ
         </Button>
