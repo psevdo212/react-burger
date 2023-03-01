@@ -1,5 +1,6 @@
 import { setCookie, getCookie } from "./cookies";
 
+export const token = "Bearer " + getCookie("accessToken")
 const config = {
   baseUrl: "https://norma.nomoreparties.space/api",
 };
@@ -74,12 +75,12 @@ export const logoutQuery = () => {
   });
 };
 
-export function getUserQuery() {
+export function getUserQuery(token) {
   return request(`${config.baseUrl}/auth/user`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      authorization: "Bearer " + getCookie("accessToken"),
+      authorization: token,
     },
   });
 }
@@ -121,5 +122,25 @@ export const resetPassQuery = (newpass, code) => {
       password: newpass,
       token: code,
     }),
+  });
+};
+
+function refreshTokenQuery(refresh) {
+  return request(`${config.baseUrl}/auth/token`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: refresh,
+    }),
+  });
+}
+
+export const getRefreshUser = (refresh) => {
+  return refreshTokenQuery(refresh).then((res) => {
+    setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
+    setCookie("refreshToken", res.refreshToken);
+    getUserQuery(token);
   });
 };

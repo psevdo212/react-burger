@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import React from "react";
 import styles from "./notFound.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from "react-router-dom";
@@ -6,9 +6,9 @@ import { useNavigate } from "react-router-dom";
 const NotFound = () => {
   const navigate = useNavigate();
 
-  const onClick = useCallback(() => {
-    navigate({ pathname: "/" });
-  }, [navigate]);
+  const onClick = () => {
+    navigate("/");
+  }
 
   return (
     <div className={styles.body}>

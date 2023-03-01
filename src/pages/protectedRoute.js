@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import { getUserInfo } from "../features/auth/authRequests";
 import { getCookie } from "../utils/cookies";
+import { token } from "../utils/api";
 
 export const ProtectedRoute = ({ children, notLogged = false }) => {
   const user = useSelector((store) => store.auth.userInfo);
@@ -11,7 +12,7 @@ export const ProtectedRoute = ({ children, notLogged = false }) => {
 
   useEffect(() => {
     if (getCookie("accessToken")) {
-      dispatch(getUserInfo());
+      dispatch(getUserInfo(token));
     }
   }, [dispatch]);
 

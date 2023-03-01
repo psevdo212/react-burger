@@ -2,13 +2,13 @@ import "../../vendor/normalize.css";
 import { Routes, Route, useLocation, useNavigate } from "react-router";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import { Login } from "../../pages/Login/Login";
-import { Registration } from "../../pages/Registration/Registration";
-import { ForgotPass } from "../../pages/ForgotPass/ForgotPass";
-import { RestorePass } from "../../pages/RestorePass/RestorePass";
+import Login from "../../pages/Login/Login";
+import Registration from "../../pages/Registration/Registration";
+import ForgotPass from "../../pages/ForgotPass/ForgotPass";
+import RestorePass from "../../pages/RestorePass/RestorePass";
 import ProfilePage from "../../pages/ProfilePage/ProfilePage";
 import MainPage from "../../pages/MainPage/MainPage";
-import OrderFeed from "../../components/OrderFeed/OrderFeed";
+import OrderFeed from "../OrderFeed/OrderFeed";
 import NotFound from "../../pages/NotFound/NotFound";
 import IngredientPage from "../../pages/IngredientPage/IngredientPage";
 import Layout from "../Layout/Layout";
@@ -31,16 +31,57 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<MainPage />} />
-          <Route path="login" element={<ProtectedRoute notLogged={true}><Login /></ProtectedRoute>} />
-          <Route path="registration" element={<ProtectedRoute notLogged={true}><Registration /></ProtectedRoute>} />
-          <Route path="forgotpass" element={<ProtectedRoute notLogged={true}><ForgotPass /></ProtectedRoute>} />
-          <Route path="restorepass" element={<ProtectedRoute notLogged={true}><RestorePass /></ProtectedRoute>} />
-          <Route path="profile/*" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>}>
+          <Route
+            path="login"
+            element={
+              <ProtectedRoute notLogged={true}>
+                <Login />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="registration"
+            element={
+              <ProtectedRoute notLogged={true}>
+                <Registration />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="forgotpass"
+            element={
+              <ProtectedRoute notLogged={true}>
+                <ForgotPass />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="restorepass"
+            element={
+              <ProtectedRoute notLogged={true}>
+                <RestorePass />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="profile/*"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Profile />} />
-            <Route path="ordershistory" element={<Orders/>}/>
+            <Route path="ordershistory" element={<Orders />} />
           </Route>
-          {/* <Route path="edit" element={<EditProfile />} /> */}
-          <Route path="orderfeed" element={<ProtectedRoute><OrderFeed /></ProtectedRoute>} />
+          <Route
+            path="orderfeed"
+            element={
+              <ProtectedRoute>
+                <OrderFeed />
+              </ProtectedRoute>
+            }
+          />
           <Route path={`/ingredients/:id`} element={<IngredientPage />} />
           <Route path="/*" element={<NotFound />} />
         </Route>

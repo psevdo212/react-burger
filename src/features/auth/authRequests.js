@@ -5,8 +5,9 @@ import {
   logoutQuery,
   getUserQuery,
   updateUserQuery,
+  getRefreshUser,
 } from "../../utils/api";
-import { setCookie, deleteCookie } from "../../utils/cookies";
+import { setCookie, deleteCookie, getCookie } from "../../utils/cookies";
 
 export const registerUser = createAsyncThunk(
   "register/fetch",
@@ -32,13 +33,15 @@ export const logoutUser = createAsyncThunk("logout/fetch", async (token) => {
   return res;
 });
 
-export const getUserInfo = createAsyncThunk(
-  "getUserInfo/fetch",
-  async (userInfo) => {
-    const res = await getUserQuery(userInfo);
-    return res.user;
-  }
-);
+export const getUserInfo = createAsyncThunk("getUserInfo/fetch", (token) => {
+  return getUserQuery(token)
+    .then((res) => res.user)
+    .catch((err) => {
+      if (err.message === "jwt expired" || "jwt malformed") {
+        getRefreshUser(getCookie("refreshToken"));
+      }
+    });
+});
 
 export const updateUserInfo = createAsyncThunk(
   "updateUserInfo/fetch",
