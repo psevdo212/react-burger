@@ -18,9 +18,8 @@ import ProtectedRoute from "../../pages/protectedRoute";
 
 function App() {
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const background = location.state && location.state.background;
+  let location = useLocation();
+  const background = location.state?.background;
 
   const handleCloseModal = () => {
     navigate(-1);
@@ -28,7 +27,7 @@ function App() {
 
   return (
     <>
-      <Routes>
+      <Routes location={background ?? location}>
         <Route path="/" element={<Layout />}>
           <Route index element={<MainPage />} />
           <Route
