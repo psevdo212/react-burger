@@ -41,9 +41,9 @@ const AppHeader = () => {
             </ul>
           </NavLink>
         </div>
-        <div className={styles.logo}>
+        <NavLink to="/"><div className={styles.logo}>
           <Logo />
-        </div>
+        </div></NavLink>
         <div className={styles.private}>
           <NavLink
             className={activeClass}

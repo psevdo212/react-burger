@@ -5,7 +5,7 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import useForm from "../../hooks/useForm";
 import { loginUser } from "../../features/auth/authRequests";
@@ -14,11 +14,13 @@ export const Login = () => {
   const { values, handleChange } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from;
 
   const submitForm = (e) => {
     e.preventDefault();
     dispatch(loginUser(values));
-    navigate("/");
+    navigate({from});
   };
 
   function toRegisterPage() {
