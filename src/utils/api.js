@@ -1,6 +1,7 @@
 import { setCookie, getCookie } from "./cookies";
 
-export const token = "Bearer " + getCookie("accessToken")
+export const token = "Bearer " + getCookie("accessToken");
+console.log(token);
 const config = {
   baseUrl: "https://norma.nomoreparties.space/api",
 };
@@ -8,9 +9,9 @@ const config = {
 const checkResponse = (res) => {
   if (res.ok) {
     return res.json();
+  } else {
+    return res.json().then((err) => Promise.reject(err));
   }
-  // если ошибка, отклоняем промис
-  return res.json().then((err) => Promise.reject(err));
 };
 
 function request(url, options) {
@@ -30,7 +31,7 @@ export const makeOrder = (ingredientIDs) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      authorization: "Bearer " + getCookie("accessToken"),
+      authorization: token,
     },
     body: JSON.stringify(ingredientIDs),
   });
@@ -90,7 +91,7 @@ export function updateUserQuery(userInfo) {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      authorization: "Bearer " + getCookie("accessToken"),
+      authorization: token,
     },
     body: JSON.stringify({
       name: userInfo.name,
@@ -125,7 +126,7 @@ export const resetPassQuery = (newpass, code) => {
   });
 };
 
-function refreshTokenQuery(refresh) {
+export function refreshTokenQuery(refresh) {
   return request(`${config.baseUrl}/auth/token`, {
     method: "POST",
     headers: {
@@ -137,10 +138,10 @@ function refreshTokenQuery(refresh) {
   });
 }
 
-export const getRefreshUser = (refresh) => {
-  return refreshTokenQuery(refresh).then((res) => {
-    setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
-    setCookie("refreshToken", res.refreshToken);
-    getUserQuery(token);
-  });
-};
+// export const getRefreshUser = (refresh) => {
+//   return refreshTokenQuery(refresh).then((res) => {
+//     setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
+//     setCookie("refreshToken", res.refreshToken);
+//     getUserQuery(token);
+//   });
+// };

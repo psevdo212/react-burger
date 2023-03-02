@@ -16,8 +16,16 @@ export function ForgotPass() {
 
   const formSubmit = (event) => {
     event.preventDefault();
-    restorePassQuery(userData);
-    navigate("/restorepass");
+    restorePassQuery(userData)
+      .then((res) => {
+        if (res.success) {
+          navigate("/restorepass");
+          localStorage.setItem("was-on-forgot", true);
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   const navigate = useNavigate();

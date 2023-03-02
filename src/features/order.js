@@ -1,7 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { makeOrder } from "../utils/api";
 
-const initialState = [];
+const initialState = {
+  loading: false,
+  order: [],
+};
 
 export const getOrderNumber = createAsyncThunk(
   "order/fetch",
@@ -18,10 +21,13 @@ export const postOrderSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getOrderNumber.pending, (state, action) => {
-        state = initialState;
+        state.loading = true;
       })
       .addCase(getOrderNumber.fulfilled, (state, action) => {
-        return action.payload;
+        return {
+          loading: false,
+          order: action.payload,
+        };
       })
       .addCase(getOrderNumber.rejected, (state, action) => {
         state = initialState;

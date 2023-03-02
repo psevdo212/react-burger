@@ -5,7 +5,8 @@ import {
   logoutQuery,
   getUserQuery,
   updateUserQuery,
-  getRefreshUser,
+  refreshTokenQuery,
+  token,
 } from "../../utils/api";
 import { setCookie, deleteCookie, getCookie } from "../../utils/cookies";
 
@@ -42,6 +43,14 @@ export const getUserInfo = createAsyncThunk("getUserInfo/fetch", (token) => {
       }
     });
 });
+
+const getRefreshUser = (refresh) => {
+  return refreshTokenQuery(refresh).then((res) => {
+    setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
+    setCookie("refreshToken", res.refreshToken);
+    getUserInfo(token);
+  });
+};
 
 export const updateUserInfo = createAsyncThunk(
   "updateUserInfo/fetch",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   PasswordInput,
   Input,
@@ -19,12 +19,19 @@ export function RestorePass() {
       .then((res) => {
         if (res.success) {
           navigate("/login");
+          localStorage.removeItem("was-on-forgot");
         }
       })
       .catch((err) => {
         console.log(err.message);
       });
   };
+
+  useEffect(() => {
+    if (!localStorage.getItem("was-on-forgot")) {
+      navigate("/forgotpass");
+    }
+  });
 
   function toLoginPage() {
     navigate("/login");
@@ -36,7 +43,7 @@ export function RestorePass() {
       <PasswordInput
         placeholder={"Введите новый пароль"}
         onChange={handleChange}
-        value={values.password}
+        value={values.password || ""}
         name={"password"}
         extraClass="mt-6"
       />
@@ -44,7 +51,7 @@ export function RestorePass() {
         type={"text"}
         placeholder={"Введите код из письма"}
         onChange={handleChange}
-        value={values.lettercode}
+        value={values.lettercode || ""}
         name={"lettercode"}
         error={false}
         extraClass="mb-6 mt-6"
