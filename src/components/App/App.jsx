@@ -18,7 +18,7 @@ import ProtectedRoute from "../../pages/protectedRoute";
 
 function App() {
   const navigate = useNavigate();
-  let location = useLocation();
+  const location = useLocation();
   const background = location.state?.background;
 
   const handleCloseModal = () => {
