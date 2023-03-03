@@ -8,7 +8,7 @@ const OrderDetails = () => {
   return (
     <div className={styles.modal}>
       {isLoading ? (
-        <p className="text text_type_main-medium">Загружаем данные...</p>
+        <p className="text text_type_main-medium mt-20">Отправляем ваш заказ...</p>
       ) : (
       <>
       <div className={styles.heading}>
