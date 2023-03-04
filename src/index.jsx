@@ -10,8 +10,9 @@ import burgerConstructorReducer from "./features/burgerConstructor";
 import orderReducer from "./features/order";
 import authReducer from "./features/auth/auth";
 import { BrowserRouter } from "react-router-dom";
+import { fetchIngredients } from "./features/ingredients";
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     ingredients: ingredientsReducer,
     burgerConstructor: burgerConstructorReducer,
@@ -19,6 +20,8 @@ const store = configureStore({
     auth: authReducer,
   },
 });
+
+store.dispatch(fetchIngredients());
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

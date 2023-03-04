@@ -15,12 +15,6 @@ import Layout from "../Layout/Layout";
 import Orders from "../Orders/Orders";
 import Profile from "../Profile/Profile";
 import ProtectedRoute from "../../pages/protectedRoute";
-import { useDispatch } from "react-redux";
-import { getCookie } from "../../utils/cookies";
-import { getUserInfo } from "../../features/auth/authRequests";
-import { useEffect } from "react";
-import { fetchIngredients } from "../../features/ingredients";
-
 
 function App() {
   const navigate = useNavigate();
@@ -29,16 +23,7 @@ function App() {
 
   const handleCloseModal = () => {
     navigate(-1);
-  };
-
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (getCookie("accessToken")) {
-      dispatch(getUserInfo());
-      dispatch(fetchIngredients());
-    }
-  }, []);
+  };  
 
   return (
     <>
