@@ -5,7 +5,6 @@ import App from "./components/App/App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { fetchIngredients } from "./features/ingredients";
 import ingredientsReducer from "./features/ingredients";
 import burgerConstructorReducer from "./features/burgerConstructor";
 import orderReducer from "./features/order";
@@ -20,8 +19,6 @@ const store = configureStore({
     auth: authReducer,
   },
 });
-
-//store.dispatch(fetchIngredients());
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

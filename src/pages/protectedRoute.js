@@ -1,20 +1,9 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
-import { getUserInfo } from "../features/auth/authRequests";
-import { getCookie } from "../utils/cookies";
-import { token } from "../utils/api";
 
 export const ProtectedRoute = ({ children, notLogged = false }) => {
   const user = useSelector((store) => store.auth.userInfo);
-  //const dispatch = useDispatch();
   const location = useLocation();
-
-  // useEffect(() => {
-  //   if (getCookie("accessToken")) {
-  //     dispatch(getUserInfo(token));
-  //   }
-  // }, [dispatch]);
 
   const from = location.state?.from || "/";
 
