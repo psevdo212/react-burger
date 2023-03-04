@@ -1,8 +1,6 @@
 import { getCookie } from "./cookies";
 
 export const token = "Bearer " + getCookie("accessToken");
-console.log(token);
-console.log(getCookie("refreshToken"))
 const config = {
   baseUrl: "https://norma.nomoreparties.space/api",
 };
