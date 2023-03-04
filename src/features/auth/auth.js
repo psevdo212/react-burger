@@ -35,7 +35,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         return {
-          ...state,
+          loading: false,
           userInfo: action.payload,
           error: null,
           isLogged: true,
@@ -58,7 +58,7 @@ const authSlice = createSlice({
       })
       .addCase(getUserInfo.fulfilled, (state, action) => {
         return {
-          ...state,
+          loading: false,
           userInfo: action.payload,
           error: null,
           isLogged: true,

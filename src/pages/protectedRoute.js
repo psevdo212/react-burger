@@ -7,14 +7,14 @@ import { token } from "../utils/api";
 
 export const ProtectedRoute = ({ children, notLogged = false }) => {
   const user = useSelector((store) => store.auth.userInfo);
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const location = useLocation();
 
-  useEffect(() => {
-    if (getCookie("accessToken")) {
-      dispatch(getUserInfo(token));
-    }
-  }, [dispatch]);
+  // useEffect(() => {
+  //   if (getCookie("accessToken")) {
+  //     dispatch(getUserInfo(token));
+  //   }
+  // }, [dispatch]);
 
   const from = location.state?.from || "/";
 

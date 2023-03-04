@@ -15,24 +15,30 @@ import Layout from "../Layout/Layout";
 import Orders from "../Orders/Orders";
 import Profile from "../Profile/Profile";
 import ProtectedRoute from "../../pages/protectedRoute";
-import { token } from "../../utils/api";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { getCookie } from "../../utils/cookies";
 import { getUserInfo } from "../../features/auth/authRequests";
+import { useEffect } from "react";
+import { fetchIngredients } from "../../features/ingredients";
+
 
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const background = location.state?.background;
-  const dispatch = useDispatch();
 
   const handleCloseModal = () => {
     navigate(-1);
   };
 
-  // useEffect(() => {
-  //   dispatch(getUserInfo(token));
-  // }, [dispatch]);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (getCookie("accessToken")) {
+      dispatch(getUserInfo());
+      dispatch(fetchIngredients());
+    }
+  }, []);
 
   return (
     <>

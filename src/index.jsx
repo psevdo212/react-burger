@@ -21,7 +21,7 @@ const store = configureStore({
   },
 });
 
-store.dispatch(fetchIngredients());
+//store.dispatch(fetchIngredients());
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
