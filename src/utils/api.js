@@ -1,6 +1,6 @@
 import { getCookie } from "./cookies";
 
-export const token = "Bearer " + getCookie("accessToken");
+
 const config = {
   baseUrl: "https://norma.nomoreparties.space/api",
 };
@@ -30,7 +30,7 @@ export const makeOrder = (ingredientIDs) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      authorization: token,
+      authorization: "Bearer " + getCookie("accessToken"),
     },
     body: JSON.stringify(ingredientIDs),
   });
@@ -80,7 +80,7 @@ export function getUserQuery(token) {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      authorization: token,
+      authorization: "Bearer " + getCookie("accessToken"),
     },
   });
 }
@@ -90,7 +90,7 @@ export function updateUserQuery(userInfo) {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      authorization: token,
+      authorization: "Bearer " + getCookie("accessToken"),
     },
     body: JSON.stringify({
       name: userInfo.name,
@@ -137,10 +137,3 @@ export function refreshTokenQuery(refresh) {
   });
 }
 
-// export const getRefreshUser = (refresh) => {
-//   return refreshTokenQuery(refresh).then((res) => {
-//     setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
-//     setCookie("refreshToken", res.refreshToken);
-//     getUserQuery(token);
-//   });
-// };

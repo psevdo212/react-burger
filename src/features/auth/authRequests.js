@@ -6,10 +6,8 @@ import {
   getUserQuery,
   updateUserQuery,
   refreshTokenQuery,
-  token,
 } from "../../utils/api";
 import { setCookie, deleteCookie, getCookie } from "../../utils/cookies";
-import { store } from "../..";
 
 export const registerUser = createAsyncThunk(
   "register/fetch",
@@ -29,14 +27,14 @@ export const loginUser = createAsyncThunk("login/fetch", async (userInfo) => {
 });
 
 export const logoutUser = createAsyncThunk("logout/fetch", async (token) => {
-  const res = await logoutQuery(token);
+  const res = await logoutQuery("Bearer " + getCookie("accessToken"));
   deleteCookie("accessToken");
   deleteCookie("refreshToken");
   return res;
 });
 
 export const getUserInfo = createAsyncThunk("getUserInfo/fetch", () => {
-  return getUserQuery(token)
+  return getUserQuery()
     .then((res) => res.user)
     .catch((err) => {
       console.log(err.message)
@@ -52,7 +50,7 @@ const refreshUser = (refresh) => {
     setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
     setCookie("refreshToken", res.refreshToken);
     console.log("куки установлены")
-    store.dispatch(getUserInfo());
+    getUserInfo();
     console.log("повторный запрос на пользователя отработал")
   });
 };
