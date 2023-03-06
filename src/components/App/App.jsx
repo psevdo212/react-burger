@@ -15,6 +15,7 @@ import Layout from "../Layout/Layout";
 import Orders from "../Orders/Orders";
 import Profile from "../Profile/Profile";
 import ProtectedRoute from "../../pages/protectedRoute";
+import OrderPage from "../../pages/OrderPage/OrderPage";
 
 function App() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function App() {
 
   const handleCloseModal = () => {
     navigate(-1);
-  };  
+  };
 
   return (
     <>
@@ -73,14 +74,15 @@ function App() {
             <Route index element={<Profile />} />
             <Route path="ordershistory" element={<Orders />} />
           </Route>
+          <Route path="orderfeed" element={<OrderFeed />} />
           <Route
-            path="orderfeed"
-            element={
-              <ProtectedRoute>
-                <OrderFeed />
-              </ProtectedRoute>
-            }
-          />
+              path="/orderfeed/:id"
+              element={<OrderPage />}
+            />
+            <Route
+              path="profile/orders/:id"
+              element={<ProtectedRoute><OrderPage  /></ProtectedRoute>}
+            />
           <Route path={`/ingredients/:id`} element={<IngredientPage />} />
           <Route path="/*" element={<NotFound />} />
         </Route>

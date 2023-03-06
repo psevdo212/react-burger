@@ -1,48 +1,55 @@
-.orderInfo {
+.container {
+  max-width: 844px;
   width: 100%;
   border-radius: 40px;
+  background: #1c1c21;
   box-sizing: border-box;
-  background-color: #1c1c21;
-}
-
-.orderInfo__link {
   display: flex;
   flex-direction: column;
-  text-decoration: none;
-  color: inherit;
+  gap: 24px;
 }
 
-.orderInfo__header {
+.order_info {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
 }
 
-.orderInfo__subTitle {
-  color: #00cccc;
-}
-
-.orderInfo__priceInfo {
-  margin-top: 24px;
+.feed_details {
+  max-height: 64px;
+  height: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  margin-bottom: 24px;
+  justify-content: space-between;
 }
 
-.orderInfo__ingredientsList {
-  margin: 0;
+.feed_ingredients {
+  width: 100%;
+  max-width: 436px;
   padding: 0;
-  list-style: none;
   display: flex;
-  justify-content: flex-start;
-  flex-direction: row-reverse;
+  flex-direction: row;
+  list-style: none;
+  margin-left: 39px;
 }
 
-.orderInfo__priceWrapper {
-  margin-left: auto;
+.order_price {
+  margin-left: 24px;
   display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
 }
 
-.orderInfo__price {
+.price_text {
   margin-right: 9px;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-decoration: none;
 }

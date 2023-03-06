@@ -1,26 +1,90 @@
-import React from "react";
-import StatusList from "../StatusList/StatusList";
-import TotalOrders from "../TotalOrders/TotalOrders";
-import styles from "./orderStats.module.css";
+import { useMemo } from "react";
+import styles from "./orderStats.module.css"
+import PropTypes from "prop-types";
 
-export const OrderStats = ({
-  total,
-  totalToday,
-  doneOrders,
-  pendingOrders,
-}) => {
+export const OrdersStats = ({ orders, total, totalToday }) => {
+  const { ordersDone, ordersPending } = useMemo(() => {
+    if (!orders.length) {
+      return { ordersDone: [], ordersPending: [] };
+    }
+    return orders.reduce(
+      (count, item) => {
+        switch (item.status) {
+          case "done":
+            count.ordersDone.push(item.number);
+            break;
+          case "pending":
+            count.ordersPending.push(item.number);
+            break;
+          // no default
+        }
+        return count;
+      },
+      { ordersDone: [], ordersPending: [] }
+    );
+  }, [orders]);
+
+  console.log(ordersDone)
+  console.log(ordersPending)
+
   return (
-    <section className={styles.orderStats}>
-      <div className={styles.orderStats__statusLists}>
-        <StatusList title="Готовы:" orders={doneOrders} hightlight />
-        <StatusList title="В работе:" orders={pendingOrders} />
+    <div className={styles.container}>
+      <div className={styles.orders_section}>
+        <div className={styles.orders}>
+          <p className={`text_type_main-medium ${styles.text}`}>Готовы:</p>
+          <ul className={styles.order_list}>
+            {ordersDone.slice(0, 10).map((item, index) => {
+              return (
+                <li
+                  key={index}
+                  className={`text text_type_digits-default ${styles.done_text}`}
+                >
+                  {item}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <div className={styles.orders}>
+          <p className={`text_type_main-medium ${styles.text}`}>В работе:</p>
+          <ul className={styles.order_list}>
+            {ordersPending.slice(0, 10).map((item, index) => {
+              return (
+                <li
+                  key={index}
+                  className={`text text_type_digits-default ${styles.done_text}`}
+                >
+                  {item}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
-      <TotalOrders title="Выполнено за все время:">
-        {total.toLocaleString()}
-      </TotalOrders>
-      <TotalOrders title="Выполнено за сегодня:">{totalToday}</TotalOrders>
-    </section>
+      <div className="mt-15">
+        <p className={`text_type_main-medium ${styles.text}`}>
+          Выполнено за всё время:
+        </p>
+        <p className={`text text_type_digits-large ${styles.large_text}`}>
+          {total}
+        </p>
+      </div>
+      <div className="mt-15">
+        <p className={`text_type_main-medium ${styles.text}`}>
+          Выполнено за сегодня:
+        </p>
+        <p className={`text text_type_digits-large ${styles.large_text}`}>
+          {totalToday}
+        </p>
+      </div>
+    </div>
   );
 };
 
-export default OrderStats;
+OrdersStats.propTypes = {
+  orders: PropTypes.array.isRequired,
+  total: PropTypes.number.isRequired,
+  totalToday: PropTypes.number.isRequired,
+};
+
+export default OrdersStats;
