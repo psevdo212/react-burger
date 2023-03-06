@@ -14,7 +14,7 @@ export const ProtectedRoute = ({ children, notLogged = false }) => {
     if (getCookie("accessToken")) {
       dispatch(getUserInfo());
     }
-  }, []);
+  }, [dispatch]);
 
   if (user && notLogged) {
     return <Navigate to={from} />;

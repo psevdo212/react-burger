@@ -40,7 +40,6 @@ export const getUserInfo = createAsyncThunk("getUserInfo/fetch", () => {
       console.log(err.message)
       if (err.message === "jwt expired" || "jwt malformed") {
         refreshUser(getCookie("refreshToken"));
-        console.log("refresh send")
       }
     });
 });
@@ -49,9 +48,7 @@ const refreshUser = (refresh) => {
   return refreshTokenQuery(refresh).then((res) => {
     setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
     setCookie("refreshToken", res.refreshToken);
-    console.log("куки установлены")
     getUserInfo();
-    console.log("повторный запрос на пользователя отработал")
   });
 };
 

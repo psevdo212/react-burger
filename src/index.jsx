@@ -11,6 +11,8 @@ import orderReducer from "./features/order";
 import authReducer from "./features/auth/auth";
 import { BrowserRouter } from "react-router-dom";
 import { fetchIngredients } from "./features/ingredients";
+import wsOrdersReducer, { WS_ORDER_ACTION_TYPES } from "./features/wsOrders";
+import { socketMiddleware } from "./features/middleware/socketMiddleware";
 
 export const store = configureStore({
   reducer: {
@@ -18,7 +20,15 @@ export const store = configureStore({
     burgerConstructor: burgerConstructorReducer,
     order: orderReducer,
     auth: authReducer,
+    wsOrders: wsOrdersReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(
+      socketMiddleware(
+        "wss://norma.nomoreparties.space/orders/all",
+        WS_ORDER_ACTION_TYPES
+      )
+    ),
 });
 
 store.dispatch(fetchIngredients());
