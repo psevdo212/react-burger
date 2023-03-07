@@ -1,11 +1,30 @@
-import styles from './orders.module.css';
-
-
+import { useEffect } from "react";
+import OrderList from "../OrderList/OrderList";
+import { useSelector, useDispatch } from "react-redux";
+import { wsInitWithCustomUrl, wsClose } from "../../features/wsOrders";
+import { getCookie } from "../../utils/cookies";
 
 export const Orders = () => {
-  return (
-    <p className="text text_type_main-default">Список заказов</p>
-  )
-}
+  const dispatch = useDispatch();
+  const { orders } = useSelector(
+    (store) => store.wsOrders
+  );
+  const reverseOrders = [...orders].reverse();
 
-export default Orders
+  useEffect(() => {
+    dispatch(
+          wsInitWithCustomUrl(
+            `wss://norma.nomoreparties.space/orders?token=${getCookie(
+              "accessToken"
+            )}`
+          )
+        )
+    return () => {
+      dispatch(wsClose());
+    };
+  }, [dispatch]);
+
+  return <OrderList orders={reverseOrders} isLocation={false} />;
+};
+
+export default Orders;

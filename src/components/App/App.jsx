@@ -15,7 +15,8 @@ import Layout from "../Layout/Layout";
 import Orders from "../Orders/Orders";
 import Profile from "../Profile/Profile";
 import ProtectedRoute from "../../pages/protectedRoute";
-import OrderPage from "../../pages/OrderPage/OrderPage";
+import {OrderPage} from "../../pages/OrderPage/OrderPage";
+import { OrderIngredients } from "../OrderIngredients/OrderIngredients";
 
 function App() {
   const navigate = useNavigate();
@@ -75,18 +76,21 @@ function App() {
             <Route path="ordershistory" element={<Orders />} />
           </Route>
           <Route path="orderfeed" element={<OrderFeed />} />
+          <Route path="/orderfeed/:id" element={<OrderPage />} />
+
           <Route
-              path="/orderfeed/:id"
-              element={<OrderPage />}
-            />
-            <Route
-              path="profile/orders/:id"
-              element={<ProtectedRoute><OrderPage  /></ProtectedRoute>}
-            />
+            path="profile/orders/:id"
+            element={
+              <ProtectedRoute>
+                <OrderPage />
+              </ProtectedRoute>
+            }
+          />
           <Route path={`/ingredients/:id`} element={<IngredientPage />} />
           <Route path="/*" element={<NotFound />} />
         </Route>
       </Routes>
+
       {background && (
         <Routes>
           <Route
@@ -96,9 +100,18 @@ function App() {
                 <IngredientDetails />
               </Modal>
             }
+          /> 
+          <Route
+            path="/orderfeed/:id"
+            element={
+              <Modal handleClose={handleCloseModal}>
+                <OrderIngredients />
+              </Modal>
+            }
           />
         </Routes>
       )}
+      
     </>
   );
 }

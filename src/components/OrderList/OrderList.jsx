@@ -9,7 +9,7 @@ export const OrderList = ({ orders, isLocation }) => {
       <ul className={styles.order_list}>
         {orders.map((order) => {
           return (
-            <OrderInfo key={order._id} order={order} isLocation={isLocation}></OrderInfo>
+            <OrderInfo key={order._id} order={order} isLocation={isLocation} />
           );
         })}
       </ul>
@@ -17,4 +17,4 @@ export const OrderList = ({ orders, isLocation }) => {
   );
 };
 
-export default OrderList
+export default OrderList;

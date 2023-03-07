@@ -11,10 +11,10 @@ export const OrdersStats = ({ orders, total, totalToday }) => {
       (count, item) => {
         switch (item.status) {
           case "done":
-            count.ordersDone.push(item.number);
+            count.ordersDone.push(item);
             break;
           case "pending":
-            count.ordersPending.push(item.number);
+            count.ordersPending.push(item);
             break;
           // no default
         }
@@ -24,22 +24,19 @@ export const OrdersStats = ({ orders, total, totalToday }) => {
     );
   }, [orders]);
 
-  console.log(ordersDone)
-  console.log(ordersPending)
-
   return (
     <div className={styles.container}>
       <div className={styles.orders_section}>
         <div className={styles.orders}>
           <p className={`text_type_main-medium ${styles.text}`}>Готовы:</p>
           <ul className={styles.order_list}>
-            {ordersDone.slice(0, 10).map((item, index) => {
+            {ordersDone.map((item) => {
               return (
                 <li
-                  key={index}
+                  key={item.number}
                   className={`text text_type_digits-default ${styles.done_text}`}
                 >
-                  {item}
+                  {item.number}
                 </li>
               );
             })}
@@ -48,13 +45,13 @@ export const OrdersStats = ({ orders, total, totalToday }) => {
         <div className={styles.orders}>
           <p className={`text_type_main-medium ${styles.text}`}>В работе:</p>
           <ul className={styles.order_list}>
-            {ordersPending.slice(0, 10).map((item, index) => {
+            {ordersPending.map((item) => {
               return (
                 <li
-                  key={index}
+                  key={item.number}
                   className={`text text_type_digits-default ${styles.done_text}`}
                 >
-                  {item}
+                  {item.number}
                 </li>
               );
             })}

@@ -7,28 +7,27 @@ import {
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export const OrderIngridients = ({ location }) => {
+export const OrderIngredients = () => {
   const orders = useSelector((store) => store.wsOrders.orders);
   const { id } = useParams();
   const order = orders.find((item) => item._id === id);
+ const ingredients = useSelector((store) => store.ingredients);
 
-  const orderState = () => {
-    return !checkIsLocation() ? order : checkIsLocation();
+  const getOrderIngredientsList = () => {
+    const currentIngredient = [];
+    order.ingredients.forEach((ingredientId) => {
+      ingredients.forEach((ingredient) => {
+        if (ingredient._id === ingredientId) {
+          currentIngredient.push(ingredient);
+        }
+      });
+    });
+    return currentIngredient;
   };
 
-  const checkIsLocation = () => {
-    if (location === undefined) {
-      return false;
-    } else if (location.state.isLocation) {
-      return location.state.locationProfile;
-    } else if (!location.state.isLocation) {
-      return location.state.locationFeed;
-    } else {
-      return false;
-    }
-  };
-
-  const { getOrderIngredientsList, orderPrice } = useFeed(orderState());
+  const orderPrice = getOrderIngredientsList().reduce((count, item) => {
+    return count + item.price;
+  }, 0);
 
   const orderStatus = (status) => {
     if ((status = "done")) {
@@ -49,13 +48,13 @@ export const OrderIngridients = ({ location }) => {
   const uniqueList = Array.from(new Set(getOrderIngredientsList()));
 
   return (
-    <div className={styles.container}>
+   <div className={styles.container}>
       <p
         className={`text text_type_digits-default mb-10 ${styles.number}`}
-      >{`#${orderState().number}`}</p>
-      <p className="text text_type_main-medium mb-3">{orderState().name}</p>
+      >{`#${order.number}`}</p>
+      <p className="text text_type_main-medium mb-3">{order.name}</p>
       <p className={`text_type_main-small ${styles.status}`}>
-        {orderStatus(orderState().status)}
+        {orderStatus(order.status)}
       </p>
       <p className="text text_type_main-medium mb-6">Состав: </p>
       <ul className={styles.order_list}>
@@ -85,7 +84,7 @@ export const OrderIngridients = ({ location }) => {
       <div className={styles.info_container}>
         <FormattedDate
           className="text text_type_main-default text_color_inactive mr-6"
-          date={new Date(orderState().createdAt)}
+          date={new Date(order.createdAt)}
         />
         <div className={styles.price_container}>
           <p className="text text_type_digits-default mr-2">{orderPrice}</p>

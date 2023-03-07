@@ -37,7 +37,6 @@ export const getUserInfo = createAsyncThunk("getUserInfo/fetch", () => {
   return getUserQuery()
     .then((res) => res.user)
     .catch((err) => {
-      console.log(err.message)
       if (err.message === "jwt expired" || "jwt malformed") {
         refreshUser(getCookie("refreshToken"));
       }

@@ -72,18 +72,18 @@ export const WS_ORDER_ACTION_TYPES = {
   wsClose: wsClose.type,
 };
 
-//returns order by its id
-export const selectOrderById = (id) => (state) => {
-  const order = state.wsOrders.orders.find((order) => order._id === id);
-  return order
-    ? order
-    : {
-        _id: "",
-        status: "",
-        name: "",
-        createdAt: "",
-        updatedAt: "",
-        number: 0,
-        ingredients: [""],
-      };
-};
+// //returns order by its id
+// export const selectOrderById = (id) => (state) => {
+//   const order = state.wsOrders.orders.find((order) => order._id === id);
+//   return order
+//     ? order
+//     : {
+//         _id: "",
+//         status: "",
+//         name: "",
+//         createdAt: "",
+//         updatedAt: "",
+//         number: 0,
+//         ingredients: [""],
+//       };
+// };

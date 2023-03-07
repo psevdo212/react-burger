@@ -30,19 +30,7 @@ export const OrderInfo = ({ order, isLocation }) => {
             ? `/profile/orders/${order._id}`
             : `/orderfeed/${order._id}`
         }
-        state={
-          isLocation
-            ? {
-                locationModalProfile: location,
-                locationProfile: (location.state = order),
-                isLocation: isLocation,
-              }
-            : {
-                locationModalFeed: location,
-                locationFeed: (location.state = order),
-                isLocation: isLocation,
-              }
-        }
+        state={{background: location}}
       >
         <div className={styles.order_info}>
           <p className="text text_type_digits-default ml-6 mt-6">{`#${order.number}`}</p>
