@@ -6,9 +6,10 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useLocation, useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useForm from "../../hooks/useForm";
 import { loginUser } from "../../features/auth/authRequests";
+import Loader from "../../components/Loader/Loader";
 
 export const Login = () => {
   const { values, handleChange } = useForm();
@@ -16,6 +17,8 @@ export const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from;
+  const isLoading = useSelector((store) => store.auth.isLoading);
+
 
   const submitForm = (e) => {
     e.preventDefault();
@@ -30,7 +33,9 @@ export const Login = () => {
     navigate("/forgotpass");
   }
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <form className={styles.form} onSubmit={submitForm}>
       <h1 className="text text_type_main-medium">Вход</h1>
       <EmailInput

@@ -3,11 +3,12 @@ import OrderList from "../OrderList/OrderList";
 import { useSelector, useDispatch } from "react-redux";
 import { wsInitWithCustomUrl, wsClose } from "../../features/wsOrders";
 import { getCookie } from "../../utils/cookies";
-import styles from "./orders.module.css"
+import styles from "./orders.module.css";
+import Loader from "../Loader/Loader";
 
 export const Orders = () => {
   const dispatch = useDispatch();
-  const { orders } = useSelector((store) => store.wsOrders);
+  const { wsRequest, wsFailed, orders } = useSelector((store) => store.wsOrders);
   const reverseOrders = [...orders].reverse();
 
   useEffect(() => {
@@ -23,11 +24,19 @@ export const Orders = () => {
     };
   }, [dispatch]);
 
-  return (
-  <div className={styles.container}>
-    <OrderList orders={reverseOrders} isLocation={false} />
-  </div>
-  )
+  return wsRequest ? (
+    <Loader />
+  ) : (
+    <>
+      {!wsFailed && orders.length > 0 ? (
+        <div className={styles.container}>
+          <OrderList orders={reverseOrders} isLocation={true} />
+        </div>
+      ) : (
+        <p>Не удалось загрузить данные!</p>
+      )}
+    </>
+  );
 };
 
 export default Orders;

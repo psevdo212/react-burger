@@ -1,11 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./orderPage.module.css";
-import {
-  wsInit,
-  wsClose,
-  wsInitWithCustomUrl,
-} from "../../features/wsOrders";
+import { wsInit, wsClose, wsInitWithCustomUrl } from "../../features/wsOrders";
 import { getCookie } from "../../utils/cookies";
 import { useParams } from "react-router-dom";
 import { useFeed } from "../../hooks/useFeed";
@@ -14,39 +10,31 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from "../../components/Loader/Loader";
-import { getUserInfo } from "../../features/auth/authRequests";
 
 export const OrderPage = () => {
   const dispatch = useDispatch();
+
+  // const isAuth = useSelector((store) => store.auth.isLogged);
   useEffect(() => {
-    if (getCookie("accessToken")) {
-      dispatch(getUserInfo());
+    if (!isSuccess) {
+      dispatch(wsInit());
     }
-  }, [dispatch]);
-  const isAuth = useSelector((store) => store.auth.isLogged);
-  useEffect(() => {
-    isAuth
-      ? dispatch(
-          wsInitWithCustomUrl(
-            `wss://norma.nomoreparties.space/orders?token=${getCookie(
-              "accessToken"
-            )}`
-          )
-        )
-      : dispatch(wsInit());
     return () => {
       dispatch(wsClose());
     };
     // eslint-disable-next-line
   }, []);
-  
-  const { wsRequest, wsFailed, orders } = useSelector(
+
+  const { wsRequest, wsFailed, orders, isSuccess } = useSelector(
     (store) => store.wsOrders.orders
   );
   const { id } = useParams();
-  console.log(id);
-  const order = orders.find((item) => item._id === id);
-  const { getOrderIngredientsList, orderPrice } = useFeed(order);  
+  let order;
+  if (isSuccess) {
+    order = orders?.find((item) => item._id === id);
+  }
+
+  const { getOrderIngredientsList, orderPrice } = useFeed(order);
 
   const orderStatus = (status) => {
     if ((status = "done")) {

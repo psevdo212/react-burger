@@ -8,10 +8,11 @@ import {
 } from "./authRequests";
 
 const initialState = {
-  loading: false,
+  isLoading: false,
   userInfo: null,
   error: null,
   isLogged: false,
+  success: false,
 };
 
 const authSlice = createSlice({
@@ -21,7 +22,7 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
-        state = initialState;
+        return { ...state, isLoading: true };
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.userInfo = action.payload;
@@ -31,14 +32,15 @@ const authSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(loginUser.pending, (state) => {
-        state = initialState;
+        return { ...state, isLoading: true };
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         return {
-          loading: false,
+          isLoading: false,
           userInfo: action.payload,
           error: null,
           isLogged: true,
+          success: true,
         };
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -54,18 +56,19 @@ const authSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(getUserInfo.pending, (state) => {
-        return { ...state };
+        return { ...state, isLoading: true };
       })
       .addCase(getUserInfo.fulfilled, (state, action) => {
         return {
-          loading: false,
+          isLoading: false,
           userInfo: action.payload,
           error: null,
           isLogged: true,
+          success: true,
         };
       })
       .addCase(getUserInfo.rejected, (state, action) => {
-        state.error = action.error.message;
+        return {...state, error: true}
       })
       .addCase(updateUserInfo.pending, (state) => {
         return { ...state };

@@ -4,9 +4,10 @@ const initialState = {
   wsRequest: false,
   wsOpen: false,
   wsFailed: false,
+  isSuccess: false,
   orders: [],
   total: 0,
-  totalToday: 0,
+  totalToday: 0,  
 };
 
 export const wsOrdersSlice = createSlice({
@@ -41,11 +42,13 @@ export const wsOrdersSlice = createSlice({
       state.orders = action.payload.orders;
       state.total = action.payload.total;
       state.totalToday = action.payload.totalToday;
+      state.isSuccess = true;
     },
     wsClose(state) {
       state.wsRequest = false;
       state.wsOpen = false;
       state.wsFailed = false;
+      state.isSuccess = false;
     },
   },
 });

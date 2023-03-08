@@ -9,7 +9,7 @@ import { useLocation } from "react-router-dom";
 
 export const OrderIngredients = () => {
   const location = useLocation();
-  // const orders = useSelector((store) => store.wsOrders.orders);
+  //const isSuccess = useSelector((store) => store.wsOrders.isSuccess);
   // const { id } = useParams();
   //const order = orders.find((item) => item._id === id);
   const order = location.state.order;
