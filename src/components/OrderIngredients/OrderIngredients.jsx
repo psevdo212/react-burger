@@ -4,8 +4,8 @@ import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useLocation, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+//import { useSelector } from "react-redux";
 
 export const OrderIngredients = () => {
   const location = useLocation();

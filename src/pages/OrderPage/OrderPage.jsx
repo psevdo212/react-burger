@@ -14,9 +14,15 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from "../../components/Loader/Loader";
+import { getUserInfo } from "../../features/auth/authRequests";
 
 export const OrderPage = () => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    if (getCookie("accessToken")) {
+      dispatch(getUserInfo());
+    }
+  }, [dispatch]);
   const isAuth = useSelector((store) => store.auth.isLogged);
   useEffect(() => {
     isAuth
@@ -40,10 +46,7 @@ export const OrderPage = () => {
   const { id } = useParams();
   console.log(id);
   const order = orders.find((item) => item._id === id);
-  const { getOrderIngredientsList, orderPrice } = useFeed(order);
-  
-
-  
+  const { getOrderIngredientsList, orderPrice } = useFeed(order);  
 
   const orderStatus = (status) => {
     if ((status = "done")) {
@@ -67,7 +70,7 @@ export const OrderPage = () => {
     <Loader />
   ) : (
     <>
-      {!wsFailed && orders.length > 0 ? (
+      {!wsFailed && order ? (
         <div className={styles.container}>
           <p
             className={`text text_type_digits-default mb-10 ${styles.number}`}
@@ -118,3 +121,5 @@ export const OrderPage = () => {
     </>
   );
 };
+
+export default OrderPage;
