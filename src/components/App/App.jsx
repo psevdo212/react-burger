@@ -15,7 +15,7 @@ import Layout from "../Layout/Layout";
 import Orders from "../Orders/Orders";
 import Profile from "../Profile/Profile";
 import ProtectedRoute from "../../pages/protectedRoute";
-import {OrderPage} from "../../pages/OrderPage/OrderPage";
+import { OrderPage } from "../../pages/OrderPage/OrderPage";
 import { OrderIngredients } from "../OrderIngredients/OrderIngredients";
 
 function App() {
@@ -100,7 +100,7 @@ function App() {
                 <IngredientDetails />
               </Modal>
             }
-          /> 
+          />
           <Route
             path="/orderfeed/:id"
             element={
@@ -109,9 +109,16 @@ function App() {
               </Modal>
             }
           />
+          <Route
+            path="profile/ordershistory/:id"
+            element={
+              <Modal handleClose={handleCloseModal}>
+                <OrderIngredients />
+              </Modal>
+            }
+          />
         </Routes>
       )}
-      
     </>
   );
 }

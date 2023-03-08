@@ -22,7 +22,7 @@
   top: 50%;
   left: 50%;
   width: 720px;
-  min-height: 539px;
+  /* min-height: 539px; */
   background-color: #1c1c21;
   display: flex;
   justify-content: space-between;
@@ -44,6 +44,9 @@
   background-size: contain;
   border: none;
   transition: opacity 0.3s linear;
+  position: absolute;
+  top: 63px;
+  right: 43px;
 }
 
 .modal__closebutton:hover {
@@ -55,15 +58,7 @@
   flex-direction: row;
   justify-items: center;
   align-items: center;
-  flex-basis: 580px;
+  flex-basis: 640px;
   margin-left: 40px;
   margin-top: 40px;
-}
-
-.button__content {
-  width: 60px;
-  margin-right: 40px;
-  min-height: 100px;
-  align-self: flex-start;
-  padding-top: 48px;
 }

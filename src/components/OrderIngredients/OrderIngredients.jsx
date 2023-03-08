@@ -4,30 +4,16 @@ import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export const OrderIngredients = () => {
-  const orders = useSelector((store) => store.wsOrders.orders);
-  const { id } = useParams();
-  const order = orders.find((item) => item._id === id);
- const ingredients = useSelector((store) => store.ingredients);
-
-  const getOrderIngredientsList = () => {
-    const currentIngredient = [];
-    order.ingredients.forEach((ingredientId) => {
-      ingredients.forEach((ingredient) => {
-        if (ingredient._id === ingredientId) {
-          currentIngredient.push(ingredient);
-        }
-      });
-    });
-    return currentIngredient;
-  };
-
-  const orderPrice = getOrderIngredientsList().reduce((count, item) => {
-    return count + item.price;
-  }, 0);
+  const location = useLocation();
+  // const orders = useSelector((store) => store.wsOrders.orders);
+  // const { id } = useParams();
+  //const order = orders.find((item) => item._id === id);
+  const order = location.state.order;
+  const { getOrderIngredientsList, orderPrice } = useFeed(order);
 
   const orderStatus = (status) => {
     if ((status = "done")) {
@@ -48,7 +34,7 @@ export const OrderIngredients = () => {
   const uniqueList = Array.from(new Set(getOrderIngredientsList()));
 
   return (
-   <div className={styles.container}>
+    <div className={styles.container}>
       <p
         className={`text text_type_digits-default mb-10 ${styles.number}`}
       >{`#${order.number}`}</p>

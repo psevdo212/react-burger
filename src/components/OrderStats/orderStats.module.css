@@ -5,6 +5,7 @@
 .orders_section {
   display: flex;
   flex-direction: row;
+  gap: 58px;
 }
 
 .order_list {
@@ -24,9 +25,10 @@
 }
 
 .orders {
-  max-width: 500px;
+  max-width: 320px;
   width: 100%;
   padding-right: 30px;
+  overflow: hidden;
 }
 
 .done_text {

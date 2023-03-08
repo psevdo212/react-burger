@@ -1,6 +1,11 @@
 .section {
-  margin-top: 40px;
+  margin-top: 30px;
   display: flex;
   flex-direction: row;
   gap: 60px;
+  margin-left: 37px;
+}
+
+.section__ul {
+  width: 600px;
 }

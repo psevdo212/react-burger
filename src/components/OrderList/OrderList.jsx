@@ -3,9 +3,7 @@ import styles from "./orderList.module.css";
 import OrderInfo from "../OrderInfo/OrderInfo";
 
 export const OrderList = ({ orders, isLocation }) => {
-  return (
-    <div>
-      <h1 className="text text_type_main-large mb-5">Лента заказов</h1>
+  return (      
       <ul className={styles.order_list}>
         {orders.map((order) => {
           return (
@@ -13,7 +11,7 @@ export const OrderList = ({ orders, isLocation }) => {
           );
         })}
       </ul>
-    </div>
+    
   );
 };
 

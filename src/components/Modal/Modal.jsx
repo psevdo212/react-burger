@@ -23,17 +23,15 @@ const Modal = ({ children, handleClose }) => {
       />
       <div className={styles.modal__content}>
         <div className={styles.content}>{children}</div>
-        <div className={styles.button__content}>
-          <button
-            type="button"
-            aria-label="Закрыть"
-            className={styles.modal__closebutton}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleClose();
-            }}
-          ></button>
-        </div>
+        <button
+          type="button"
+          aria-label="Закрыть"
+          className={styles.modal__closebutton}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleClose();
+          }}
+        ></button>
       </div>
     </ReactPortal>
   );

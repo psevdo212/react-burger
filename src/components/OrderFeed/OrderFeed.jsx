@@ -27,7 +27,9 @@ export const OrderFeed = () => {
     <>
       {!wsFailed && orders.length > 0 ? (
         <section className={styles.section}>
-          <OrderList orders={reverseOrders} isLocation={false} />
+          <div className={styles.section__ul}>
+          <h1 className="text text_type_main-large mb-5 pr-4">Лента заказов</h1>
+          <OrderList orders={reverseOrders} isLocation={false} /></div>
           <OrdersStats
             orders={reverseOrders}
             total={total}

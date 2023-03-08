@@ -12,7 +12,6 @@ export const OrderInfo = ({ order, isLocation }) => {
   const ingredients = useSelector((store) => store.ingredients);
   const location = useLocation();
   const { getOrderIngredientsList, orderPrice } = useFeed(order);
-  //console.log(getOrderIngredientsList());
   const Counter = () => {
     if (ingredients.length - 6 === 0) {
       return false;
@@ -27,10 +26,10 @@ export const OrderInfo = ({ order, isLocation }) => {
         className={`text_color_primary ${styles.link}`}
         to={
           isLocation
-            ? `/profile/orders/${order._id}`
+            ? `/profile/ordershistory/${order._id}`
             : `/orderfeed/${order._id}`
         }
-        state={{background: location}}
+        state={{ background: location, order: order }}
       >
         <div className={styles.order_info}>
           <p className="text text_type_digits-default ml-6 mt-6">{`#${order.number}`}</p>

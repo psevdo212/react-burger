@@ -4,10 +4,10 @@
   gap: 16px;
   display: flex;
   flex-direction: column;
-  width: 604px;
   margin: 0;
   overflow-y: scroll;
   max-height: 695px;
+  padding-right: 8px;
 }
 
 .order_list::-webkit-scrollbar {
@@ -16,9 +16,11 @@
 }
 
 .order_list::-webkit-scrollbar-track {
+  width: 8px;
   background: #2f2f37;
 }
 
 .order_list::-webkit-scrollbar-thumb {
+  width: 8px;
   background-color: #8585ad;
 }

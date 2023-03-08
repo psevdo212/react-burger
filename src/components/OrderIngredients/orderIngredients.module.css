@@ -9,7 +9,7 @@
 }
 
 .number {
-  text-align: center;
+  margin-top: 18px;
 }
 
 .order_list {
@@ -39,7 +39,6 @@
 .ingredient {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
   max-width: 622px;
 }
@@ -69,7 +68,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-self: end;
+  margin-left: auto;
 }
 
 .info_container {
@@ -77,4 +76,5 @@
   flex-direction: row;
   justify-content: space-between;
   margin-top: 40px;
+  margin-bottom: 40px;
 }
