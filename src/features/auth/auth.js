@@ -44,7 +44,7 @@ const authSlice = createSlice({
         };
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.error = action.error.message;
+        return {...state, error: true}
       })
       .addCase(logoutUser.pending, (state) => {
         return { ...state };
@@ -53,7 +53,7 @@ const authSlice = createSlice({
         return initialState;
       })
       .addCase(logoutUser.rejected, (state, action) => {
-        state.error = action.error.message;
+        return {...state, error: true}
       })
       .addCase(getUserInfo.pending, (state) => {
         return { ...state, isLoading: true };

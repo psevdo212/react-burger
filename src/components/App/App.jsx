@@ -14,19 +14,28 @@ import IngredientPage from "../../pages/IngredientPage/IngredientPage";
 import Layout from "../Layout/Layout";
 import Orders from "../Orders/Orders";
 import Profile from "../Profile/Profile";
-import ProtectedRoute from "../../pages/protectedRoute";
+import ProtectedRoute from "../../pages/Routes/protectedRoute";
+import FreeRoute from "../../pages/Routes/freeRoute";
 import { OrderPage } from "../../pages/OrderPage/OrderPage";
 import { OrderIngredients } from "../OrderIngredients/OrderIngredients";
+import { useEffect } from "react";
+import { getUserInfo } from "../../features/auth/authRequests";
+import { useDispatch } from "react-redux";
+import { getCookie } from "../../utils/cookies";
 
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const background = location.state?.background;
+  const dispatch = useDispatch();
 
   const handleCloseModal = () => {
     navigate(-1);
   };
-
+  useEffect(() => {
+      dispatch(getUserInfo());
+    
+  }, []);
   return (
     <>
       <Routes location={background ?? location}>
@@ -35,33 +44,33 @@ function App() {
           <Route
             path="login"
             element={
-              <ProtectedRoute notLogged={true}>
+              <FreeRoute>
                 <Login />
-              </ProtectedRoute>
+              </FreeRoute>
             }
           />
           <Route
             path="registration"
             element={
-              <ProtectedRoute notLogged={true}>
+              <FreeRoute>
                 <Registration />
-              </ProtectedRoute>
+              </FreeRoute>
             }
           />
           <Route
             path="forgotpass"
             element={
-              <ProtectedRoute notLogged={true}>
+              <FreeRoute>
                 <ForgotPass />
-              </ProtectedRoute>
+              </FreeRoute>
             }
           />
           <Route
             path="restorepass"
             element={
-              <ProtectedRoute notLogged={true}>
+              <FreeRoute>
                 <RestorePass />
-              </ProtectedRoute>
+              </FreeRoute>
             }
           />
           <Route

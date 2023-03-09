@@ -33,9 +33,7 @@ export const Login = () => {
     navigate("/forgotpass");
   }
 
-  return isLoading ? (
-    <Loader />
-  ) : (
+  return (
     <form className={styles.form} onSubmit={submitForm}>
       <h1 className="text text_type_main-medium">Вход</h1>
       <EmailInput

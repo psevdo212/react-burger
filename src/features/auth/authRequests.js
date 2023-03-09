@@ -36,19 +36,27 @@ export const logoutUser = createAsyncThunk("logout/fetch", async (token) => {
 export const getUserInfo = createAsyncThunk("getUserInfo/fetch", () => {
   return getUserQuery()
     .then((res) => res.user)
-    .catch((err) => {
-      if (err.message === "jwt expired" || "jwt malformed") {
-        refreshUser(getCookie("refreshToken"));
-      }
-    });
+    .catch((err) => elapsedToken(err).then(getUserInfo()));
 });
 
+const elapsedToken = (err) => err.then(err => {
+  if (err.message === "jwt expired" || "jwt malformed") {
+    refreshUser(getCookie("refreshToken"));
+  }
+  return Promise.reject(err)
+})
+
+
 const refreshUser = (refresh) => {
-  return refreshTokenQuery(refresh).then((res) => {
+  refreshTokenQuery(refresh).then((res) => {
     setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
     setCookie("refreshToken", res.refreshToken);
-    getUserInfo();
-  });
+    return res.user
+  }).catch((err) => {
+    setCookie("accessToken", null);
+    setCookie("refreshToken", null);
+    return Promise.reject(err)
+});
 };
 
 export const updateUserInfo = createAsyncThunk(

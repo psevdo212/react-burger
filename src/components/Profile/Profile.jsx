@@ -8,11 +8,13 @@ import {
 import styles from "./profile.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserInfo } from "../../features/auth/authRequests";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((store) => store.auth);
   const [userData, setUserData] = useState(userInfo);
+  const navigate = useNavigate();
 
   function formValue(value) {
     setUserData({
@@ -77,8 +79,7 @@ function Profile() {
           </Button>
         </div>
       )}
-    </form>
-  );
+    </form>);
 }
 
 export default Profile;
