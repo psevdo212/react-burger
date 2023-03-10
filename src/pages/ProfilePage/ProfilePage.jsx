@@ -1,12 +1,19 @@
-import React from "react";
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useState } from "react";
+import {
+  Button,
+  Input,
+  EmailInput,
+  PasswordInput,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profilePage.module.css";
 import { Outlet, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { logoutUser } from "../../features/auth/authRequests";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserInfo } from "../../features/auth/authRequests";
 
 export function ProfilePage() {
   const { pathname } = useLocation();
+  const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -14,6 +21,29 @@ export function ProfilePage() {
     dispatch(logoutUser());
     navigate("/login");
   }
+
+  const { userInfo } = useSelector((store) => store.auth);
+  const [userData, setUserData] = useState(userInfo);
+  function formValue(value) {
+    setUserData({
+      ...userData,
+      [value.target.name]: value.target.value,
+      isEdit: true,
+    });
+  }
+
+  const formSubmit = (event) => {
+    event.preventDefault();
+    dispatch(updateUserInfo(userData));
+  };
+
+  const dismissChanges = () => {
+    setUserData({
+      name: userInfo.name,
+      email: userInfo.email,
+      password: null,
+    });
+  };
 
   return (
     <div className={styles.wrap}>
@@ -39,6 +69,8 @@ export function ProfilePage() {
                   ? `${styles.navlink} ${styles.active}`
                   : `${styles.navlink}`
               }
+              state={{ orders: true }}
+              end
             >
               <span className="text text_type_main-medium pl-3">
                 История заказов
@@ -62,7 +94,52 @@ export function ProfilePage() {
           </li>
         </ul>
       </div>
-      <Outlet />
+      {location.state?.orders || location.pathname === "/profile/ordershistory" ? (
+        <Outlet />
+      ) : (
+        <form className={styles.form} onSubmit={formSubmit}>
+          <Input
+            type={"text"}
+            placeholder={"Имя"}
+            onChange={formValue}
+            value={userData.name || ""}
+            name={"name"}
+            error={false}
+            icon="EditIcon"
+          />
+          <EmailInput
+            onChange={formValue}
+            value={userData.email || ""}
+            name={"email"}
+            placeholder="Логин"
+            isIcon={true}
+            extraClass="mt-6"
+          />
+          <PasswordInput
+            onChange={formValue}
+            value={userData.password || ""}
+            name={"password"}
+            extraClass="mb-6 mt-6"
+            icon="EditIcon"
+          />
+          {userData.isEdit && (
+            <div className={styles.buttonwrap}>
+              <Button
+                htmlType="button"
+                type="secondary"
+                size="medium"
+                extraClass="pr-7"
+                onClick={dismissChanges}
+              >
+                Отмена
+              </Button>
+              <Button htmlType="submit" type="primary" size="medium">
+                Сохранить
+              </Button>
+            </div>
+          )}
+        </form>
+      )}
     </div>
   );
 }

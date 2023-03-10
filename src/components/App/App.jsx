@@ -13,7 +13,6 @@ import NotFound from "../../pages/NotFound/NotFound";
 import IngredientPage from "../../pages/IngredientPage/IngredientPage";
 import Layout from "../Layout/Layout";
 import Orders from "../Orders/Orders";
-import Profile from "../Profile/Profile";
 import ProtectedRoute from "../../pages/Routes/protectedRoute";
 import FreeRoute from "../../pages/Routes/freeRoute";
 import { OrderPage } from "../../pages/OrderPage/OrderPage";
@@ -21,7 +20,6 @@ import { OrderIngredients } from "../OrderIngredients/OrderIngredients";
 import { useEffect } from "react";
 import { getUserInfo } from "../../features/auth/authRequests";
 import { useDispatch } from "react-redux";
-import { getCookie } from "../../utils/cookies";
 
 function App() {
   const navigate = useNavigate();
@@ -33,8 +31,8 @@ function App() {
     navigate(-1);
   };
   useEffect(() => {
-      dispatch(getUserInfo());
-    
+    dispatch(getUserInfo());
+    // eslint-disable-next-line
   }, []);
   return (
     <>
@@ -81,17 +79,19 @@ function App() {
               </ProtectedRoute>
             }
           >
-            <Route index element={<Profile />} />
             <Route path="ordershistory" element={<Orders />} />
           </Route>
           <Route path="orderfeed" element={<OrderFeed />} />
-          <Route path="/orderfeed/:id" element={<OrderPage />} />
+          <Route
+            path="/orderfeed/:id"
+            element={<OrderPage isUserOrder={false} />}
+          />
 
           <Route
-            path="profile/orders/:id"
+            path="profile/ordershistory/:id"
             element={
               <ProtectedRoute>
-                <OrderPage />
+                <OrderPage isUserOrder={true} />
               </ProtectedRoute>
             }
           />
@@ -114,7 +114,7 @@ function App() {
             path="/orderfeed/:id"
             element={
               <Modal handleClose={handleCloseModal}>
-                <OrderIngredients />
+                <OrderIngredients isUserOrder={false}/>
               </Modal>
             }
           />
@@ -122,7 +122,7 @@ function App() {
             path="profile/ordershistory/:id"
             element={
               <Modal handleClose={handleCloseModal}>
-                <OrderIngredients />
+                <OrderIngredients isUserOrder={true}/>
               </Modal>
             }
           />

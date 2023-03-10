@@ -3,14 +3,21 @@
   margin: 0 auto;
 }
 
-/* .form {
+.form {
   width: 480px;
   margin-left: 50px;
   display: flex;
   flex-direction: column;
   padding-left: 12px;
   align-items: center;
-} */
+  margin-top: 120px;
+}
+
+.buttonwrap {
+  display: flex;
+  justify-content: flex-end;
+  width: 480px;
+}
 
 .wrap {
   display: flex;
@@ -32,8 +39,6 @@
 .ulwrap {    
     margin-top: 130px;
 }
-
-
 
 .navlink {
   cursor: pointer;
