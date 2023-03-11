@@ -1,56 +1,120 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import Card from "../Card/Card";
+import { useState, useMemo, useRef } from "react";
+import { useSelector } from "react-redux";
+import Ingredient from "../Ingredient/Ingredient";
 import styles from "./burgerIngredients.module.css";
-import { ingPropTypes } from "../../utils/types";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link, useLocation } from "react-router-dom";
 
-const BurgerIngredients = ({ ingredients }) => {
-  const [current, setCurrent] = useState("bun");
-  const buns = ingredients.filter((m) => m.type === "bun"); // фильтрую массив по типу (чтобы создался массив только из булок)
-  const mains = ingredients.filter((m) => m.type === "main");
-  const sauces = ingredients.filter((m) => m.type === "sauce");
+const BurgerIngredients = () => {
+  const ingredients = useSelector((state) => state.ingredients);
+  const location = useLocation();
+  const [current, setCurrent] = useState("buns");
+  const buns = useMemo(
+    () => ingredients.filter((m) => m.type === "bun"),
+    [ingredients]
+  ); // фильтрую массив по типу (чтобы создался массив только из булок)
+  const mains = useMemo(
+    () => ingredients.filter((m) => m.type === "main"),
+    [ingredients]
+  );
+  const sauces = useMemo(
+    () => ingredients.filter((m) => m.type === "sauce"),
+    [ingredients]
+  );
+  const refContainer = useRef(null);
+  const bunRef = useRef(null);
+  const mainRef = useRef(null);
+  const sauceRef = useRef(null);
+  const onTabScroll = () => {
+    const scrollSection = refContainer.current.getBoundingClientRect().top;
+    const bunList = bunRef.current.getBoundingClientRect().top;
+    const sauceList = sauceRef.current.getBoundingClientRect().top;
+    const mainList = mainRef.current.getBoundingClientRect().top;
+    if (bunList <= scrollSection) setCurrent("buns");
+    if (sauceList <= scrollSection) setCurrent("sauces");
+    if (mainList <= scrollSection) setCurrent("mains");
+  };
 
   return (
     <>
       <div className={styles.tab}>
-        <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
+        <Tab
+          value="buns"
+          active={current === "buns"}
+          onClick={() => {
+            bunRef.current.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
           Булки
         </Tab>
-        <Tab value="sauce" active={current === "sauce"} onClick={setCurrent}>
+        <Tab
+          value="sauces"
+          active={current === "sauces"}
+          onClick={() => {
+            sauceRef.current.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
           Соусы
         </Tab>
-        <Tab value="main" active={current === "main"} onClick={setCurrent}>
+        <Tab
+          value="mains"
+          active={current === "mains"}
+          onClick={() => {
+            mainRef.current.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
           Начинки
         </Tab>
       </div>
-      <div className={styles.wrapper}>
-        <h2 className="text text_type_main-medium mt-10 mb-6">Булки</h2>
+      <div className={styles.wrapper} ref={refContainer} onScroll={onTabScroll}>
+        <h2 ref={bunRef} className="text text_type_main-medium mt-10 mb-6">
+          Булки
+        </h2>
         <div className={styles.container}>
-          {buns.map((item) => {
-            // создаю карточки из массива булок
-            return <Card key={item._id} ingredient={item} />;
-          })}
+          {buns.map((item) => (
+            <Link
+              className={styles.link}
+              to={`ingredients/${item._id}`}
+              state={{ background: location }}
+              key={item._id}
+            >
+              <Ingredient ingredient={item} />
+            </Link>
+          ))}
         </div>
-        <h2 className="text text_type_main-medium mt-10 mb-6">Соусы</h2>
-        <div className={styles.container}>
-          {sauces.map((item) => {
-            return <Card key={item._id} ingredient={item} />;
-          })}
+        <div className="mt-10" ref={sauceRef}>
+          <h2 className="text text_type_main-medium mb-6">Соусы</h2>
+          <div className={styles.container}>
+            {sauces.map((item) => (
+            <Link
+              className={styles.link}
+              to={`ingredients/${item._id}`}
+              state={{ background: location }}
+              key={item._id}
+            >
+              <Ingredient ingredient={item} />
+            </Link>
+          ))}
+          </div>
         </div>
-        <h2 className="text text_type_main-medium mt-10 mb-6">Начинки</h2>
+        <h2 ref={mainRef} className="text text_type_main-medium mt-10 mb-6">
+          Начинки
+        </h2>
         <div className={styles.container}>
-          {mains.map((item) => {
-            return <Card key={item._id} ingredient={item} />;
-          })}
+          {mains.map((item) => (
+            <Link
+              className={styles.link}
+              to={`ingredients/${item._id}`}
+              state={{ background: location }}
+              key={item._id}
+            >
+              <Ingredient ingredient={item} />
+            </Link>
+          ))}
         </div>
       </div>
     </>
   );
-};
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingPropTypes).isRequired,
 };
 
 export default BurgerIngredients;

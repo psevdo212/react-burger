@@ -1,67 +1,63 @@
 import {
   Logo,
-  Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import {
   BurgerIcon,
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { NavLink } from "react-router-dom";
 import styles from "./appHeader.module.css";
 
 const AppHeader = () => {
+ 
+  const activeClass = ({ isActive }) => isActive ? `${styles.link} ${styles.active}` : `${styles.link}`;
   return (
     <header className={styles.header}>
       <div className={styles.list}>
-        <div className="mt-4 mb-4 ml-5">
-          <Button
-            htmlType="button"
-            type="secondary"
-            size="medium"
-            className={styles.buttonlist}
+        <div className={styles.leftlinks}>
+          <NavLink
+            className={activeClass}
+            to='/'
           >
             <ul className={styles.item}>
               <li className="mr-2">
-                <BurgerIcon type="primary" />
+                <BurgerIcon type="secondary" />
               </li>
-              <li className="text text_type_main-default">Конструктор</li>
+              <li className="text text_type_main-default mr-2">Конструктор</li>
             </ul>
-          </Button>
-          <Button
-            htmlType="button"
-            type="secondary"
-            size="medium"
-            className={styles.button}
+          </NavLink>
+          <NavLink
+            className={activeClass}
+            to='/orderfeed'
           >
             <ul className={styles.item}>
               <li className="mr-2">
                 <ListIcon type="secondary" />
               </li>
-              <li className="text text_type_main-default text_color_inactive">
+              <li className="text text_type_main-default">
                 Лента заказов
               </li>
             </ul>
-          </Button>
+          </NavLink>
         </div>
-        <div className={styles.logo}>
+        <NavLink to="/"><div className={styles.logo}>
           <Logo />
-        </div>
+        </div></NavLink>
         <div className={styles.private}>
-          <Button
-            htmlType="button"
-            type="secondary"
-            size="medium"
-            className={styles.button}
+          <NavLink
+            className={activeClass}
+            to='/profile'
           >
             <ul className={styles.item}>
               <li className="mr-2">
                 <ProfileIcon type="secondary" />
               </li>
-              <li className="text text_type_main-default text_color_inactive">
+              <li className="text text_type_main-default">
                 Личный кабинет
               </li>
             </ul>
-          </Button>
+          </NavLink>
         </div>
       </div>
     </header>

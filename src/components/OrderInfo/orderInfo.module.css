@@ -1,0 +1,55 @@
+.container {
+  max-width: 856px;
+  width: 100%;
+  border-radius: 40px;
+  background: #1c1c21;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.order_info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.feed_details {
+  max-height: 64px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 24px;
+  justify-content: space-between;
+}
+
+.feed_ingredients {
+  width: 100%;
+  max-width: 436px;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin-left: 39px;
+}
+
+.order_price {
+  margin-left: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.price_text {
+  margin-right: 9px;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-decoration: none;
+}

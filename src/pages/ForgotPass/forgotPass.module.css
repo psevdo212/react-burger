@@ -1,0 +1,23 @@
+.login {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.form {
+  width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 172px;
+  padding-left: 12px;
+  align-self: center;
+  align-items: center;
+}
+
+.button {
+  width: 196px;
+  height: 56px;
+  padding: 16px 40px;
+  margin: 0 auto;
+  margin-bottom: 3px;
+}

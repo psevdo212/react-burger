@@ -1,0 +1,8 @@
+.main {
+    display: flex;
+  }
+  
+  .ingredients {
+    width: 600px;
+    margin: 0 40px;
+  }
