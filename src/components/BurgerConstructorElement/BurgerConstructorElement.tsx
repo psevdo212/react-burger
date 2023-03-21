@@ -1,12 +1,18 @@
-import PropTypes from "prop-types";
+import { FC } from "react";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerConstructorElement.module.css";
 import { Reorder } from "framer-motion";
+import { IBurgConstItem } from "../../utils/interfaces";
 
-const BurgerConstructorElement = ({ item, deleteIngredient }) => {
+type TBurgConstrElem = {
+  item: IBurgConstItem,
+  deleteIngredient: (item: IBurgConstItem) => void,
+}
+
+const BurgerConstructorElement: FC<TBurgConstrElem> = ({ item, deleteIngredient }) => {
   return (
     <Reorder.Item value={item} className={styles.item}>
       <div className={styles.icon}>
@@ -20,11 +26,6 @@ const BurgerConstructorElement = ({ item, deleteIngredient }) => {
       />
     </Reorder.Item>
   );
-};
-
-BurgerConstructorElement.propTypes = {
-  item: PropTypes.object.isRequired,
-  deleteIngredient: PropTypes.func.isRequired,
 };
 
 export default BurgerConstructorElement;

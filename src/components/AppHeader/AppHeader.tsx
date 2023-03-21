@@ -7,6 +7,7 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink } from "react-router-dom";
+import { IAppHeaderProps } from "../../utils/interfaces";
 import styles from "./appHeader.module.css";
 
 const AppHeader = () => {

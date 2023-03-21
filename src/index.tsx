@@ -33,7 +33,11 @@ export const store = configureStore({
 
 store.dispatch(fetchIngredients());
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+export type RootState = ReturnType<typeof store.getState>
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch
+
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <Provider store={store}>
     <BrowserRouter>

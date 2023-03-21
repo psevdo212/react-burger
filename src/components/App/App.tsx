@@ -1,4 +1,5 @@
 import "../../vendor/normalize.css";
+import { FC } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
@@ -19,13 +20,13 @@ import { OrderPage } from "../../pages/OrderPage/OrderPage";
 import { OrderIngredients } from "../OrderIngredients/OrderIngredients";
 import { useEffect } from "react";
 import { getUserInfo } from "../../features/auth/authRequests";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../hooks/storeHooks";
 
-function App() {
+export const App: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const background = location.state?.background;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleCloseModal = () => {
     navigate(-1);

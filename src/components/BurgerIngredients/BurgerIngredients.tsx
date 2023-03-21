@@ -1,35 +1,36 @@
 import { useState, useMemo, useRef } from "react";
-import { useSelector } from "react-redux";
 import Ingredient from "../Ingredient/Ingredient";
 import styles from "./burgerIngredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from "react-router-dom";
+import { useAppSelector } from "../../hooks/storeHooks";
+import { TIngredient } from "../../utils/types";
 
 const BurgerIngredients = () => {
-  const ingredients = useSelector((state) => state.ingredients);
+  const ingredients = useAppSelector((state) => state.ingredients);
   const location = useLocation();
-  const [current, setCurrent] = useState("buns");
+  const [current, setCurrent] = useState<string>("buns");
   const buns = useMemo(
-    () => ingredients.filter((m) => m.type === "bun"),
+    () => ingredients.filter((m: TIngredient) => m.type === "bun"),
     [ingredients]
   ); // фильтрую массив по типу (чтобы создался массив только из булок)
   const mains = useMemo(
-    () => ingredients.filter((m) => m.type === "main"),
+    () => ingredients.filter((m: TIngredient) => m.type === "main"),
     [ingredients]
   );
   const sauces = useMemo(
-    () => ingredients.filter((m) => m.type === "sauce"),
+    () => ingredients.filter((m: TIngredient) => m.type === "sauce"),
     [ingredients]
   );
-  const refContainer = useRef(null);
-  const bunRef = useRef(null);
-  const mainRef = useRef(null);
-  const sauceRef = useRef(null);
+  const refContainer = useRef<HTMLDivElement>(null);
+  const bunRef = useRef<HTMLHeadingElement>(null);
+  const mainRef = useRef<HTMLHeadingElement>(null);
+  const sauceRef = useRef<HTMLHeadingElement>(null);
   const onTabScroll = () => {
-    const scrollSection = refContainer.current.getBoundingClientRect().top;
-    const bunList = bunRef.current.getBoundingClientRect().top;
-    const sauceList = sauceRef.current.getBoundingClientRect().top;
-    const mainList = mainRef.current.getBoundingClientRect().top;
+    const scrollSection = refContainer.current!.getBoundingClientRect().top;
+    const bunList = bunRef.current!.getBoundingClientRect().top;
+    const sauceList = sauceRef.current!.getBoundingClientRect().top;
+    const mainList = mainRef.current!.getBoundingClientRect().top;
     if (bunList <= scrollSection) setCurrent("buns");
     if (sauceList <= scrollSection) setCurrent("sauces");
     if (mainList <= scrollSection) setCurrent("mains");
@@ -42,7 +43,7 @@ const BurgerIngredients = () => {
           value="buns"
           active={current === "buns"}
           onClick={() => {
-            bunRef.current.scrollIntoView({ behavior: "smooth" });
+            bunRef.current!.scrollIntoView({ behavior: "smooth" });
           }}
         >
           Булки
@@ -51,7 +52,7 @@ const BurgerIngredients = () => {
           value="sauces"
           active={current === "sauces"}
           onClick={() => {
-            sauceRef.current.scrollIntoView({ behavior: "smooth" });
+            sauceRef.current!.scrollIntoView({ behavior: "smooth" });
           }}
         >
           Соусы
@@ -60,7 +61,7 @@ const BurgerIngredients = () => {
           value="mains"
           active={current === "mains"}
           onClick={() => {
-            mainRef.current.scrollIntoView({ behavior: "smooth" });
+            mainRef.current!.scrollIntoView({ behavior: "smooth" });
           }}
         >
           Начинки
@@ -71,7 +72,7 @@ const BurgerIngredients = () => {
           Булки
         </h2>
         <div className={styles.container}>
-          {buns.map((item) => (
+          {buns.map((item: TIngredient) => (
             <Link
               className={styles.link}
               to={`ingredients/${item._id}`}
@@ -85,23 +86,23 @@ const BurgerIngredients = () => {
         <div className="mt-10" ref={sauceRef}>
           <h2 className="text text_type_main-medium mb-6">Соусы</h2>
           <div className={styles.container}>
-            {sauces.map((item) => (
-            <Link
-              className={styles.link}
-              to={`ingredients/${item._id}`}
-              state={{ background: location }}
-              key={item._id}
-            >
-              <Ingredient ingredient={item} />
-            </Link>
-          ))}
+            {sauces.map((item: TIngredient) => (
+              <Link
+                className={styles.link}
+                to={`ingredients/${item._id}`}
+                state={{ background: location }}
+                key={item._id}
+              >
+                <Ingredient ingredient={item} />
+              </Link>
+            ))}
           </div>
         </div>
         <h2 ref={mainRef} className="text text_type_main-medium mt-10 mb-6">
           Начинки
         </h2>
         <div className={styles.container}>
-          {mains.map((item) => (
+          {mains.map((item: TIngredient) => (
             <Link
               className={styles.link}
               to={`ingredients/${item._id}`}

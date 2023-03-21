@@ -1,9 +1,10 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, FC } from "react";
 import {
   ConstructorElement,
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./burgerConstructor.module.css";
 import Modal from "../Modal/Modal";
@@ -19,21 +20,22 @@ import {
 import { Reorder } from "framer-motion";
 import { getOrderNumber } from "../../features/order";
 import { useNavigate, useLocation } from "react-router-dom";
+import { IBurgConstItem } from "../../utils/interfaces";
 
-const BurgerConstructor = () => {
+const BurgerConstructor: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatch();
-  const isAuth = useSelector((store) => store.auth.isLogged);
-  const bun = useSelector((store) => store.burgerConstructor.selectedBun);
-  const notBun = useSelector(
+  const dispatch = useAppDispatch();
+  const isAuth = useAppSelector((store) => store.auth.isLogged);
+  const bun = useAppSelector((store) => store.burgerConstructor.selectedBun);
+  const notBun = useAppSelector(
     (store) => store.burgerConstructor.selectedIngredient
   );
   const location = useLocation();
   const navigate = useNavigate();
 
-  const totalPrice = useMemo(() => {
+  const totalPrice = useMemo<number>(() => {
     return notBun.reduce(
-      (sum, item) => (sum += item.ingredient.price),
+      (sum: number, item: IBurgConstItem) => (sum += item.ingredient.price),
       bun ? bun.ingredient.price * 2 : 0
     );
   }, [notBun, bun]);
@@ -48,23 +50,25 @@ const BurgerConstructor = () => {
     },
   });
 
-  const ingredientsIDs = useMemo(
+  const ingredientsIDs = useMemo<{
+    ingredients: (string | undefined)[];
+  }>(
     () => ({
       ingredients: [
         bun?.ingredient._id,
-        ...notBun?.map((item) => item.ingredient._id),
+        ...notBun?.map((item: IBurgConstItem) => item.ingredient._id),
         bun?.ingredient._id,
       ],
     }),
     [bun, notBun]
   );
 
-  const handleMakeOrder = () => {
+  const handleMakeOrder = (): void => {
     setIsOpen(true);
     dispatch(getOrderNumber(ingredientsIDs));
   };
 
-  const closeOrderModal = () => {
+  const closeOrderModal = (): void => {
     setIsOpen(false);
     dispatch(resetConstructor());
   };
@@ -102,7 +106,7 @@ const BurgerConstructor = () => {
               className={styles.list}
               onReorder={(item) => dispatch(sortIngredient(item))}
             >
-              {notBun.map((item) => {
+              {notBun.map((item: IBurgConstItem) => {
                 return (
                   <BurgerConstructorElement
                     key={item.id}

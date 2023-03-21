@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./ingredientDetails.module.css";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../hooks/storeHooks";
 
 export const IngredientDetails = () => {
 
   const { id } = useParams();
-  const ingredients = useSelector((state) => state.ingredients);
+  const ingredients = useAppSelector((state) => state.ingredients);
   const data = ingredients.find((i) => i._id === id);
 
   return (
@@ -38,8 +38,5 @@ export const IngredientDetails = () => {
   );
 };
 
-// IngredientDetails.propTypes = {
-//   data: ingPropTypes.isRequired,
-// };
 
 export default IngredientDetails;

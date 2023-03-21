@@ -1,16 +1,20 @@
-import { useMemo } from "react";
+import { useMemo, FC } from "react";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient.module.css";
-import { ingPropTypes } from "../../utils/types";
-import { useSelector } from "react-redux";
+import { TIngredient } from "../../utils/types";
+import { useAppSelector } from "../../hooks/storeHooks";
 import { useDrag } from "react-dnd";
 
-const Ingredient = ({ ingredient }) => {
-  const bun = useSelector((state) => state.burgerConstructor.selectedBun);
-  const notBun = useSelector(
+type TIngredientItem = {
+  ingredient: TIngredient,
+}
+
+const Ingredient: FC<TIngredientItem> = ({ ingredient }) => {
+  const bun = useAppSelector((state) => state.burgerConstructor.selectedBun);
+  const notBun = useAppSelector(
     (state) => state.burgerConstructor.selectedIngredient
   );
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -61,8 +65,6 @@ const Ingredient = ({ ingredient }) => {
   );
 };
 
-Ingredient.propTypes = {
-  ingredient: ingPropTypes.isRequired,
-};
+
 
 export default Ingredient;
