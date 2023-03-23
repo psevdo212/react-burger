@@ -1,5 +1,5 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useAppSelector } from '../../hooks/storeHooks';
 import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstructor";
 import {DndProvider} from 'react-dnd';
@@ -7,7 +7,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import styles from './mainPage.module.css'
 
 export const MainPage = () => {
-    const data = useSelector((state) => state.ingredients);
+    const data = useAppSelector((state) => state.ingredients);
   return (
     <div>
     {data.length > 0 && (

@@ -1,10 +1,11 @@
 import styles from "./ingredientPage.module.css";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../hooks/storeHooks";
+import { FC } from "react";
 
-export const IngredientPage = () => {
+export const IngredientPage: FC = () => {
   const { id } = useParams();
-  const ingredients = useSelector((state) => state.ingredients);
+  const ingredients = useAppSelector((state) => state.ingredients);
   const data = ingredients.find((i) => i._id === id);
 
   return (

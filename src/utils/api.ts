@@ -9,11 +9,11 @@ const checkResponse = (res) => {
   if (res.ok) {
     return res.json();
   } else {
-    return res.json().then((err) => Promise.reject(err));
+    return res.json().then((err: string) => Promise.reject(err));
   }
 };
 
-function request(url, options) {
+function request(url: string, options: object) {
   return fetch(url, options).then(checkResponse);
 }
 
@@ -75,7 +75,7 @@ export const logoutQuery = () => {
   });
 };
 
-export function getUserQuery(token) {
+export function getUserQuery(token: string) {
   return request(`${config.baseUrl}/auth/user`, {
     method: "GET",
     headers: {
@@ -100,7 +100,7 @@ export function updateUserQuery(userInfo) {
   });
 }
 
-export const restorePassQuery = (email) => {
+export const restorePassQuery = (email: string) => {
   return request(`${config.baseUrl}/password-reset`, {
     method: "POST",
     headers: {
@@ -112,7 +112,7 @@ export const restorePassQuery = (email) => {
   });
 };
 
-export const resetPassQuery = (newpass, code) => {
+export const resetPassQuery = (newpass: string, code: string) => {
   return request(`${config.baseUrl}/password-reset/reset`, {
     method: "POST",
     headers: {
@@ -125,7 +125,7 @@ export const resetPassQuery = (newpass, code) => {
   });
 };
 
-export function refreshTokenQuery(refresh) {
+export function refreshTokenQuery(refresh: string) {
   return request(`${config.baseUrl}/auth/token`, {
     method: "POST",
     headers: {

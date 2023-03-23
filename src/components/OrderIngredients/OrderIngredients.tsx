@@ -3,17 +3,19 @@ import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
+import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { wsInit, wsInitWithCustomUrl, wsClose } from "../../features/wsOrders";
 import { getCookie } from "../../utils/cookies";
 import Loader from "../Loader/Loader";
+import { TUserOrder } from "../../utils/types";
 
-export const OrderIngredients = ({isUserOrder}) => {
-  const dispatch = useDispatch();
-  const orders = useSelector((store) => store.wsOrders.orders);
-  const ingredients = useSelector((store) => store.ingredients);
+
+export const OrderIngredients: FC<TUserOrder> = ({isUserOrder}) => {
+  const dispatch = useAppDispatch();
+  const orders = useAppSelector((store) => store.wsOrders.orders);
+  const ingredients = useAppSelector((store) => store.ingredients);
   const { id } = useParams();
 
   useEffect(() => {
@@ -37,8 +39,8 @@ export const OrderIngredients = ({isUserOrder}) => {
     // eslint-disable-next-line
   }, []);
 
-  const findOrder = (orders, id) => {
-    return orders.find((item) => item._id === id);
+  const findOrder = (orders, id: string) => {
+    return orders.find((item: {_id: string}) => item._id === id);
   };
 
   const order = findOrder(orders, id);
@@ -60,7 +62,7 @@ export const OrderIngredients = ({isUserOrder}) => {
     return totalPrice;
   };
 
-  const orderStatus = (status) => {
+  const orderStatus = (status: string) => {
     if ((status = "done")) {
       return "Выполнен";
     } else return "В работе";

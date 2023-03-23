@@ -6,21 +6,21 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useLocation, useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
 import useForm from "../../hooks/useForm";
 import { loginUser } from "../../features/auth/authRequests";
 import Loader from "../../components/Loader/Loader";
 
 export const Login = () => {
   const { values, handleChange } = useForm();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from;
-  const isLoading = useSelector((store) => store.auth.isLoading);
+  const isLoading = useAppSelector((store) => store.auth.isLoading);
 
 
-  const submitForm = (e) => {
+  const submitForm = (e: any) => {
     e.preventDefault();
     dispatch(loginUser(values));
     navigate({from});

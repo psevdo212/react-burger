@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { FC, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
 import styles from "./orderPage.module.css";
 import { wsInit, wsClose, wsInitWithCustomUrl } from "../../features/wsOrders";
 import { getCookie } from "../../utils/cookies";
@@ -9,11 +9,12 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from "../../components/Loader/Loader";
+import { TUserOrder } from "../../utils/types";
 
-export const OrderPage = ({ isUserOrder }) => {
-  const dispatch = useDispatch();
-  const orders = useSelector((store) => store.wsOrders.orders);
-  const ingredients = useSelector((store) => store.ingredients);
+export const OrderPage: FC<TUserOrder> = ({ isUserOrder }) => {
+  const dispatch = useAppDispatch();
+  const orders = useAppSelector((store) => store.wsOrders.orders);
+  const ingredients = useAppSelector((store) => store.ingredients);
   const { id } = useParams();
 
   useEffect(() => {
@@ -60,7 +61,7 @@ export const OrderPage = ({ isUserOrder }) => {
     return totalPrice;
   };
 
-  const orderStatus = (status) => {
+  const orderStatus = (status: string) => {
     if ((status = "done")) {
       return "Выполнен";
     } else return "В работе";

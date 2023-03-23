@@ -1,8 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredientIcon.module.css";
+import { TIngIcon } from "../../utils/types";
 
-export const IngredientIcon = ({ img, extra, count, isDiv }) => {
+export const IngredientIcon: FC<TIngIcon> = ({ img, extra, count, isDiv }) => {
   return !isDiv ? (
     <li className={styles.ingredient}>
       <img className={styles.ingredient__image} src={img} alt="ингредиент" />

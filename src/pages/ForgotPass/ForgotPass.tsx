@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import {
   EmailInput,
   Button,
@@ -7,14 +7,14 @@ import styles from "./forgotPass.module.css";
 import { useNavigate } from "react-router";
 import { restorePassQuery } from "../../utils/api";
 
-export function ForgotPass() {
+export const ForgotPass: FC = () => {
   const [userData, setUserData] = useState("");
 
   function formValue(value) {
     setUserData(value.target.value);
   }
 
-  const formSubmit = (event) => {
+  const formSubmit = (event: any) => {
     event.preventDefault();
     restorePassQuery(userData)
       .then((res) => {

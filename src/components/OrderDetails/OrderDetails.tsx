@@ -1,10 +1,9 @@
-import { React } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../hooks/storeHooks";
 import styles from "./orderDetails.module.css";
 
 const OrderDetails = () => {
-  const orderNumber = useSelector((store) => store.order.order);
-  const isLoading = useSelector((store) => store.order.loading);
+  const orderNumber = useAppSelector((store) => store.order.order);
+  const isLoading = useAppSelector((store) => store.order.loading);
   return (
     <div className={styles.modal}>
       {isLoading ? (

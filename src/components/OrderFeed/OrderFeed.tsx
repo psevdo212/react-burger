@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
 import styles from "./orderFeed.module.css";
 import { wsInit, wsClose } from "../../features/wsOrders";
 import OrderList from "../OrderList/OrderList";
@@ -7,8 +7,8 @@ import OrdersStats from "../OrderStats/OrdersStats";
 import Loader from "../Loader/Loader";
 
 export const OrderFeed = () => {
-  const dispatch = useDispatch();
-  const { wsRequest, wsFailed, orders, total, totalToday } = useSelector(
+  const dispatch = useAppDispatch();
+  const { wsRequest, wsFailed, orders, total, totalToday } = useAppSelector(
     (store) => store.wsOrders
   );
 

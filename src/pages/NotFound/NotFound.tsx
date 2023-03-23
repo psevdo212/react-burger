@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./notFound.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from "react-router-dom";
 
-const NotFound = () => {
+const NotFound: FC = () => {
   const navigate = useNavigate();
 
   const onClick = () => {

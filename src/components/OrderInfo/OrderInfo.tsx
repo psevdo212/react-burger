@@ -1,5 +1,5 @@
 import styles from "./orderInfo.module.css";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../hooks/storeHooks";
 import {
   CurrencyIcon,
   FormattedDate,
@@ -9,7 +9,7 @@ import { useFeed } from "../../hooks/useFeed";
 import IngredientImage from "../IngredientImage/IngredientImage";
 
 export const OrderInfo = ({ order, isLocation }) => {
-  const ingredients = useSelector((store) => store.ingredients);
+  const ingredients = useAppSelector((store) => store.ingredients);
   const location = useLocation();
   const { getOrderIngredientsList, orderPrice } = useFeed(order);
   const Counter = () => {

@@ -8,13 +8,13 @@ import {
 import styles from "./profilePage.module.css";
 import { Outlet, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { logoutUser } from "../../features/auth/authRequests";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
 import { updateUserInfo } from "../../features/auth/authRequests";
 
 export function ProfilePage() {
   const { pathname } = useLocation();
   const location = useLocation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   function logout() {
@@ -22,7 +22,7 @@ export function ProfilePage() {
     navigate("/login");
   }
 
-  const { userInfo } = useSelector((store) => store.auth);
+  const { userInfo } = useAppSelector((store) => store.auth);
   const [userData, setUserData] = useState(userInfo);
   function formValue(value) {
     setUserData({
@@ -32,7 +32,7 @@ export function ProfilePage() {
     });
   }
 
-  const formSubmit = (event) => {
+  const formSubmit = (event: any) => {
     event.preventDefault();
     dispatch(updateUserInfo(userData));
   };

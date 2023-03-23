@@ -1,14 +1,14 @@
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import OrderList from "../OrderList/OrderList";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
 import { wsInitWithCustomUrl, wsClose } from "../../features/wsOrders";
 import { getCookie } from "../../utils/cookies";
 import styles from "./orders.module.css";
 import Loader from "../Loader/Loader";
 
-export const Orders = () => {
-  const dispatch = useDispatch();
-  const { wsRequest, wsFailed, orders } = useSelector((store) => store.wsOrders);
+export const Orders: FC = () => {
+  const dispatch = useAppDispatch();
+  const { wsRequest, wsFailed, orders } = useAppSelector((store) => store.wsOrders);
   const reverseOrders = [...orders].reverse();
 
   useEffect(() => {

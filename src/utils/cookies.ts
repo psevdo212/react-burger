@@ -24,7 +24,7 @@ function setCookie(name, value, props = {}) {
   document.cookie = updatedCookie;
 }
 
-function getCookie(name) {
+function getCookie(name: string) {
   const matches = document.cookie.match(
     new RegExp(
       "(?:^|; )" +
@@ -35,7 +35,7 @@ function getCookie(name) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-function deleteCookie(name) {
+function deleteCookie(name: string) {
   setCookie(name, "", {
     expires: -1,
   });

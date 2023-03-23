@@ -13,7 +13,7 @@ export function RestorePass() {
   const navigate = useNavigate();
   const { values, handleChange } = useForm();
 
-  const formSubmit = (event) => {
+  const formSubmit = (event: any) => {
     event.preventDefault();
     resetPassQuery(values.password, values.lettercode)
       .then((res) => {
