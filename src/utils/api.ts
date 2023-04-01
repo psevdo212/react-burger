@@ -1,15 +1,13 @@
 import { getCookie } from "./cookies";
 import { TFormStateType, TUserInfoState } from "./types";
 
-
 type TReject = {
   response: {
     data: {
-      message: string,
-    }
-  }
-}
-
+      message: string;
+    };
+  };
+};
 
 const config = {
   baseUrl: "https://norma.nomoreparties.space/api",
@@ -42,7 +40,7 @@ export const makeOrder = (ingredientIDs: string[]) => {
       "Content-Type": "application/json",
       authorization: "Bearer " + getCookie("accessToken"),
     },
-    body: JSON.stringify(ingredientIDs),
+    body: JSON.stringify({ ingredients: ingredientIDs }),
   });
 };
 
@@ -122,7 +120,10 @@ export const restorePassQuery = (email: string | undefined) => {
   });
 };
 
-export const resetPassQuery = (newpass: string | undefined, code: string | undefined) => {
+export const resetPassQuery = (
+  newpass: string | undefined,
+  code: string | undefined
+) => {
   return request(`${config.baseUrl}/password-reset/reset`, {
     method: "POST",
     headers: {
@@ -146,4 +147,3 @@ export function refreshTokenQuery(refresh: string) {
     }),
   });
 }
-

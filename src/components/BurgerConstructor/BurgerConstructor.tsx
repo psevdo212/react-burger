@@ -49,19 +49,16 @@ const BurgerConstructor: FC = () => {
   });
 
   const ingredientsIDs = useMemo(
-    () => ({
-      ingredients: [
-        bun?.ingredient._id,
-        ...notBun?.map((item) => item.ingredient._id),
-        bun?.ingredient._id,
-      ],
-    }),
+    () => [
+      bun?.ingredient._id,
+      ...notBun?.map((item) => item.ingredient._id),
+      bun?.ingredient._id,
+    ],
     [bun, notBun]
   );
 
   const handleMakeOrder = (): void => {
     setIsOpen(true);
-    // @ts-ignore
     dispatch(getOrderNumber(ingredientsIDs));
   };
 
