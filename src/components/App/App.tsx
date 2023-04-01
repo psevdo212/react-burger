@@ -21,6 +21,7 @@ import { OrderIngredients } from "../OrderIngredients/OrderIngredients";
 import { useEffect } from "react";
 import { getUserInfo } from "../../features/auth/authRequests";
 import { useAppDispatch } from "../../hooks/storeHooks";
+import { fetchIngredients } from "../../features/ingredients";
 
 export const App: FC = () => {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ export const App: FC = () => {
     navigate(-1);
   };
   useEffect(() => {
+    dispatch(fetchIngredients());
     dispatch(getUserInfo());
     // eslint-disable-next-line
   }, []);

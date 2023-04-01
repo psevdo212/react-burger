@@ -13,7 +13,7 @@ const config = {
   baseUrl: "https://norma.nomoreparties.space/api",
 };
 
-const checkResponse = (res: any) => {
+const checkResponse = (res: Response) => {
   if (res.ok) {
     return res.json();
   } else {
@@ -21,7 +21,7 @@ const checkResponse = (res: any) => {
   }
 };
 
-function request(url: string, options: object) {
+function request(url: string, options: RequestInit) {
   return fetch(url, options).then(checkResponse);
 }
 

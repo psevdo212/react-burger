@@ -35,7 +35,7 @@ export function ProfilePage() {
     });
   }
 
-  const formSubmit = (event: any) => {
+  const formSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(updateUserInfo(userData));
   };

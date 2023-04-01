@@ -72,7 +72,7 @@ const BurgerIngredients = () => {
           Булки
         </h2>
         <div className={styles.container}>
-          {buns.map((item: TIngredient) => (
+          {buns.map((item) => (
             <Link
               className={styles.link}
               to={`ingredients/${item._id}`}
@@ -86,7 +86,7 @@ const BurgerIngredients = () => {
         <div className="mt-10" ref={sauceRef}>
           <h2 className="text text_type_main-medium mb-6">Соусы</h2>
           <div className={styles.container}>
-            {sauces.map((item: TIngredient) => (
+            {sauces.map((item) => (
               <Link
                 className={styles.link}
                 to={`ingredients/${item._id}`}
@@ -102,7 +102,7 @@ const BurgerIngredients = () => {
           Начинки
         </h2>
         <div className={styles.container}>
-          {mains.map((item: TIngredient) => (
+          {mains.map((item) => (
             <Link
               className={styles.link}
               to={`ingredients/${item._id}`}

@@ -7,7 +7,7 @@ import { TModal } from "../../utils/types";
 
 const Modal: FC<TModal> = ({ children, handleClose }) => {
   useEffect(() => {
-    const closeOnEscapeKey = (e: { key: string }) =>
+    const closeOnEscapeKey = (e: KeyboardEvent) =>
       e.key === "Escape" ? handleClose() : null;
     window.addEventListener("keydown", closeOnEscapeKey);
     return () => {

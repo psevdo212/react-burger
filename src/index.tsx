@@ -4,37 +4,10 @@ import "./index.css";
 import App from "./components/App/App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
-import ingredientsReducer from "./features/ingredients";
-import burgerConstructorReducer from "./features/burgerConstructor";
-import orderReducer from "./features/order";
-import authReducer from "./features/auth/auth";
 import { BrowserRouter } from "react-router-dom";
-import { fetchIngredients } from "./features/ingredients";
-import wsOrdersReducer, { WS_ORDER_ACTION_TYPES } from "./features/wsOrders";
-import { socketMiddleware } from "./features/middleware/socketMiddleware";
-
-export const store = configureStore({
-  reducer: {
-    ingredients: ingredientsReducer,
-    burgerConstructor: burgerConstructorReducer,
-    order: orderReducer,
-    auth: authReducer,
-    wsOrders: wsOrdersReducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(
-      socketMiddleware(
-        "wss://norma.nomoreparties.space/orders/all",
-        WS_ORDER_ACTION_TYPES
-      )
-    ),
-});
-
-store.dispatch(fetchIngredients());
+import { store } from "./features/store";
 
 export type RootState = ReturnType<typeof store.getState>
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
