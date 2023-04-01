@@ -8,19 +8,18 @@ import {
 import styles from "./registration.module.css";
 import { useNavigate } from "react-router";
 import { registerUser } from "../../features/auth/authRequests";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../hooks/storeHooks";
 import useForm from "../../hooks/useForm";
 import { initialFormState } from "../../hooks/useForm";
 import { TFormStateType } from "../../utils/types";
 
 export function Registration() {
   const { values, handleChange } = useForm<TFormStateType>(initialFormState);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // @ts-ignore
     dispatch(registerUser(values));
     navigate("/");
   };
@@ -44,7 +43,6 @@ export function Registration() {
         <EmailInput
           onChange={handleChange}
           value={values.email || ""}
-          //type={"email"}
           name={"email"}
           placeholder="E-mail"
           isIcon={false}
