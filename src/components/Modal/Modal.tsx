@@ -4,6 +4,7 @@ import ReactPortal from "../ReactPortal/ReactPortal";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import { TModal } from "../../utils/types";
 
+
 const Modal: FC<TModal> = ({ children, handleClose }) => {
   useEffect(() => {
     const closeOnEscapeKey = (e: { key: string }) =>
@@ -14,8 +15,11 @@ const Modal: FC<TModal> = ({ children, handleClose }) => {
     };
   }, [handleClose]);
   // }
+
+  
   return (
     <ReactPortal wrapperId="modal">
+      <>
       <ModalOverlay
         closeByOverlay={(e) => {
           e.stopPropagation();
@@ -34,6 +38,7 @@ const Modal: FC<TModal> = ({ children, handleClose }) => {
           }}
         ></button>
       </div>
+      </>
     </ReactPortal>
   );
 };

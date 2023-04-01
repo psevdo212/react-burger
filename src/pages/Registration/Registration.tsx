@@ -10,14 +10,17 @@ import { useNavigate } from "react-router";
 import { registerUser } from "../../features/auth/authRequests";
 import { useDispatch } from "react-redux";
 import useForm from "../../hooks/useForm";
+import { initialFormState } from "../../hooks/useForm";
+import { TFormStateType } from "../../utils/types";
 
 export function Registration() {
-  const { values, handleChange } = useForm();
+  const { values, handleChange } = useForm<TFormStateType>(initialFormState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const submitForm = (e) => {
+  const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // @ts-ignore
     dispatch(registerUser(values));
     navigate("/");
   };
@@ -41,7 +44,7 @@ export function Registration() {
         <EmailInput
           onChange={handleChange}
           value={values.email || ""}
-          type={"email"}
+          //type={"email"}
           name={"email"}
           placeholder="E-mail"
           isIcon={false}
@@ -50,7 +53,7 @@ export function Registration() {
         <PasswordInput
           onChange={handleChange}
           value={values.password || ""}
-          type={"password"}
+          //type={"password"}
           name={"password"}
           extraClass="mb-6 mt-6"
         />

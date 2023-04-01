@@ -9,8 +9,8 @@ import { useAppSelector } from "../../hooks/storeHooks";
 import { useDrag } from "react-dnd";
 
 type TIngredientItem = {
-  ingredient: TIngredient,
-}
+  ingredient: TIngredient;
+};
 
 const Ingredient: FC<TIngredientItem> = ({ ingredient }) => {
   const bun = useAppSelector((state) => state.burgerConstructor.selectedBun);
@@ -64,7 +64,5 @@ const Ingredient: FC<TIngredientItem> = ({ ingredient }) => {
     </div>
   );
 };
-
-
 
 export default Ingredient;

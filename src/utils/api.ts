@@ -1,15 +1,25 @@
 import { getCookie } from "./cookies";
+import { TFormStateType, TUserInfoState } from "./types";
+
+
+type TReject = {
+  response: {
+    data: {
+      message: string,
+    }
+  }
+}
 
 
 const config = {
   baseUrl: "https://norma.nomoreparties.space/api",
 };
 
-const checkResponse = (res) => {
+const checkResponse = (res: any) => {
   if (res.ok) {
     return res.json();
   } else {
-    return res.json().then((err: string) => Promise.reject(err));
+    return res.json().then((err: TReject) => Promise.reject(err));
   }
 };
 
@@ -25,7 +35,7 @@ export const getData = () => {
   });
 };
 
-export const makeOrder = (ingredientIDs) => {
+export const makeOrder = (ingredientIDs: string[]) => {
   return request(`${config.baseUrl}/orders`, {
     method: "POST",
     headers: {
@@ -36,7 +46,7 @@ export const makeOrder = (ingredientIDs) => {
   });
 };
 
-export const registerQuery = (userInfo) => {
+export const registerQuery = (userInfo: TFormStateType) => {
   return request(`${config.baseUrl}/auth/register`, {
     method: "POST",
     headers: {
@@ -50,7 +60,7 @@ export const registerQuery = (userInfo) => {
   });
 };
 
-export const loginQuery = (userInfo) => {
+export const loginQuery = (userInfo: TFormStateType) => {
   return request(`${config.baseUrl}/auth/login`, {
     method: "POST",
     headers: {
@@ -85,7 +95,7 @@ export function getUserQuery(token: string) {
   });
 }
 
-export function updateUserQuery(userInfo) {
+export function updateUserQuery(userInfo: TUserInfoState) {
   return request(`${config.baseUrl}/auth/user`, {
     method: "PATCH",
     headers: {
@@ -100,7 +110,7 @@ export function updateUserQuery(userInfo) {
   });
 }
 
-export const restorePassQuery = (email: string) => {
+export const restorePassQuery = (email: string | undefined) => {
   return request(`${config.baseUrl}/password-reset`, {
     method: "POST",
     headers: {
@@ -112,7 +122,7 @@ export const restorePassQuery = (email: string) => {
   });
 };
 
-export const resetPassQuery = (newpass: string, code: string) => {
+export const resetPassQuery = (newpass: string | undefined, code: string | undefined) => {
   return request(`${config.baseUrl}/password-reset/reset`, {
     method: "POST",
     headers: {

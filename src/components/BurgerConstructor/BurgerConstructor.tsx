@@ -5,7 +5,6 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
-import { useSelector, useDispatch } from "react-redux";
 import styles from "./burgerConstructor.module.css";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
@@ -19,7 +18,7 @@ import {
 } from "../../features/burgerConstructor";
 import { Reorder } from "framer-motion";
 import { getOrderNumber } from "../../features/order";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IBurgConstItem } from "../../utils/interfaces";
 
 const BurgerConstructor: FC = () => {
@@ -30,7 +29,6 @@ const BurgerConstructor: FC = () => {
   const notBun = useAppSelector(
     (store) => store.burgerConstructor.selectedIngredient
   );
-  const location = useLocation();
   const navigate = useNavigate();
 
   const totalPrice = useMemo<number>(() => {
@@ -50,13 +48,11 @@ const BurgerConstructor: FC = () => {
     },
   });
 
-  const ingredientsIDs = useMemo<{
-    ingredients: (string | undefined)[];
-  }>(
+  const ingredientsIDs = useMemo(
     () => ({
       ingredients: [
         bun?.ingredient._id,
-        ...notBun?.map((item: IBurgConstItem) => item.ingredient._id),
+        ...notBun?.map((item) => item.ingredient._id),
         bun?.ingredient._id,
       ],
     }),
@@ -65,6 +61,7 @@ const BurgerConstructor: FC = () => {
 
   const handleMakeOrder = (): void => {
     setIsOpen(true);
+    // @ts-ignore
     dispatch(getOrderNumber(ingredientsIDs));
   };
 
@@ -74,13 +71,13 @@ const BurgerConstructor: FC = () => {
   };
 
   const toLoginPage = () => {
-    navigate("/login", {from: location })
+    navigate("/login");
   };
 
   return (
     <>
       <div className={styles.constructorwrap}>
-        {bun ? (
+        {bun.id ? (
           <div className={styles.locked}>
             <ul className={styles.list}>
               <li className={styles.item}>
@@ -99,7 +96,7 @@ const BurgerConstructor: FC = () => {
           <div className={styles.invisbun}></div>
         )}
         <div className={styles.unlocked} ref={notBunTarget}>
-          {notBun.length || bun ? (
+          {notBun.length || bun.id ? (
             <Reorder.Group
               axis="y"
               values={notBun}
@@ -124,7 +121,7 @@ const BurgerConstructor: FC = () => {
             </div>
           )}
         </div>
-        {bun ? (
+        {bun.id ? (
           <div className={styles.bottomlock}>
             <ul className={styles.list}>
               <li className={styles.item}>

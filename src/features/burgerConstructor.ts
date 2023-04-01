@@ -1,8 +1,30 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
+import { IBurgConstItem } from "../utils/interfaces";
 
-const initialState = {
+type TBurgConst = {
+  selectedIngredient: IBurgConstItem[];
+  selectedBun: IBurgConstItem;
+};
+
+const initialState: TBurgConst = {
   selectedIngredient: [],
-  selectedBun: null,
+  selectedBun: {
+    id: "",
+    ingredient: {
+      _id: "",
+      name: "",
+      type: "",
+      proteins: 0,
+      fat: 0,
+      carbohydrates: 0,
+      calories: 0,
+      price: 0,
+      image: "",
+      image_mobile: "",
+      image_large: "",
+      __v: 0,
+    },
+  },
 };
 
 const burgerConstructorSlice = createSlice({
@@ -10,10 +32,10 @@ const burgerConstructorSlice = createSlice({
   initialState,
   reducers: {
     addIngredient: {
-      reducer(state, action) {
+      reducer(state, action: PayloadAction<IBurgConstItem>) {
         action.payload.ingredient.type !== "bun"
           ? state.selectedIngredient.push(action.payload)
-          : state.selectedBun = action.payload;
+          : (state.selectedBun = action.payload);
       },
       prepare(ingredient) {
         return {

@@ -1,14 +1,23 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { makeOrder } from "../utils/api";
 
-const initialState = {
+type TOrder = {
+  loading: boolean,
+  order: {
+    number: number | null,
+  }
+}
+
+const initialState: TOrder = {
   loading: false,
-  order: [],
+  order: {
+    number: null,
+  },
 };
 
 export const getOrderNumber = createAsyncThunk(
   "order/fetch",
-  async (ingredientsIDs) => {
+  async (ingredientsIDs: string[]) => {
     const response = await makeOrder(ingredientsIDs);
     return response.order;
   }

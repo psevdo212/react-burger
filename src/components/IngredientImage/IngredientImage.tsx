@@ -1,7 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
+import { TIngImage } from "../../utils/types";
 import styles from "./ingredientImage.module.css";
 
-export const IngredientImage = ({ ingredient, length, Counter }) => {
+export const IngredientImage: FC<TIngImage> = ({ ingredient, length, Counter }) => {
   return (
     <li className={styles.container}>
       <img
@@ -9,7 +10,7 @@ export const IngredientImage = ({ ingredient, length, Counter }) => {
         className={styles.image}
         alt={ingredient.name}
       />
-      {Counter && (
+      {Counter && length &&(
         <p className={`text text_type_main-default ${styles.text}`}>{`+${
           length - 6
         }`}</p>

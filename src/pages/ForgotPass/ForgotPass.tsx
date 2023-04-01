@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import {
   EmailInput,
   Button,
@@ -6,21 +6,19 @@ import {
 import styles from "./forgotPass.module.css";
 import { useNavigate } from "react-router";
 import { restorePassQuery } from "../../utils/api";
+import useForm from "../../hooks/useForm";
+import { initialFormState } from "../../hooks/useForm";
+import { TFormStateType } from "../../utils/types";
 
 export const ForgotPass: FC = () => {
-  const [userData, setUserData] = useState("");
-
-  function formValue(value) {
-    setUserData(value.target.value);
-  }
-
-  const formSubmit = (event: any) => {
+  const { values, handleChange } = useForm<TFormStateType>(initialFormState);
+  const formSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    restorePassQuery(userData)
+    restorePassQuery(values.email)
       .then((res) => {
         if (res.success) {
           navigate("/restorepass");
-          localStorage.setItem("was-on-forgot", true);
+          localStorage.setItem("was-on-forgot", "true");
         }
       })
       .catch((err) => {
@@ -38,8 +36,8 @@ export const ForgotPass: FC = () => {
     <form className={styles.form} onSubmit={formSubmit}>
       <h1 className="text text_type_main-medium pl-1">Восстановление пароля</h1>
       <EmailInput
-        onChange={formValue}
-        value={userData}
+        onChange={handleChange}
+        value={values.email || ""}
         name={"email"}
         placeholder="Укажите e-mail"
         isIcon={false}

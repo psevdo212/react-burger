@@ -1,13 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IWsOrdersState } from "../utils/interfaces";
 
-const initialState = {
+const initialState: IWsOrdersState = {
   wsRequest: false,
   wsOpen: false,
   wsFailed: false,
   isSuccess: false,
   orders: [],
   total: 0,
-  totalToday: 0,  
+  totalToday: 0,
 };
 
 export const wsOrdersSlice = createSlice({
@@ -74,19 +75,3 @@ export const WS_ORDER_ACTION_TYPES = {
   onMessage: onMessage.type,
   wsClose: wsClose.type,
 };
-
-// //returns order by its id
-// export const selectOrderById = (id) => (state) => {
-//   const order = state.wsOrders.orders.find((order) => order._id === id);
-//   return order
-//     ? order
-//     : {
-//         _id: "",
-//         status: "",
-//         name: "",
-//         createdAt: "",
-//         updatedAt: "",
-//         number: 0,
-//         ingredients: [""],
-//       };
-// };

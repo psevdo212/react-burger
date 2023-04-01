@@ -6,24 +6,27 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useLocation, useNavigate } from "react-router";
-import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
+import { useAppDispatch } from "../../hooks/storeHooks";
 import useForm from "../../hooks/useForm";
 import { loginUser } from "../../features/auth/authRequests";
-import Loader from "../../components/Loader/Loader";
+import { TFormStateType } from "../../utils/types";
+import { initialFormState } from "../../hooks/useForm";
+
+export interface ILocationParams extends Location {
+  from: string;
+}
 
 export const Login = () => {
-  const { values, handleChange } = useForm();
+  const { values, handleChange } = useForm<TFormStateType>(initialFormState);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from;
-  const isLoading = useAppSelector((store) => store.auth.isLoading);
 
-
-  const submitForm = (e: any) => {
+  const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(loginUser(values));
-    navigate({from});
+    navigate(from);
   };
 
   function toRegisterPage() {

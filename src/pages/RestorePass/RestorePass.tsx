@@ -8,12 +8,14 @@ import styles from "./restorePass.module.css";
 import { useNavigate } from "react-router";
 import { resetPassQuery } from "../../utils/api";
 import useForm from "../../hooks/useForm";
+import { initialFormState } from "../../hooks/useForm";
+import { TFormStateType } from "../../utils/types";
 
 export function RestorePass() {
   const navigate = useNavigate();
-  const { values, handleChange } = useForm();
+  const { values, handleChange } = useForm<TFormStateType>(initialFormState);
 
-  const formSubmit = (event: any) => {
+  const formSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     resetPassQuery(values.password, values.lettercode)
       .then((res) => {

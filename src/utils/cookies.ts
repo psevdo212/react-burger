@@ -1,4 +1,10 @@
-function setCookie(name, value, props = {}) {
+import { ICookieProps } from "./interfaces";
+
+function setCookie(
+  name: string,
+  value: string | number | boolean,
+  props: ICookieProps = {}
+): void {
   props = {
     path: "/",
     ...props,
@@ -7,13 +13,13 @@ function setCookie(name, value, props = {}) {
   if (typeof exp == "number" && exp) {
     const d = new Date();
     d.setTime(d.getTime() + exp * 1000);
-    exp = props.expires = d;
+    exp = d;
   }
-  if (exp && exp.toUTCString) {
-    props.expires = exp.toUTCString();
+  if (exp instanceof Date && exp) {
+    exp = exp.toUTCString();
   }
   value = encodeURIComponent(value);
-  let updatedCookie = name + "=" + value;
+  let updatedCookie: string = name + "=" + value;
   for (const propName in props) {
     updatedCookie += "; " + propName;
     const propValue = props[propName];
@@ -24,15 +30,16 @@ function setCookie(name, value, props = {}) {
   document.cookie = updatedCookie;
 }
 
-function getCookie(name: string) {
-  const matches = document.cookie.match(
+function getCookie(name: string): string {
+  const matches: RegExpMatchArray | null = document.cookie.match(
     new RegExp(
       "(?:^|; )" +
+      // eslint-disable-next-line
         name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
         "=([^;]*)"
     )
   );
-  return matches ? decodeURIComponent(matches[1]) : undefined;
+  return matches ? decodeURIComponent(matches[1]) : '';
 }
 
 function deleteCookie(name: string) {

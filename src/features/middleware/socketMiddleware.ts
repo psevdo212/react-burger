@@ -1,6 +1,9 @@
-export const socketMiddleware = (wsUrl, wsActions) => {
-  return (store) => {
-    let socket = null;
+import { Middleware, MiddlewareAPI } from "redux";
+import { RootState, AppDispatch } from "../..";
+
+export const socketMiddleware = (wsUrl: string, wsActions: {[key: string]: string}): Middleware => {
+  return (store: MiddlewareAPI<AppDispatch, RootState>) => {
+    let socket: WebSocket | null = null;
     return (next) => (action) => {
       const { dispatch } = store;
       const { type, payload } = action;

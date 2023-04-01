@@ -1,6 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getData } from "../utils/api";
-const initialState = [];
+import { TIngredient } from "../utils/types";
+
+type TIngrState = TIngredient[];
+
+const initialState: TIngrState = [];
 
 export const fetchIngredients = createAsyncThunk(
   "ingredients/fetchIngredients",

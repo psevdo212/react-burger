@@ -9,11 +9,11 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from "../../components/Loader/Loader";
-import { TUserOrder } from "../../utils/types";
+import { TUserOrder, TWsOrder } from "../../utils/types";
 
 export const OrderPage: FC<TUserOrder> = ({ isUserOrder }) => {
   const dispatch = useAppDispatch();
-  const orders = useAppSelector((store) => store.wsOrders.orders);
+  const orders: TWsOrder[] = useAppSelector((store) => store.wsOrders.orders);
   const ingredients = useAppSelector((store) => store.ingredients);
   const { id } = useParams();
 
@@ -38,7 +38,7 @@ export const OrderPage: FC<TUserOrder> = ({ isUserOrder }) => {
     // eslint-disable-next-line
   }, []);
 
-  const findOrder = (orders, id) => {
+  const findOrder = (orders: TWsOrder[], id: string | undefined) => {
     return orders.find((item) => item._id === id);
   };
 
@@ -83,20 +83,20 @@ export const OrderPage: FC<TUserOrder> = ({ isUserOrder }) => {
             <li className={styles.ingredient} key={index}>
               <div className={styles.image_container}>
                 <img
-                  src={item.image_mobile}
+                  src={item?.image_mobile}
                   className={styles.image}
-                  alt={item.name}
+                  alt={item?.name}
                 ></img>
               </div>
               <p className={`text text_type_main-default ${styles.name}`}>
-                {item.name}
+                {item?.name}
               </p>
               <div className={styles.price_container}>
                 <p className="text text_type_digits-default">{`${
                   foundIngredients &&
                   foundIngredients?.filter((i) => i?._id === item?._id).length
-                } x ${item.price}`}</p>
-                <CurrencyIcon />
+                } x ${item?.price}`}</p>
+                <CurrencyIcon type="primary"/>
               </div>
             </li>
           );
@@ -109,7 +109,7 @@ export const OrderPage: FC<TUserOrder> = ({ isUserOrder }) => {
         />
         <div className={styles.price_container}>
           <p className="text text_type_digits-default mr-2">{price()}</p>
-          <CurrencyIcon />
+          <CurrencyIcon type="primary"/>
         </div>
       </div>
     </div>

@@ -7,11 +7,14 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { useFeed } from "../../hooks/useFeed";
 import IngredientImage from "../IngredientImage/IngredientImage";
+import { TOrderInfo } from "../../utils/types";
+import { FC } from "react";
 
-export const OrderInfo = ({ order, isLocation }) => {
+export const OrderInfo: FC<TOrderInfo> = ({ order, isLocation }) => {
   const ingredients = useAppSelector((store) => store.ingredients);
   const location = useLocation();
   const { getOrderIngredientsList, orderPrice } = useFeed(order);
+
   const Counter = () => {
     if (ingredients.length - 6 === 0) {
       return false;
@@ -42,6 +45,7 @@ export const OrderInfo = ({ order, isLocation }) => {
         <p className="text text_type_main-medium ml-6">{order.name}</p>
         <div className={styles.feed_details}>
           <ul className={styles.feed_ingredients}>
+          {/* eslint-disable-next-line */}
             {getOrderIngredientsList().map((item, index) => {
               if (index < 5) {
                 return <IngredientImage ingredient={item} key={index} />;
@@ -50,7 +54,7 @@ export const OrderInfo = ({ order, isLocation }) => {
                   <IngredientImage
                     ingredient={item}
                     key={index}
-                    length={getOrderIngredientsList().length}
+                    length={getOrderIngredientsList.length}
                     Counter={Counter()}
                   />
                 );
@@ -61,7 +65,7 @@ export const OrderInfo = ({ order, isLocation }) => {
             <p className={`text text_type_digits-default ${styles.price_text}`}>
               {orderPrice}
             </p>
-            <CurrencyIcon />
+            <CurrencyIcon type="primary" />
           </div>
         </div>
       </Link>

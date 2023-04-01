@@ -10,6 +10,8 @@ import { Outlet, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { logoutUser } from "../../features/auth/authRequests";
 import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
 import { updateUserInfo } from "../../features/auth/authRequests";
+import { TUserInfoState } from "../../utils/types";
+
 
 export function ProfilePage() {
   const { pathname } = useLocation();
@@ -17,14 +19,15 @@ export function ProfilePage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  function logout() {
+  const logout = () => {
     dispatch(logoutUser());
     navigate("/login");
   }
 
   const { userInfo } = useAppSelector((store) => store.auth);
-  const [userData, setUserData] = useState(userInfo);
-  function formValue(value) {
+  const [userData, setUserData] = useState<TUserInfoState>(userInfo);
+
+  function formValue(value: React.ChangeEvent<HTMLInputElement>) {
     setUserData({
       ...userData,
       [value.target.name]: value.target.value,
@@ -41,7 +44,7 @@ export function ProfilePage() {
     setUserData({
       name: userInfo.name,
       email: userInfo.email,
-      password: null,
+      password: "",
     });
   };
 

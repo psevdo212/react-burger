@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { wsInit, wsInitWithCustomUrl, wsClose } from "../../features/wsOrders";
 import { getCookie } from "../../utils/cookies";
 import Loader from "../Loader/Loader";
-import { TUserOrder } from "../../utils/types";
+import { TUserOrder, TWsOrder } from "../../utils/types";
 
 
 export const OrderIngredients: FC<TUserOrder> = ({isUserOrder}) => {
@@ -39,7 +39,7 @@ export const OrderIngredients: FC<TUserOrder> = ({isUserOrder}) => {
     // eslint-disable-next-line
   }, []);
 
-  const findOrder = (orders, id: string) => {
+  const findOrder = (orders: TWsOrder[], id: string | undefined) => {
     return orders.find((item: {_id: string}) => item._id === id);
   };
 
@@ -84,20 +84,20 @@ export const OrderIngredients: FC<TUserOrder> = ({isUserOrder}) => {
             <li className={styles.ingredient} key={index}>
               <div className={styles.image_container}>
                 <img
-                  src={item.image_mobile}
+                  src={item?.image_mobile}
                   className={styles.image}
-                  alt={item.name}
+                  alt={item?.name}
                 ></img>
               </div>
               <p className={`text text_type_main-default ${styles.name}`}>
-                {item.name}
+                {item?.name}
               </p>
               <div className={styles.price_container}>
                 <p className="text text_type_digits-default">{`${
                   foundIngredients &&
                   foundIngredients?.filter((i) => i?._id === item?._id).length
-                } x ${item.price}`}</p>
-                <CurrencyIcon />
+                } x ${item?.price}`}</p>
+                <CurrencyIcon type="primary"/>
               </div>
             </li>
           );
@@ -110,7 +110,7 @@ export const OrderIngredients: FC<TUserOrder> = ({isUserOrder}) => {
         />
         <div className={styles.price_container}>
           <p className="text text_type_digits-default mr-2">{price()}</p>
-          <CurrencyIcon />
+          <CurrencyIcon type="primary"/>
         </div>
       </div>
     </div>

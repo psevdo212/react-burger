@@ -1,11 +1,11 @@
 import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
 import { Navigate } from "react-router-dom";
-import { FC, useEffect } from "react";
+import { FC, ReactElement, useEffect } from "react";
 import { getUserInfo } from "../../features/auth/authRequests";
 import Loader from "../../components/Loader/Loader";
 
 type TProtectedRoute = {
-  children: JSX.Element,
+  children: ReactElement,
 }
 
 export const ProtectedRoute: FC<TProtectedRoute> = ({ children }) => {

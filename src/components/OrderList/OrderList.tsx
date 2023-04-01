@@ -1,8 +1,14 @@
 import React from "react";
 import styles from "./orderList.module.css";
 import OrderInfo from "../OrderInfo/OrderInfo";
+import { TWsOrder } from "../../utils/types";
 
-export const OrderList = ({ orders, isLocation }) => {
+type TOrderList = {
+  orders: TWsOrder[],
+  isLocation: boolean,
+}
+
+export const OrderList = ({ orders, isLocation }: TOrderList) => {
   return (      
       <ul className={styles.order_list}>
         {orders.map((order) => {

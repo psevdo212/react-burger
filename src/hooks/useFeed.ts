@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
+import { TIngredient, TOrder } from "../utils/types";
+import { useAppSelector } from "./storeHooks";
 
-export const useFeed = (order) => {
-  const ingredients = useSelector((store) => store.ingredients);
-
+export const useFeed = (order: TOrder) => {
+  const ingredients = useAppSelector((store) => store.ingredients);
   const getOrderIngredientsList = () => {
-    const currentIngredient = [];
+    const currentIngredient: Array<TIngredient> = [];
     order.ingredients.forEach((ingredientId) => {
       ingredients.forEach((ingredient) => {
         if (ingredient._id === ingredientId) {

@@ -1,14 +1,14 @@
 import { useMemo } from "react";
 import styles from "./orderStats.module.css"
-import PropTypes from "prop-types";
+import { TWsOrder } from "../../utils/types";
 
-export const OrdersStats = ({ orders, total, totalToday }) => {
-  const { ordersDone, ordersPending } = useMemo(() => {
+export const OrdersStats = ({ orders, total, totalToday }: {orders: TWsOrder[], total: number, totalToday: number}) => {
+  const { ordersDone, ordersPending }: {ordersDone: TWsOrder[], ordersPending: TWsOrder[]} = useMemo(() => {
     if (!orders.length) {
       return { ordersDone: [], ordersPending: [] };
     }
     return orders.reduce(
-      (count, item) => {
+      (count: {ordersDone: TWsOrder[], ordersPending: TWsOrder[]}, item) => {
         switch (item.status) {
           case "done":
             count.ordersDone.push(item);
@@ -76,12 +76,6 @@ export const OrdersStats = ({ orders, total, totalToday }) => {
       </div>
     </div>
   );
-};
-
-OrdersStats.propTypes = {
-  orders: PropTypes.array.isRequired,
-  total: PropTypes.number.isRequired,
-  totalToday: PropTypes.number.isRequired,
 };
 
 export default OrdersStats;
